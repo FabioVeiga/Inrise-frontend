@@ -1,10 +1,14 @@
 <template>
   <div id="app" class="app">
     <AppSidebar></AppSidebar>
+    
     <div class="main-content">
-      <HomeContentView></HomeContentView>
+      <HomeContentView>
+        <HelloWorld></HelloWorld>
+      </HomeContentView>
+      <HomeImageView></HomeImageView>
     </div>
-    <HomeImageView></HomeImageView>
+    
     <AppFooter></AppFooter>
   </div>
 </template>
@@ -14,6 +18,7 @@ import AppSidebar from './components/AppSidebar.vue'
 import HomeImageView from './components/HomeImageView.vue'
 import AppFooter from './components/AppFooter.vue'
 import HomeContentView from './components/HomeContentView.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
@@ -21,17 +26,31 @@ export default {
     AppSidebar, 
     HomeImageView,
     AppFooter, 
-    HomeContentView
+    HomeContentView,
+    HelloWorld
   }
 }
 </script>
 
 <style>
+body{
+  font-family: 'Inter', Avenir, Helvetica, Arial, sans-serif; /* Use a fonte customizada */
+  margin: 0;
+  padding: 0;
+}
+
+
+
 #app {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 0;
+  font-family: 'Inter'; /* Use a fonte customizada */  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 0px;
 }
 
 .main-content {
