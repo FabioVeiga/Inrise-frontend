@@ -4,7 +4,12 @@
     
     <div class="main-content">
       <HomeContentView>
-        <HelloWorld></HelloWorld>
+        <HomeMenu></HomeMenu>
+        <HeaderRectangles></HeaderRectangles>
+        <p style="white-space: nowrap" class='customize'>Customize o computador do seu jeito <br> e a InRise monta e leva até você!</p>
+        <HomeSteps></HomeSteps>
+        <HomeLargeButton></HomeLargeButton>
+        <HomeTextHeader text="Ver computadores prontos"></HomeTextHeader>
       </HomeContentView>
       <HomeImageView></HomeImageView>
     </div>
@@ -18,7 +23,11 @@ import AppSidebar from './components/AppSidebar.vue'
 import HomeImageView from './components/HomeImageView.vue'
 import AppFooter from './components/AppFooter.vue'
 import HomeContentView from './components/HomeContentView.vue'
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderRectangles from './components/HeaderRectangles.vue'
+import HomeMenu from './components/HomeMenu.vue'
+import HomeSteps from './components/HomeSteps.vue'
+import HomeLargeButton from './components/HomeLargeButton.vue'
+import HomeTextHeader from './components/HomeTextHeader.vue'
 
 export default {
   name: 'App',
@@ -27,7 +36,12 @@ export default {
     HomeImageView,
     AppFooter, 
     HomeContentView,
-    HelloWorld
+    HeaderRectangles,
+    HomeMenu,
+    HomeSteps,
+    HomeLargeButton,
+    HomeTextHeader
+
   }
 }
 </script>
@@ -40,7 +54,10 @@ body{
 }
 
 
-
+.customize{
+  font-size: 30px;
+  font-weight: 400;
+}
 #app {
   display: flex;
   flex-direction: column;

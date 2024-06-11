@@ -14,9 +14,13 @@
   <style scoped>
   .content-view {
     flex: 1; /* Ocupa todo o espaço restante */
+    display:flex;
+    flex-direction: column;
     padding-left: 176px;
     padding-bottom: 87px;
+    align-items: center;
     box-sizing: border-box;
+    
   }
   </style>
   
