@@ -1,68 +1,31 @@
 <template>
   <div id="app" class="app">
-    <AppSidebar></AppSidebar>
-    
-    <div class="main-content">
-      <HomeContentView>
-        <HomeMenu></HomeMenu>
-        <HeaderRectangles></HeaderRectangles>
-        <p style="white-space: nowrap" class='customize'>Customize o computador do seu jeito <br> e a InRise monta e leva até você!</p>
-        <HomeSteps></HomeSteps>
-        <HomeLargeButton></HomeLargeButton>
-        <HomeTextHeader text="Ver computadores prontos"></HomeTextHeader>
-      </HomeContentView>
-      <HomeImageView></HomeImageView>
-    </div>
-    
-    <AppFooter></AppFooter>
+    <nav>
+      <router-link to="/client" class="nav-button">Client Home</router-link>
+      <router-link to="/admin" class="nav-button">Admin Home</router-link>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppSidebar from './components/AppSidebar.vue'
-import HomeImageView from './components/HomeImageView.vue'
-import AppFooter from './components/AppFooter.vue'
-import HomeContentView from './components/HomeContentView.vue'
-import HeaderRectangles from './components/HeaderRectangles.vue'
-import HomeMenu from './components/HomeMenu.vue'
-import HomeSteps from './components/HomeSteps.vue'
-import HomeLargeButton from './components/HomeLargeButton.vue'
-import HomeTextHeader from './components/HomeTextHeader.vue'
-
 export default {
-  name: 'App',
-  components: {
-    AppSidebar, 
-    HomeImageView,
-    AppFooter, 
-    HomeContentView,
-    HeaderRectangles,
-    HomeMenu,
-    HomeSteps,
-    HomeLargeButton,
-    HomeTextHeader
-
-  }
+  name: 'App'
 }
 </script>
 
 <style>
-body{
-  font-family: 'Inter', Avenir, Helvetica, Arial, sans-serif; /* Use a fonte customizada */
+body {
+  font-family: 'Inter', Avenir, Helvetica, Arial, sans-serif; 
   margin: 0;
   padding: 0;
 }
 
-
-.customize{
-  font-size: 30px;
-  font-weight: 400;
-}
 #app {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  font-family: 'Inter'; /* Use a fonte customizada */  
+  font-family: 'Inter'; /* Use a fonte customizada */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -70,16 +33,23 @@ body{
   margin-top: 0px;
 }
 
-.main-content {
+nav {
   display: flex;
-  flex: 1;
-  overflow-x: hidden; /* Evita a rolagem horizontal */
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-/* Ajustes para a imageView */
-.home-image-view {
-  margin-left: auto; /* Alinha à direita da tela */
-  flex-shrink: 0; /* Evita que a imagem seja reduzida para caber */
-  width: 32vw; /* Define a largura desejada */
+.nav-button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #42b983;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  background-color: #358a63;
 }
 </style>

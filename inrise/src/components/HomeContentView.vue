@@ -20,7 +20,6 @@
     padding-bottom: 87px;
     align-items: center;
     box-sizing: border-box;
-    
   }
   </style>
   

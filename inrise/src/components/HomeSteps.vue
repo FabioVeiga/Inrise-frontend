@@ -15,7 +15,7 @@ no seu computador</p>
       </div>
       <div class="square">
         <div class="gray-square"></div>
-        <p class = "p1">PASSO 2</p>
+        <p class = "p1">PASSO 3np</p>
         <p class = "p2">Monte e compre
 seu futuro 
 computador com 
@@ -50,6 +50,7 @@ a InRise!</p>
   }
   .square {
     padding: 30px;
+    width: 33%;
     display:flex;
     flex-direction: column;
     align-items: center;
