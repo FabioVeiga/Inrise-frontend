@@ -53,6 +53,7 @@ export default {
   left: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .header {
@@ -82,7 +83,7 @@ ul {
 }
 
 li {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .nav-button {
@@ -96,6 +97,7 @@ li {
   padding: 10px;
   display: block; 
   text-decoration: none; 
+  box-sizing: border-box;
 }
 
 .nav-button:hover {
