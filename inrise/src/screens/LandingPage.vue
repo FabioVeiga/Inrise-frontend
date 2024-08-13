@@ -18,27 +18,56 @@
   
       <!-- Conteúdo da Página -->
       <section id="o-que-e" class="flex">
-        <div class="flex flex-1 justify-between">
+        <div class="flex flex-1 justify-center">
           <div class="flex flex-1 flex-col max-w-[700px] mx-4">
-            <span class="text-6xl font-medium">
+            <span class="text-6xl font-medium my-4">
               Descobre o poder do Beta da InRise: O teu PC gaming personalizado<br>
             </span>
 
-            <span class="text-xl">
+            <span class="text-xl my-4">
               Já imaginaste ter um PC gaming que não apenas atenda às tuas expectativas, mas as supere? 
               Na InRise, estamos prestes a tornar esse sonho realidade com o nosso Beta exclusivo. 
               Prepara-te para uma experiência única e personalizada, com preços especiais e benefícios incríveis!
             </span>
-
+            <button class="w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
+              Participar do pré-lançamento
+            </button>
           </div>
-          <div class="flex flex-1 flex-col max-w-[500px] bg-red-500 mx-4">
-            asdasd
+          <div class="flex flex-1 flex-col justify-center items-center max-w-[500px] max-h-[500px] bg-red-500 mx-4">
+            <img src="@/assets/homeScreenPic.jpg" alt="Image" class="w-full h-full object-cover">
           </div>
         </div>
+        
       </section>
   
-      <section id="sobre-o-beta">
-        
+      <section id="sobre-o-beta" class="flex justify-center">
+        <div class = "flex flex-1 justify-between items-center max-w-[1240px] h-[569px] rounded-[45px] bg-[#191A23]">  
+          <div class="flex flex-1 justify-center items-center w-1/2 max-w-[500px] max-h-[500px] mx-[100px]">
+            <img src="@/assets/placeholder1.png" alt="Image" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-1 justify-center items-center w-1/2  mx-[100px]">
+            <div class="flex flex-col w-auto flex-1">
+              <span class="text-3xl text-[#FFFFFF]">
+                O que é o Beta da InRise?
+              </span>
+              <span class="text-lg text-[#FFFFFF] mt-4">O Beta da InRise é muito mais do que um teste. É a tua chance de ser pioneiro, de 
+                experimentar em primeira mão os nossos PCs de alto desempenho, projetados especialmente 
+                para gamers e profissionais exigentes. As inscrições estarão abertas de 15 a 31 de outubro 
+                de 2024, e os players terão acesso a:
+              </span>
+              <span class="text-lg text-[#FFFFFF] ml-4">
+                • Preços exclusivos<br>
+                • Brindes incríveis<br>
+                • Suporte técnico prioritário<br>
+                • Participação em passatempos<br>
+                • Contribuição no desenvolvimento futuro dos produtos
+              </span>
+              <button class="w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
+                Participar do pré-lançamento
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
   
       <section id="como-participar">
@@ -75,8 +104,7 @@
   }
   
   span{
-    margin-top: 16px;
-    margin-bottom: 16px;
+
   }
   
   .navbar a {
@@ -98,6 +126,8 @@
   section {
     padding-right: 100px;
     padding-left: 100px;
+    padding-top: 30px;
+    padding-bottom:0px;
     margin-top: 30px;
     margin-bottom: 30px;
     border-top: 1px solid #ddd;
