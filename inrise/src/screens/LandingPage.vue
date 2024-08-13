@@ -8,10 +8,10 @@
       </div>
       <!-- Itens do menu à direita -->
       <ul class="flex justify-end items-center h-full space-x-8 pr-8">
-        <li><a href="#o-que-e">O que é a InRise</a></li>
-        <li><a href="#sobre-o-beta">Sobre o Beta</a></li>
-        <li><a href="#como-participar">Como Participar</a></li>
-        <li><a href="#inscreva-se">Inscreva-se</a></li>
+        <li><a @click="scrollToSection('o-que-e')">O que é a InRise</a></li>
+        <li><a @click="scrollToSection('sobre-o-beta')">Sobre o Beta</a></li>
+        <li><a @click="scrollToSection('como-participar')">Como Participar</a></li>
+        <li><a @click="scrollToSection('inscreva-se')">Inscreva-se</a></li>
       </ul>
     </nav>
 
@@ -29,7 +29,7 @@
               Na InRise, estamos prestes a tornar esse sonho realidade com o nosso Beta exclusivo. 
               Prepara-te para uma experiência única e personalizada, com preços especiais e benefícios incríveis!
             </span>
-            <button class="w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
+            <button @click="scrollToSection('inscreva-se')" class="w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
               Participar do pré-lançamento
             </button>
           </div>
@@ -62,7 +62,7 @@
                 • Participação em passatempos<br>
                 • Contribuição no desenvolvimento futuro dos produtos
               </span>
-              <button class="w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
+              <button @click="scrollToSection('inscreva-se')" class="w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
                 Participar do pré-lançamento
               </button>
             </div>
@@ -288,9 +288,17 @@
   </template>
   
   <script>
-  export default {
-    name: 'LandingPage',
-  };
+export default {
+  name: 'LandingPage',
+  methods: {
+    scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+};
   </script>
   
   <style scoped>
@@ -335,7 +343,6 @@
     padding-bottom:0px;
     margin-top: 30px;
     margin-bottom: 30px;
-    border-top: 1px solid #ddd;
   }
   
 
