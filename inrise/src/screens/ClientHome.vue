@@ -6,7 +6,7 @@
         <HomeContentView>
           <HomeMenu></HomeMenu>
           <HeaderRectangles></HeaderRectangles>
-          <p style="white-space: nowrap" class='customize'>Customieeeeeeeze o computador do seu jeito <br> e a InRise monta e leva até você!</p>
+          <p style="white-space: nowrap" class='customize'>Customize o computador do seu jeito <br> e a InRise monta e leva até você!</p>
           <HomeSteps></HomeSteps>
           <HomeLargeButton></HomeLargeButton>
           <HomeTextHeader text="Ver computadores prontos"></HomeTextHeader>

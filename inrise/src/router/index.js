@@ -10,12 +10,23 @@ import CadastroDeCategorias from '../screens/CadastroDeCategorias.vue';
 import UsuariosLista from '../screens/UsuariosLista.vue';
 import TodosOsPedidos from '../screens/TodosOsPedidos.vue';
 import AnaliseFinanceira from '../screens/AnaliseFinanceira.vue';
-
+import CadastroUser from '@/screens/CadastroUser.vue';
+import LandingPage from '@/screens/LandingPage.vue';
 const routes = [
   {
     path: '/client',
     name: 'client',
     component: ClientHome
+  },
+  {
+    path: '/landingPage',
+    name: 'landingPage',
+    component: LandingPage
+  },
+  {
+    path: '/userCadastro',
+    name: 'userCadastro',
+    component: CadastroUser
   },
   {
     path: '/admin',
