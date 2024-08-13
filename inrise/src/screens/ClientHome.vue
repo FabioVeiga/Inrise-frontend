@@ -1,8 +1,8 @@
 <template>
-    <div id="client-home" class="app">
+    <div id="client-home" class="app p-0 m-0">
       <AppSidebar></AppSidebar>
       
-      <div class="main-content">
+      <div class="main-content p-0 m-0">
         <HomeContentView>
           <HomeMenu></HomeMenu>
           <HeaderRectangles></HeaderRectangles>

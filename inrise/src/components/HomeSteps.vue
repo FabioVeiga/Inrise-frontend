@@ -15,7 +15,7 @@ no seu computador</p>
       </div>
       <div class="square">
         <div class="gray-square"></div>
-        <p class = "p1">PASSO 3np</p>
+        <p class = "p1">PASSO 3</p>
         <p class = "p2">Monte e compre
 seu futuro 
 computador com 
