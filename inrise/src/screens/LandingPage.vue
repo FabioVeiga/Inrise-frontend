@@ -1,7 +1,7 @@
 <template>
   <div class="landing-page font-spaceGrotesk">
     <!-- Menu Preto -->
-    <nav class="navbar flex justify-between w-full h-[100px] bg-black text-xl items-center my-9">
+    <nav class="navbar flex justify-between w-full h-[100px] bg-black text-xl items-center my-9 px-16">
       <!-- Logo à esquerda -->
       <div class="flex-shrink-0 pl-8">
         <img src="@/assets/InRise logo horizontal.png" alt="Logo" class="object-scale-down w-72">
@@ -45,7 +45,7 @@
           <div class="flex flex-1 justify-center items-center w-1/2 max-w-[500px] max-h-[500px] mx-[100px]">
             <img src="@/assets/placeholder1.png" alt="Image" class="w-full h-full object-cover">
           </div>
-          <div class="flex flex-1 justify-center items-center w-1/2  mx-[100px]">
+          <div class="flex flex-1 justify-center items-center w-1/2 mx-[100px]">
             <div class="flex flex-col w-auto flex-1">
               <span class="text-3xl text-[#FFFFFF]">
                 O que é o Beta da InRise?
@@ -70,8 +70,36 @@
         </div>
       </section>
   
-      <section id="como-participar">
-        
+      <section id="como-participar" class="flex flex-col items-center justify-center">
+        <span class="text-3xl text-bold text-black my-4">
+          Como participar do beta?
+        </span>
+        <div class="flex justify-between max-w-[1240px] mx-auto my-4">
+          <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">
+            <img src="@/assets/beta.png" alt="Logo" class="object-scale-down w-[200px]">
+            <span class="text-center mt-2 px-2">
+              1. Inscreva-se no Beta Teste através do nosso newsletter.
+            </span>
+        </div>
+          <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">
+            <img src="@/assets/discord.png" alt="Logo" class="object-scale-down w-[200px]">
+            <span class="text-center mt-2 px-2">             
+              2. Aceda ao servidor do discord da InRise.
+            </span>
+          </div>
+          <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">
+            <img src="@/assets/socials.png" alt="Logo" class="object-scale-down w-[200px]">
+            <span class="text-center mt-2 px-2">
+              3. Siga a InRise nas Redes Sociais para acompanhar as novidades.
+            </span>
+          </div>
+          <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">            
+            <img src="@/assets/message.png" alt="Logo" class="object-scale-down w-[200px]">
+            <span class="text-center mt-2 px-2">
+              4. Recebe atualizações pela nossa newsletter.
+            </span>
+          </div>
+        </div>
       </section>
   
       <section id="inscreva-se">
