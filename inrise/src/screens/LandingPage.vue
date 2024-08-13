@@ -134,12 +134,12 @@
             <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#F3F3F3] m-4 p-10">
               <div class="">
                 <div class="">
-                  <span class="text-medium text-3xl bg-[#B9FF66] p-1 rounded-[7px]">
+                  <span class="font-medium text-3xl bg-[#B9FF66] p-1 rounded-[7px]">
                     Passo 1
                   </span>
                 </div>
                 <div class="my-8">
-                  <span class="text-normal text-xl rounded-[7px]">
+                  <span class="font-normal text-xl rounded-[7px]">
                     Passo 1: Este é o teu<br>
                     momento. Nesta etapa,<br> 
                     deverás escolher qual<br> 
@@ -157,12 +157,12 @@
             <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
               <div class="">
                 <div>
-                  <span class="text-medium text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">
+                  <span class="font-medium text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">
                     Passo 2
                   </span>
                 </div>
                 <div class="my-8">
-                  <span class="text-normal text-xl ">
+                  <span class="font-normal text-xl ">
                     Passo 2: Parabéns! Estás um<br>
                     passo mais próximo de <br>
                     encontrar o computador <br>
@@ -184,12 +184,12 @@
             <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
               <div class="">
                 <div>
-                  <span class="text-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
+                  <span class="font-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
                     Passo 3
                   </span>
                 </div>
                 <div class="my-8">
-                  <span class="text-normal text-xl ">
+                  <span class="font-normal text-xl ">
                     Passo 3: É hora de escolher<br>
                     os componentes do teu PC! <br>
                     Na InRise, temos peças <br>
@@ -209,12 +209,12 @@
             <div class="flex justify-between w-[600px] h-[600px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
               <div class="">
                 <div>
-                  <span class="text-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
+                  <span class="font-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
                     Passo 4
                   </span>
                 </div>
                 <div class="my-8">
-                  <span class="text-normal text-xl ">
+                  <span class="font-normal text-xl ">
                     Após o processamento do<br>
                     pagamento, o teu <br>
                     computador será montado <br>
@@ -244,8 +244,45 @@
         </div>
       </section>
 
-      <section id="inscreva-se" class="flex justify-center">
-        
+      <section id="inscreva-se" class="flex flex-col justify-center my-8">
+        <div>
+          <span class="text-[40px] font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
+            Inscreva-se no beta da InRise
+          </span>
+
+        </div>
+        <div class="flex flex-row justify-between items-center max-w-[1240px] h-[569px] rounded-[45px] bg-[#F3F3F3] p-8 my-16">
+          <div class="flex-1">
+            <form class="w-full max-w-md space-y-6">
+              <div>
+                  <label for="name" class="block text-gray-700 text-base font-medium mb-2">Nome</label>
+                  <input id="name" type="text" placeholder="Insira seu nome" class="w-[556px] h-[60px] p-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+
+              <div>
+                  <label for="email" class="block text-gray-700 text-base font-medium mb-2">Email</label>
+                  <input id="email" type="email" placeholder="Insira seu melhor e-mail" class="w-[556px] h-[60px] p-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+
+              <div class="flex items-center">
+                  <input id="privacy" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                  <label for="privacy" class="ml-2 text-gray-700 text-sm">Ao inscrever, você alega concordar com nossa <a href="#" class="text-blue-600 hover:underline">política de privacidade</a></label>
+              </div>
+
+              <div>
+                  <button type="submit" class="w-[556px] h-[68px] bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl rounded-[14px] mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
+              </div>
+
+            </form>
+          </div>
+          <div class="">
+            <div class="flex self-center">
+                <img src="@/assets/placeholder2.png" alt="Logo" class="object-scale-down">
+              </div>
+          </div>
+
+      </div>
+
       </section>
     </div>
   </template>
