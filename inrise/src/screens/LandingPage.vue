@@ -78,25 +78,25 @@
           <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">
             <img src="@/assets/beta.png" alt="Logo" class="object-scale-down w-[200px]">
             <span class="text-center mt-2 px-2">
-              1. Inscreva-se no Beta Teste através do nosso newsletter.
+              1. Inscreva-se no Beta Teste <br> através do nosso newsletter.
             </span>
         </div>
           <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">
             <img src="@/assets/discord.png" alt="Logo" class="object-scale-down w-[200px]">
             <span class="text-center mt-2 px-2">             
-              2. Aceda ao servidor do discord da InRise.
+              2. Aceda ao servidor do <br> discord da InRise.
             </span>
           </div>
           <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">
             <img src="@/assets/socials.png" alt="Logo" class="object-scale-down w-[200px]">
             <span class="text-center mt-2 px-2">
-              3. Siga a InRise nas Redes Sociais para acompanhar as novidades.
+              3. Siga a InRise nas Redes <br> Sociais para acompanhar <br> as novidades.
             </span>
           </div>
           <div class="flex flex-col justify-between items-center w-64 h-72 mx-4 mb-4">            
             <img src="@/assets/message.png" alt="Logo" class="object-scale-down w-[200px]">
             <span class="text-center mt-2 px-2">
-              4. Recebe atualizações pela nossa newsletter.
+              4. Recebe atualizações pela <br> nossa newsletter.
             </span>
           </div>
         </div>
@@ -129,7 +129,117 @@
       </section>
 
       <section id="passos" class="flex justify-center">
-        <div class = "flex flex-1 justify-between items-center max-w-[1240px] h-[569px] rounded-[45px] bg-[#191A23]">
+        <div class = "flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
+          <div class="flex justify-between">
+            <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#F3F3F3] m-4 p-10">
+              <div class="">
+                <div class="">
+                  <span class="text-medium text-3xl bg-[#B9FF66] p-1 rounded-[7px]">
+                    Passo 1
+                  </span>
+                </div>
+                <div class="my-8">
+                  <span class="text-normal text-xl rounded-[7px]">
+                    Passo 1: Este é o teu<br>
+                    momento. Nesta etapa,<br> 
+                    deverás escolher qual<br> 
+                    tipo de computador<br> 
+                    precisas, seja para gaming,<br> 
+                    uso profissional ou casual<br> 
+                    (estudo e trabalhos simples).
+                  </span>
+                </div>
+              </div>
+              <div class="flex self-center h-52 w-52">
+                <img src="@/assets/passo1.png" alt="Logo" class="object-scale-down">
+              </div>
+            </div>
+            <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
+              <div class="">
+                <div>
+                  <span class="text-medium text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">
+                    Passo 2
+                  </span>
+                </div>
+                <div class="my-8">
+                  <span class="text-normal text-xl ">
+                    Passo 2: Parabéns! Estás um<br>
+                    passo mais próximo de <br>
+                    encontrar o computador <br>
+                    perfeito. Neste momento, <br>
+                    deves escolher o tipo de <br>
+                    software que utilizarás. <br>
+                    Através de menus interativos, <br>
+                    conseguirás localizar facilmente <br>
+                    o programa desejado.<br>
+                  </span>
+                </div>
+              </div>
+              <div class="flex self-center h-52 w-52">
+                <img src="@/assets/passo2.png" alt="Logo" class="object-scale-down">
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
+              <div class="">
+                <div>
+                  <span class="text-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
+                    Passo 3
+                  </span>
+                </div>
+                <div class="my-8">
+                  <span class="text-normal text-xl ">
+                    Passo 3: É hora de escolher<br>
+                    os componentes do teu PC! <br>
+                    Na InRise, temos peças <br>
+                    perfeitas para todos os <br>
+                    bolsos e necessidades, <br>
+                    garantindo compatibilidade <br>
+                    e visualização do teu setup. <br>
+                    Finaliza a compra e deixa o <br>
+                    resto connosco!
+                  </span>
+                </div>
+              </div>
+              <div class="flex self-center h-52 w-52">
+                <img src="@/assets/passo3.png" alt="Logo" class="object-scale-down">
+              </div>
+            </div>
+            <div class="flex justify-between w-[600px] h-[600px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
+              <div class="">
+                <div>
+                  <span class="text-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
+                    Passo 4
+                  </span>
+                </div>
+                <div class="my-8">
+                  <span class="text-normal text-xl ">
+                    Após o processamento do<br>
+                    pagamento, o teu <br>
+                    computador será montado <br>
+                    por nossos profissionais com <br>
+                    os componentes escolhidos. <br>
+                    <br>
+                    Cada equipamento é <br>
+                    personalizado e enviado com <br>
+                    sistema operativo e drivers <br>
+                    pré-instalados, prontos para <br>
+                    serem utilizados!<br>
+                    <br>
+                    Junta-te ao movimento <br>
+                    InRise e venha desbravar o <br>
+                    mundo da tecnologia.<br>
+                  </span>
+                </div>
+              </div>
+              <div class="flex self-center h-52 w-52">
+                <img src="@/assets/passo4.png" alt="Logo" class="object-scale-down">
+              </div>
+
+            </div>
+          </div>
+          
 
         </div>
       </section>
