@@ -20,11 +20,11 @@
       <section id="o-que-e" class="flex">
         <div class="flex flex-1 justify-center">
           <div class="flex flex-1 flex-col max-w-[700px] mx-4">
-            <span class="text-6xl font-medium my-4">
+            <span class="text-6xl font-medium my-4 text-black">
               Descobre o poder do Beta da InRise: O teu PC gaming personalizado<br>
             </span>
 
-            <span class="text-xl my-4">
+            <span class="text-xl my-4 text-black">
               Já imaginaste ter um PC gaming que não apenas atenda às tuas expectativas, mas as supere? 
               Na InRise, estamos prestes a tornar esse sonho realidade com o nosso Beta exclusivo. 
               Prepara-te para uma experiência única e personalizada, com preços especiais e benefícios incríveis!
@@ -101,8 +101,40 @@
           </div>
         </div>
       </section>
-  
-      <section id="inscreva-se">
+      <section id="quem-somos" class="flex justify-center">
+        <div class = "flex flex-1 justify-between items-center max-w-[1240px] h-[569px] rounded-[45px] bg-[#FFFFFF]">
+          <div class="flex flex-1 justify-center">
+          <div class="flex flex-1 flex-col max-w-[700px] mx-4">
+            <span class="text-6xl font-medium my-4">
+              Quem somos?<br>
+            </span>
+
+            <span class="text-xl my-4">
+              A InRise Computadores transforma a busca pelo computador perfeito, ao oferecer mais do que tecnologia: 
+              um movimento pela democratização da informação técnica e acesso a infinitas possibilidades. Com uma equipa 
+              de especialistas apaixonados por tecnologia e gamers dedicados, ajudamos a encontrar o computador dos teus sonhos.
+            </span>
+            <span class="text-xl my-4">
+              Escolher a InRise é optar por uma experiência descomplicada, acessível e transparente, onde as tuas necessidades 
+              estão sempre em primeiro lugar. Junta-te a nós e descobre como é fácil explorar todo o potencial do mundo digital 
+              com um computador feito à medida para ti.
+            </span>
+            
+          </div>
+          <div class="flex flex-1 flex-col justify-center items-center max-w-[500px] max-h-[500px] bg-red-500 mx-4">
+            <img src="@/assets/homeScreenPic.jpg" alt="Image" class="w-full h-full object-cover">
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section id="passos" class="flex justify-center">
+        <div class = "flex flex-1 justify-between items-center max-w-[1240px] h-[569px] rounded-[45px] bg-[#191A23]">
+
+        </div>
+      </section>
+
+      <section id="inscreva-se" class="flex justify-center">
         
       </section>
     </div>
@@ -130,10 +162,7 @@
   .navbar li {
     display: inline;
   }
-  
-  span{
-
-  }
+ 
   
   .navbar a {
     color: #fff; /* Branco para contraste */
@@ -150,6 +179,7 @@
   
   div { 
     text-align: left;
+    color: #000
   }
   section {
     padding-right: 100px;
@@ -165,5 +195,7 @@
   h2 {
     color: #333;
   }
+
+
   </style>
   
