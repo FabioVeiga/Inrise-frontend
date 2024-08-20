@@ -131,7 +131,7 @@
       <section id="passos" class="flex justify-center">
         <div class = "flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
           <div class="flex justify-between">
-            <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#F3F3F3] m-4 p-10">
+            <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#F3F3F3] m-4 p-10 hover:bg-purple-4o00">
               <div class="">
                 <div class="">
                   <span class="font-medium text-3xl bg-[#B9FF66] p-1 rounded-[7px]">
@@ -206,7 +206,7 @@
                 <img src="@/assets/passo3.png" alt="Logo" class="object-scale-down">
               </div>
             </div>
-            <div class="flex justify-between w-[600px] h-[600px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
+            <div class="flex justify-between w-[600px] h-[450px] rounded-[45px] bg-[#B9FF66] m-4 p-10">
               <div class="">
                 <div>
                   <span class="font-medium text-3xl bg-[#FFFFFF]  p-1 rounded-[7px]">
@@ -226,10 +226,7 @@
                     sistema operativo e drivers <br>
                     pré-instalados, prontos para <br>
                     serem utilizados!<br>
-                    <br>
-                    Junta-te ao movimento <br>
-                    InRise e venha desbravar o <br>
-                    mundo da tecnologia.<br>
+            
                   </span>
                 </div>
               </div>
@@ -245,13 +242,13 @@
       </section>
 
       <section id="inscreva-se" class="flex flex-col justify-center my-8">
-        <div>
-          <span class="text-[40px] font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
+        <div class="w-[1240px] self-center">
+          <span class="text-[40px] text-left self-start font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
             Inscreva-se no beta da InRise
           </span>
 
         </div>
-        <div class="flex flex-row justify-between items-center max-w-[1240px] h-[569px] rounded-[45px] bg-[#F3F3F3] p-8 my-16">
+        <div class="flex flex-row justify-between self-center items-center w-[1240px] h-[569px] rounded-[45px] bg-[#F3F3F3] p-8 my-16">
           <div class="flex-1">
             <form class="w-full max-w-md space-y-6">
               <div>
@@ -284,21 +281,66 @@
       </div>
 
       </section>
+      <section id="passos" class="flex justify-center flex-col items-center">
+        <div class="w-[1240px] self-center">
+        <div class = "flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
+          <span class="text-[40px] text-left self-start font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
+            Perguntas Frequentes
+          </span>
+        </div>
+        </div>
+        
+        <div class="w-full max-w-3xl">
+        <FaqCard
+          v-for="(faq, index) in faqs"
+          :key="index"
+          :question="faq.question"
+          :answer="faq.answer"
+          :number="formatNumber(index + 1)"
+        />
+        </div>
+      </section>
     </div>
   </template>
   
+
   <script>
-export default {
-  name: 'LandingPage',
-  methods: {
-    scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+  import FaqCard from '../components/FaqCard.vue';
+  
+  export default {
+    name: 'LandingPage',
+    components: {
+      FaqCard
+    },
+    data() {
+      return {
+        faqs: [
+          { question: 'O que é o BETA da InRise?', answer: 'O BETA da InRise é uma oportunidade exclusiva para testares em primeira mão os nossos serviços e PCs de alto desempenho. Durante o BETA, poderás adquirir computadores personalizados a preços especiais, receber brindes exclusivos e contar com suporte técnico prioritário. Ao participares, não só garantirás um setup de alta performance adaptado às tuas necessidades, mas também ajudarás a moldar o futuro da InRise, dando feedback direto à nossa equipa. Junta-te à nossa comunidade e ajuda-nos a construir um movimento de democratização da tecnologia!' },
+          { question: 'Quem pode participar?', answer: 'Qualquer pessoa que se inscreva na nossa newsletter e preencha o formulário de inscrição.' },
+          { question: 'Preciso pagar para participar?', answer: 'Não, a participação no BETA é gratuita.' },
+          { question: 'Quais são os benefícios exclusivos?', answer: 'Para participar, você...' },
+          { question: 'Quais são as datas importantes?',   answer: '• 1 a 15 de outubro: Período de inscrições.<br>• 15 a 30 de outubro: Acesso aos benefícios exclusivos.' },
+          { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
+          { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
+          { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
+          { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
+          { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
+          // Adicione mais FAQs aqui
+        ]
+      };
+    },
+    methods: {
+      scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      },
+      formatNumber(num) {
+      return num < 10 ? `0${num}` : num;
       }
     }
-  }
-};
+  };
   </script>
   
   <style scoped>
