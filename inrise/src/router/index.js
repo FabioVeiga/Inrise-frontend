@@ -12,11 +12,17 @@ import TodosOsPedidos from '../screens/TodosOsPedidos.vue';
 import AnaliseFinanceira from '../screens/AnaliseFinanceira.vue';
 import CadastroUser from '@/screens/CadastroUser.vue';
 import LandingPage from '@/screens/LandingPage.vue';
+import AdminLogin from '@/screens/AdminLogin.vue';
 const routes = [
   {
     path: '/client',
     name: 'client',
     component: ClientHome
+  },
+  {
+    path: '/adminLogin',
+    name: 'adminLogin',
+    component: AdminLogin
   },
   {
     path: '/landingPage',
