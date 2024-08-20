@@ -283,21 +283,20 @@
       </section>
       <section id="passos" class="flex justify-center flex-col items-center">
         <div class="w-[1240px] self-center">
-        <div class = "flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
-          <span class="text-[40px] text-left self-start font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
+          <div class = "flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
+          <span class="text-[40px] text-left self-start font-medium p-1 my-1 rounded-[7px]">
             Perguntas Frequentes
           </span>
-        </div>
-        </div>
-        
-        <div class="w-full max-w-3xl">
-        <FaqCard
+
+          <FaqCard
+          class="mt-[30px]"
           v-for="(faq, index) in faqs"
           :key="index"
           :question="faq.question"
           :answer="faq.answer"
           :number="formatNumber(index + 1)"
-        />
+          />
+          </div>
         </div>
       </section>
     </div>
