@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { isAuthenticated } from '@/utils/auth';
 import ClientHome from '../screens/ClientHome.vue';
 import AdminHome from '../screens/AdminHome.vue';
 import MeusProdutos from '../screens/MeusProdutos.vue';
@@ -36,12 +37,19 @@ const routes = [
   },
   {
     path: '/admin',
-    component: AdminHome, // Use AdminHome as layout for admin routes
+    component: AdminHome, 
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next(); 
+      } else {
+        next('/adminLogin');
+      }
+    },
     children: [
       {
         path: '',
         name: 'AdminHome',
-        component: AdminHome // This will be the default page
+        component: AdminHome
       },
       {
         path: 'meusProdutos',

@@ -1,7 +1,7 @@
 <template>
-  <div id="admin-home" class="app">
-    <AdminSidebar class="admin-sidebar" />
-    <div class="main-content">
+  <div id="admin-home" class="flex h-screen overflow-hidden">
+    <AdminSidebar class="admin-sidebar bg-gray-100" />
+    <div class="main-content flex-1 ml-52 p-5 overflow-y-auto">
       <router-view />
     </div>
   </div>
@@ -17,18 +17,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#admin-home {
-  display: flex;
-}
-
-.admin-sidebar {
-  width: 200px;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-}
-</style>

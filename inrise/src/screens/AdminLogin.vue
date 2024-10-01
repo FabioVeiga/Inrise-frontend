@@ -1,96 +1,80 @@
 <template>
-    <div class="login-page">
-      <h1>Login de Admin</h1>
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="max-w-md w-full bg-white p-8 border border-gray-300 rounded-lg shadow-md">
+      <h1 class="text-2xl font-semibold mb-6">Login de Admin</h1>
       <form @submit.prevent="loginAdmin">
         <!-- Email -->
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" v-model="admin.email" required />
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+          <input
+            type="email"
+            id="email"
+            v-model="admin.email"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
         </div>
-  
+
         <!-- Senha -->
-        <div class="form-group">
-          <label for="password">Senha:</label>
-          <input type="password" id="password" v-model="admin.password" required />
+        <div class="mb-6">
+          <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
+          <input
+            type="password"
+            id="password"
+            v-model="admin.password"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
         </div>
-  
+
         <!-- Botão de Login -->
-        <button type="submit">Entrar</button>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Entrar
+        </button>
       </form>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        admin: {
-          email: '',
-          password: '',
-        },
-      };
-    },
-    methods: {
-      loginAdmin() {
-        // Aqui você pode fazer a requisição POST para o backend
-        console.log('Dados de login:', this.admin);
-  
-        // Exemplo de requisição POST usando fetch
-        fetch('/Admin/Login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(this.admin),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Login realizado com sucesso:', data);
-          })
-          .catch((error) => {
-            console.error('Erro ao realizar login:', error);
-          });
+  </div>
+</template>
+
+<script>
+import { authenticateUser } from '@/api'; // Ajuste o caminho para o seu api.js
+
+export default {
+  data() {
+    return {
+      admin: {
+        email: '',
+        password: '',
       },
+    };
+  },
+  methods: {
+    async loginAdmin() {
+      try {
+        const response = await authenticateUser({
+          email: this.admin.email,
+          password: this.admin.password,
+          profile: 1 // Ajuste conforme necessário
+        });
+        console.log('Login realizado com sucesso:', response.data);
+
+        // Armazenar o token em um lugar seguro (localStorage, Vuex, etc.)
+        console.log("Login token", response.data.data.acessToken.token)
+        localStorage.setItem('authToken', response.token);
+
+        // Redirecionar para a página AdminHome após o login
+        this.$router.push('/admin');
+      } catch (error) {
+        console.error('Erro ao realizar login:', error);
+      }
     },
-  };
-  </script>
-  
-  <style scoped>
-  .login-page {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style scoped>
+/* Nenhum estilo adicional necessário, pois Tailwind CSS já cuida da estilização */
+</style>

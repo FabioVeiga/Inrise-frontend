@@ -4,7 +4,7 @@
       Adminrise
     </div>
     <div class="categories">
-      <!-- Produtos Category -->
+      <!-- Produtos Category 
       <div class="category">
         <div class="category-title">Produtos</div>
         <ul>
@@ -12,7 +12,7 @@
           <li><router-link to="/admin/cadastrarProdutos" class="nav-button">Cadastrar produtos</router-link></li>
           <li><router-link to="/admin/computadoresProntos" class="nav-button">Computadores prontos</router-link></li>
         </ul>
-      </div>
+      </div> -->
       <!-- Softwares Category -->
       <div class="category">
         <div class="category-title">Softwares</div>
@@ -22,7 +22,7 @@
           <li><router-link to="/admin/cadastroDeCategorias" class="nav-button">Cadastro de categorias</router-link></li>
         </ul>
       </div>
-      <!-- Pedidos Category -->
+      <!-- Pedidos Category
       <div class="category">
         <div class="category-title">Pedidos</div>
         <ul>
@@ -30,8 +30,8 @@
           <li><router-link to="/admin/todosOsPedidos" class="nav-button">Todos os pedidos</router-link></li>
           <li><router-link to="/admin/analiseFinanceira" class="nav-button">Análise financeira</router-link></li>
         </ul>
-      </div>
-    </div>
+      </div> -->
+    </div> -->
   </div>
 </template>
 

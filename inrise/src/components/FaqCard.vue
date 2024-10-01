@@ -17,7 +17,7 @@
       </div>
       <transition name="fade">
         <div class="mx-[60px]">
-            <div v-if="isOpen" class="separator h-[1px] my-[30px] bg-gray-300"></div>
+            <div v-if="isOpen" class="separator h-[2px] my-[30px] bg-gray-300"></div>
         </div>
        </transition>
 

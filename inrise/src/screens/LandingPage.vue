@@ -250,27 +250,27 @@
         </div>
         <div class="flex flex-row justify-between self-center items-center w-[1240px] h-[569px] rounded-[45px] bg-[#F3F3F3] p-8 my-16">
           <div class="flex-1">
-            <form class="w-full max-w-md space-y-6">
-              <div>
-                  <label for="name" class="block text-gray-700 text-base font-medium mb-2">Nome</label>
-                  <input id="name" type="text" placeholder="Insira seu nome" class="w-[556px] h-[60px] p-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              </div>
+            <form @submit.prevent="handleSubmit" class="w-full max-w-md space-y-6">
+  <div>
+    <label for="name" class="block text-gray-700 text-base font-medium mb-2">Nome</label>
+    <input v-model="formData.name" id="name" type="text" placeholder="Insira seu nome" class="w-[556px] h-[60px] p-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  </div>
 
-              <div>
-                  <label for="email" class="block text-gray-700 text-base font-medium mb-2">Email</label>
-                  <input id="email" type="email" placeholder="Insira seu melhor e-mail" class="w-[556px] h-[60px] p-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              </div>
+  <div>
+    <label for="email" class="block text-gray-700 text-base font-medium mb-2">Email</label>
+    <input v-model="formData.email" id="email" type="email" placeholder="Insira seu melhor e-mail" class="w-[556px] h-[60px] p-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  </div>
 
-              <div class="flex items-center">
-                  <input id="privacy" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-                  <label for="privacy" class="ml-2 text-gray-700 text-sm">Ao inscrever, você alega concordar com nossa <a href="#" class="text-blue-600 hover:underline">política de privacidade</a></label>
-              </div>
+  <div class="flex items-center">
+    <input v-model="formData.privacy" id="privacy" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+    <label for="privacy" class="ml-2 text-gray-700 text-sm">Ao inscrever, você alega concordar com nossa <a href="#" class="text-blue-600 hover:underline">política de privacidade</a></label>
+  </div>
 
-              <div>
-                  <button type="submit" class="w-[556px] h-[68px] bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl rounded-[14px] mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
-              </div>
+  <div>
+    <button type="submit" class="w-[556px] h-[68px] bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl rounded-[14px] mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
+  </div>
+</form>
 
-            </form>
           </div>
           <div class="">
             <div class="flex self-center">
@@ -304,15 +304,22 @@
   
 
   <script>
+  //import axios from 'axios';
   import FaqCard from '../components/FaqCard.vue';
-  
+  import { submitLandingPage, fetchLandingPage } from '@/api'; 
+
   export default {
     name: 'LandingPage',
     components: {
-      FaqCard
+      FaqCard,
     },
     data() {
       return {
+        formData: {
+          name: '',
+          email: '',
+          privacy: false,
+        },
         faqs: [
           { question: 'O que é o BETA da InRise?', answer: 'O BETA da InRise é uma oportunidade exclusiva para testares em primeira mão os nossos serviços e PCs de alto desempenho. Durante o BETA, poderás adquirir computadores personalizados a preços especiais, receber brindes exclusivos e contar com suporte técnico prioritário. Ao participares, não só garantirás um setup de alta performance adaptado às tuas necessidades, mas também ajudarás a moldar o futuro da InRise, dando feedback direto à nossa equipa. Junta-te à nossa comunidade e ajuda-nos a construir um movimento de democratização da tecnologia!' },
           { question: 'Quem pode participar?', answer: 'Qualquer pessoa que se inscreva na nossa newsletter e preencha o formulário de inscrição.' },
@@ -324,9 +331,8 @@
           { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
           { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
           { question: 'Como participar do Beta?', answer: 'Para participar, você...' },
-          // Adicione mais FAQs aqui
-        ]
-      };
+        ],
+              };
     },
     methods: {
       scrollToSection(sectionId) {
@@ -336,11 +342,39 @@
         }
       },
       formatNumber(num) {
-      return num < 10 ? `0${num}` : num;
+        return num < 10 ? `0${num}` : num;
+      },
+      
+        async handleSubmit() {
+          if (this.formData.privacy) {
+              try {
+                  const landingPageData = await fetchLandingPage();
+                  const emailExists = landingPageData.data.some(user => user.email === this.formData.email);
+
+                  if (emailExists) {
+                      alert('Esse e-mail já está cadastrado.');
+                      return;
+                  }
+
+                  await submitLandingPage({
+                      name: this.formData.name,
+                      email: this.formData.email,
+                      isAcceptRGPD: true,
+                  });
+
+                  alert('Inscrição realizada com sucesso!');
+              } catch (error) {
+                  alert('Erro ao verificar e-mail ou ao enviar a inscrição.');
+                  console.error(error);
+              }
+          } else {
+              alert('Você deve concordar com a política de privacidade para se inscrever.');
+          }
       }
     }
   };
-  </script>
+</script>
+
   
   <style scoped>
   .landing-page {
