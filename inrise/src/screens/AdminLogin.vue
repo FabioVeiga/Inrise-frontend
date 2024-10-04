@@ -62,9 +62,14 @@ export default {
         console.log('Login realizado com sucesso:', response.data);
 
         // Armazenar o token em um lugar seguro (localStorage, Vuex, etc.)
-        console.log("Login token", response.data.data.acessToken.token)
-        localStorage.setItem('authToken', response.token);
+        const token = response.data.data.acessToken.token;
+        const expiresIn = response.data.data.acessToken.expiredIn;
 
+        console.log("Login token", token)
+        //se quiser dar undefined proposital
+        //localStorage.setItem('authToken', response.token);
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('tokenExpiry', new Date(expiresIn).getTime());
         // Redirecionar para a página AdminHome após o login
         this.$router.push('/admin');
       } catch (error) {
