@@ -61,7 +61,7 @@ a InRise!</p>
     right:50%;
     width: 150px;
     height: 150px;
-    background-color: #ccc; /* Cinza */
+    background-color: #ccc;
   }
   
   .square p {

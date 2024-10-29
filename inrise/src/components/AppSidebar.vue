@@ -14,7 +14,7 @@ export default {
 .sidebar {
   width: 176px;
   height: 100vh;
-  background-color: #191919; /* Preto */
+  background-color: #191919;
   padding: 20px;
   box-sizing: border-box;
   position: fixed;
@@ -26,7 +26,7 @@ export default {
 }
 
 .logo {
-  width: 100px; /* Ajuste conforme necessário */
+  width: 100px; 
   margin-bottom: 20px;
 }
 </style>

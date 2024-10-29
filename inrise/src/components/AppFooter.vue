@@ -76,7 +76,7 @@ p{
 }
 
 .main-column {
-  flex-basis: 70%; /* Tamanho da coluna principal */
+  flex-basis: 70%; 
 }
 
 .square-grey{

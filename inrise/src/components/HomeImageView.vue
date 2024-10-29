@@ -12,12 +12,12 @@ export default {
 
 <style scoped>
 .image-view {
-  width: 32vw; /* Ocupa 32% da largura da tela */
-  height: 100vh; /* Ocupa toda a altura da tela */
-  background-color: #000; /* Cor de fundo para teste */
+  width: 32vw; 
+  height: 100vh; 
+  background-color: #000; 
   display: flex;
   justify-content: flex-end;
-  overflow: hidden; /* Evita que a imagem cause rolagem horizontal */
+  overflow: hidden;
 }
 
 .right-image {

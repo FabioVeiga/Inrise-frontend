@@ -17,13 +17,13 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 630px; /* Ajuste conforme necessário */
-    height: 144px; /* Ajuste conforme necessário */
+    width: 630px; 
+    height: 144px; 
   }
   
   .rectangle {
-    width: 600px; /* Ajuste conforme necessário */
-    height: 77px; /* Ajuste conforme necessário */
+    width: 600px;
+    height: 77px;
     background-color: linear-gradient(to bottom, #54C0ED, #E431FE);
 
   }
@@ -32,7 +32,7 @@
     background-color: red;
     background: linear-gradient(to bottom, #54C0ED, #E431FE);
 
-    transform: translate(30px, 0px); /* Ajuste a desalinhamento conforme necessário */
+    transform: translate(30px, 0px);
 
   }
   
@@ -44,10 +44,10 @@
 
   .gradient-overlay {
   position: absolute;
-  top: 0; /* Alinha o topo do gradiente ao topo do segundo retângulo */
+  top: 0; 
   left: 0;
-  width: 1000px; /* Ajuste conforme necessário */
-  height: 1000px; /* Ajuste conforme necessário */
+  width: 1000px; 
+  height: 1000px;
   background: linear-gradient(to bottom, #54C0ED, #E431FE);
 }
   </style>

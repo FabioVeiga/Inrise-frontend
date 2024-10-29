@@ -15,11 +15,7 @@
           {{ isOpen ? '-' : '+' }}
         </button> 
       </div>
-      <transition name="fade">
-        <div class="mx-[60px]">
-            <div v-if="isOpen" class="separator h-[2px] my-[30px] bg-gray-300"></div>
-        </div>
-       </transition>
+     
 
       <transition name="fade">
         <p v-if="isOpen" :class="{'text-white': isOpen, 'text-black': !isOpen}" class="text-lg font-normal mb-[30px] mx-[60px]">{{ answer }}</p>
@@ -82,7 +78,7 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity 0.3s;
   }
-  .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  .fade-enter, .fade-leave-to {
     opacity: 0;
   }
   </style>

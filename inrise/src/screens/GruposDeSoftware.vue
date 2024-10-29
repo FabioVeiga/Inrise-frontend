@@ -92,6 +92,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Não há necessidade de estilos adicionais com Tailwind */
-</style>

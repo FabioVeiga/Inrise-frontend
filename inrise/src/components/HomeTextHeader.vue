@@ -19,8 +19,8 @@
   <style scoped>
   .home-text-header {
     margin: 10px;
-    display: inline-block; /* Permite que o retângulo se ajuste ao tamanho do texto */
-    position: relative; /* Permite posicionar o retângulo cinza */
+    display: inline-block; 
+    position: relative;
   }
   
   .gray-text {

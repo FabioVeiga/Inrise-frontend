@@ -16,23 +16,22 @@
   <style>
   .headerRectangles {
     padding: 30px;
-    position: relative; /* Para que a posição absoluta do texto seja relativa a este elemento */
-  }
-  
+    position: relative;
+  }  
   .bar {
     width: 630px;
     height: 145px;
   }
   
   .overlay-text {
-    position: absolute; /* Posição absoluta em relação ao elemento pai */
-    top: 50%; /* Ajuste vertical para centrar o texto */
-    left: 50%; /* Ajuste horizontal para centrar o texto */
-    transform: translate(-50%, -50%); /* Centralizar o texto */
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
     font-size: 60px;
     font-weight: 900;
-    color: white; /* Cor do texto */
-    text-align: center; /* Centralizar o texto horizontalmente */
+    color: white; 
+    text-align: center; 
   }
   </style>
   

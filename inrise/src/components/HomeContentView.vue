@@ -13,7 +13,7 @@
   
   <style scoped>
   .content-view {
-    flex: 1; /* Ocupa todo o espaço restante */
+    flex: 1; 
     display:flex;
     flex-direction: column;
     padding-left: 176px;

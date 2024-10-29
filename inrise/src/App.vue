@@ -27,7 +27,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  font-family: 'Inter'; /* Use a fonte customizada */
+  font-family: 'Inter';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

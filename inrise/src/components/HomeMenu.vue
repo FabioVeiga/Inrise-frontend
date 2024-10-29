@@ -49,14 +49,14 @@
     text-decoration: none;
     color: black;
     font-size: 24px;
-    font-weight: 700; /* Peso padrão da fonte */
+    font-weight: 700; 
     position: relative;
     display: block;
     padding: 5px 0;
   }
   
   .home-menu a.active {
-    font-weight: 900; /* Peso da fonte quando o item está ativo */
+    font-weight: 900;
   }
   
   .home-menu a::before {

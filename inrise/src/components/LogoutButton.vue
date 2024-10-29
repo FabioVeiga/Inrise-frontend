@@ -10,7 +10,7 @@ import { logout } from '@/utils/auth';
     methods: {
       handleLogout() {
         logout(); 
-        this.$router.push('/loginAdmin'); 
+        this.$router.push('/adminLogin'); 
       }
     }
   }

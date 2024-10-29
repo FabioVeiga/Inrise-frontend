@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { authenticateUser } from '@/api'; // Ajuste o caminho para o seu api.js
+import { authenticateUser } from '@/api'; 
 
 export default {
   data() {
@@ -57,20 +57,20 @@ export default {
         const response = await authenticateUser({
           email: this.admin.email,
           password: this.admin.password,
-          profile: 1 // Ajuste conforme necessário
+          profile: 1 
         });
         console.log('Login realizado com sucesso:', response.data);
 
-        // Armazenar o token em um lugar seguro (localStorage, Vuex, etc.)
         const token = response.data.data.acessToken.token;
-        const expiresIn = response.data.data.acessToken.expiredIn;
+        //const expiresIn = response.data.data.acessToken.expiredIn;
+        const expiresIn = 10800
 
         console.log("Login token", token)
+        console.log("expiration",expiresIn)
         //se quiser dar undefined proposital
         //localStorage.setItem('authToken', response.token);
         localStorage.setItem('authToken', token);
         localStorage.setItem('tokenExpiry', new Date(expiresIn).getTime());
-        // Redirecionar para a página AdminHome após o login
         this.$router.push('/admin');
       } catch (error) {
         console.error('Erro ao realizar login:', error);
@@ -79,7 +79,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* Nenhum estilo adicional necessário, pois Tailwind CSS já cuida da estilização */
-</style>
