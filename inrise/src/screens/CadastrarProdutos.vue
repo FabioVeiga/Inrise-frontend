@@ -3,7 +3,7 @@
     <h1 class=" text-4xl font-bold">Cadastrar Produto</h1>
     
     <div class="form-group my-8">
-      <select v-model="selectedProduct" id="productType" @change="resetForm" required>
+      <select v-model="productType" id="productType" @change="resetForm" required>
         <option value="ram">Memória RAM</option>
         <option value="fonte">Fonte</option>
         <option value="placaDeVideo">Placa de Vídeo</option>
@@ -15,8 +15,8 @@
     </div>
 
     <div>
-      <CadastroRam v-if="selectedProduct === 'ram'" />
-      <CadastroFonte v-if="selectedProduct === 'fonte'" />
+      <CadastroRam v-if="productType === 'ram'" />
+      <CadastroFonte v-if="productType === 'fonte'" />
     </div>
   </div>
 </template>
@@ -33,12 +33,12 @@ export default {
   },
   data() {
     return {
-      selectedProduct: 'ram', 
+      productType: 'ram', 
     };
   },
   methods: {
     resetForm() {
-      console.log(`Selecionado: ${this.selectedProduct}`);
+      console.log(`Selecionado: ${this.productType}`);
     }
   }
 };
