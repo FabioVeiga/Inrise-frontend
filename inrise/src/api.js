@@ -81,6 +81,15 @@ export async function fetchAllRam() {
   }
 }
 
+
+export function fetchRamById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/MemoryRam/${id}`, {headers})
+}
+
 // Função para buscar a página de destino
 export function fetchLandingPage() {
   return apiClient.get('/LandingPage');
