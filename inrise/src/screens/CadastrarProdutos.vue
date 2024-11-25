@@ -1,9 +1,8 @@
 <template>
   <div class="cadastrar-produtos">
-    <h1>Cadastrar Produto</h1>
+    <h1 class=" text-4xl font-bold">Cadastrar Produto</h1>
     
-    <div class="form-group">
-      <label for="productType">Selecione o Tipo de Produto</label>
+    <div class="form-group my-8">
       <select v-model="selectedProduct" id="productType" @change="resetForm" required>
         <option value="ram">Memória RAM</option>
         <option value="fonte">Fonte</option>
@@ -17,20 +16,20 @@
 
     <div>
       <CadastroRam v-if="selectedProduct === 'ram'" />
-      <!--<CadastroFonte v-if="selectedProduct === 'fonte'" />-->
+      <CadastroFonte v-if="selectedProduct === 'fonte'" />
     </div>
   </div>
 </template>
 
 <script>
 import CadastroRam from './CadastroRam.vue';
-//import CadastroFonte from './CadastroFonte.vue';
+import CadastroFonte from './CadastroFonte.vue';
 
 export default {
   name: 'CadastrarProduto',
   components: {
     CadastroRam,
-    //CadastroFonte,
+    CadastroFonte,
   },
   data() {
     return {

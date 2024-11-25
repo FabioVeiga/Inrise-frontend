@@ -1,11 +1,9 @@
 <template>
-  <div class="cadastrar-produtos my-5">
-    <!-- Formulário de cadastro de Memória RAM -->
-    <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="cadastrar-produto my-5">
+    <!-- Formulário de cadastro de Fonte -->
 
+    <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Nome do Produto -->
-      <!-- @TODO Adicionar placeholders -->
-      <h2 class=" col-span-2 text-2xl font-bold">Informações Gerais</h2>
       <div class="form-group">
         <label for="productName" class="block mb-1 font-semibold">Nome do Produto</label>
         <input type="text" v-model="formData.name" id="productName" required class="w-full border p-2" />
@@ -18,39 +16,45 @@
           class="w-full border p-2" />
       </div>
 
+      <!-- Potência -->
+      <div class="form-group mb-4">
+        <label for="potency" class="block mb-1 font-semibold">Potência (W)</label>
+        <input type="number" v-model="formData.potency" id="potency" required class="w-full border p-2" />
+      </div>
+
+      <!-- Potência Real -->
+      <div class="form-group mb-4">
+        <label for="potencyReal" class="block mb-1 font-semibold">Potência Real (W)</label>
+        <input type="number" v-model="formData.potencyReal" id="potencyReal" required class="w-full border p-2" />
+      </div>
+
+
+      <!-- Selo -->
+      <div class="form-group mb-4">
+        <label for="stamp" class="block mb-1 font-semibold">Selo</label>
+        <select v-model="formData.stamp" id="stamp" required class="w-full border p-2">
+          <option value="standard">Standard</option>
+          <option value="bronze">Bronze</option>
+          <option value="silver">Silver</option>
+          <option value="gold">Gold</option>
+          <option value="platinum">Platinum</option>
+          <option value="titanium">Titanium</option>
+        </select>
+      </div>
+
+      <!-- Modularidade -->
+      <div class="form-group mb-4">
+        <label for="modular" class="block mb-1 font-semibold">Modular?</label>
+        <input type="checkbox" v-model="formData.modular" id="modular" class="w-full border p-2" />
+      </div>
+
       <!-- Descrição -->
-      <div class="form-group col-span-2">
+      <div class="form-group">
         <label for="description" class="block mb-1 font-semibold">Descrição</label>
-        <textarea v-model="formData.description" id="description" required class="resize-none w-full h-24 border p-2"></textarea>
+        <textarea v-model="formData.description" id="description" required class="w-full border p-2"></textarea>
       </div>
-
-
-      <!-- Exclusivos de memoria ram -->
-      <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <h2 class=" col-span-2 text-2xl font-bold">Memoria Ram</h2>
-      <!-- Socket -->
-      <div class="form-group ">
-        <label for="socket" class="block mb-1 font-semibold">Socket</label>
-        <input type="text" v-model="formData.socket" id="socket" required class="w-full border p-2" />
-      </div>
-
-      <!-- Frequência -->
-      <div class="form-group">
-        <label for="frequency" class="block mb-1 font-semibold">Frequência (MHz)</label>
-        <input type="number" v-model="formData.frequency" id="frequency" required class="w-full border p-2" />
-      </div>
-
-      <!-- Capacidade -->
-      <div class="form-group">
-        <label for="capacity" class="block mb-1 font-semibold">Capacidade (GB)</label>
-        <input type="number" v-model="formData.capacity" id="capacity" required class="w-full border p-2" />
-      </div>
-    </div>
-
 
       <!-- Preço -->
-      <h2 class=" col-span-2 text-2xl font-bold">Valores e Custos</h2>
-
       <div class="form-group">
         <label for="costPrice" class="block mb-1 font-semibold">Preço de Custo</label>
         <input type="number" v-model="formData.price.costPrice" id="costPrice" required class="w-full border p-2" />
@@ -90,35 +94,36 @@
         <input type="number" v-model="formData.price.iva" id="iva" required class="w-full border p-2" />
       </div>
 
-      <div class="form-group h-16">
+      <div class="form-group col-span-2">
         <label for="finalPrice" class="block mb-1 font-semibold">Preço Final</label>
-        <input type="number" v-model="formData.price.finalPrice" id="finalPrice" required class="w-full h-full border p-2" />
+        <input type="number" v-model="formData.price.finalPrice" id="finalPrice" required class="w-full border p-2" />
       </div>
 
       <!-- Botão de Salvar -->
-      <div class="form-group my-4 col-span-2">
+      <div class="form-group col-span-1 md:col-span-2">
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
-          Salvar Memória RAM
+          Salvar Fonte
         </button>
       </div>
+
     </form>
   </div>
 </template>
 
 <script>
-import { registerRam } from '@/api';
-
+import { registerPSU } from '@/api';
 export default {
-  name: 'CadastroRam',
+  name: 'CadastroFonte',
   data() {
     return {
       formData: {
-        name: '',
-        socket: '',
-        frequency: 0,
-        capacity: 0,
+        name: 'Fonte',
+        potency: 0,
+        potencyReal: 0,
+        stamp: 'standard',
+        modular: true,
         description: '',
-        valueClassification: 0,
+        valueClassification: '1',
         price: {
           costPrice: 0,
           porcentageProfit: 0,
@@ -135,24 +140,25 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await registerRam(this.formData);
-        console.log('Memória RAM cadastrada com sucesso!', response);
+        const response = await registerPSU(this.formData);
+        console.log('Fonte cadastrada com sucesso!', response);
         alert('Produto cadastrado com sucesso!');
 
         this.resetForm();
       } catch (error) {
-        console.error('Erro ao cadastrar memória RAM:', error);
+        console.error('Erro ao cadastrar memória Fonte:', error);
         alert('Erro ao cadastrar produto!');
       }
     },
     resetForm() {
       this.formData = {
         name: '',
-        socket: '',
-        frequency: 0,
-        capacity: 0,
+        potency: 0,
+        potencyReal: 0,
+        stamp: '',
+        modular: true,
         description: '',
-        valueClassification: 0,
+        valueClassification: '',
         price: {
           costPrice: 0,
           porcentageProfit: 0,
@@ -163,18 +169,8 @@ export default {
           iva: 0,
           finalPrice: 0
         }
-      };
+      }
     }
   }
 };
 </script>
-
-<style scoped>
-.cadastrar-produtos {
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-</style>

@@ -41,14 +41,22 @@ export async function registerSoftware(data) {
 }
 
 export async function registerRam(data) {
-  const token = getToken();  // Recupera o token do localStorage
+  const token = getToken();
   const headers = token ? { 
-    'Authorization': `Bearer ${token}`  // Adiciona o token ao cabeçalho
+    'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.post('/MemoryRam', data, { headers });  // Envia a requisição com o token (se existir)
+  return apiClient.post('/MemoryRam', data, { headers });
 }
 
+export async function registerPSU(data) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/PowerSupply', data, { headers });
+}
 
 export async function fetchAllRam() {
   const token = getToken();  
