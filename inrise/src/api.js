@@ -63,7 +63,7 @@ export async function fetchSoftwareGroup() {
   } : {};
   try {
     const response = await apiClient.get('/Category', {
-      headers, 
+      headers,
       params: {
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
@@ -77,6 +77,37 @@ export async function fetchSoftwareGroup() {
   }
 
 }
+
+export async function fetchAllSoftware() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  try {
+    const response = await apiClient.get('/Software', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter os softwares:', error);
+    throw new Error('Erro ao obter os softwares:');
+  }
+
+}
+
+
+/*export async function fetchSoftwareByGroupId() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+}*/
 
 export async function registerRam(data) {
   const token = getToken();
