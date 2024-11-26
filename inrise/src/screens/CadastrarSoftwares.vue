@@ -1,7 +1,7 @@
 <template>
   <div class="cadastrar-softwares">
     <h1 class="text-xl font-bold mb-4">Cadastrar Softwares</h1>
-    
+
     <!-- Formulário de cadastro de software -->
     <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Ícone -->
@@ -13,142 +13,157 @@
       <!-- Nome do Software -->
       <div class="form-group">
         <label for="softwareName" class="block mb-1 font-semibold">Nome do Software</label>
-        <input type="text" v-model="formData.softwareName" id="softwareName" required class="w-full border p-2" />
+        <input type="text" v-model="formData.name" id="softwareName" required class="w-full border p-2" />
       </div>
 
       <!-- Categoria do Software -->
       <div class="form-group">
         <label for="category" class="block mb-1 font-semibold">Categoria</label>
-        <select v-model="formData.category" id="category" required class="w-full border p-2">
+        <select v-model="formData.categoryId" id="category" required class="w-full border p-2">
           <option value="" disabled>Selecione uma categoria</option>
-          <option value="game">Game</option>
-          <option value="productivity">Produtividade</option>
-          <option value="multimedia">Multimídia</option>
+          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </div>
 
-      <!-- Requisitos Mínimos e Máximos -->
+      <!-- Requisitos de Processador -->
       <div class="form-group">
-        <label for="minProcessor" class="block mb-1 font-semibold">Requisito Mínimo - Processador</label>
-        <select v-model="formData.minProcessor" id="minProcessor" required class="w-full border p-2">
+        <label for="processadorMin" class="block mb-1 font-semibold">Requisito Mínimo - Processador</label>
+        <select v-model="formData.processadorMinId" id="processadorMin" required class="w-full border p-2">
           <option value="" disabled>Selecione um processador</option>
-          <option value="intel-i3">Intel i3</option>
-          <option value="intel-i5">Intel i5</option>
-          <option value="intel-i7">Intel i7</option>
+          <option v-for="processor in processors" :key="processor.id" :value="processor.id">{{ processor.name }}
+          </option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="maxProcessor" class="block mb-1 font-semibold">Requisito Máximo - Processador</label>
-        <select v-model="formData.maxProcessor" id="maxProcessor" required class="w-full border p-2">
-          <option value="" disabled>Selecione um processador</option>
-          <option value="intel-i5">Intel i5</option>
-          <option value="intel-i7">Intel i7</option>
-          <option value="intel-i9">Intel i9</option>
+        <label for="processadorIdeal" class="block mb-1 font-semibold">Requisito Ideal - Processador</label>
+        <select v-model="formData.processadorIdealId" id="processadorIdeal" required class="w-full border p-2">
+          <option value="" disabled>Selecione um processador ideal</option>
+          <option v-for="processor in processors" :key="processor.id" :value="processor.id">{{ processor.name }}
+          </option>
         </select>
       </div>
 
+      <!-- Requisitos de GPU -->
       <div class="form-group">
-        <label for="minGpu" class="block mb-1 font-semibold">Requisito Mínimo - GPU</label>
-        <select v-model="formData.minGpu" id="minGpu" required class="w-full border p-2">
+        <label for="videoBoardMin" class="block mb-1 font-semibold">Requisito Mínimo - GPU</label>
+        <select v-model="formData.videoBoardMinId" id="videoBoardMin" required class="w-full border p-2">
           <option value="" disabled>Selecione uma GPU</option>
-          <option value="gtx-1050">GTX 1050</option>
-          <option value="gtx-1060">GTX 1060</option>
-          <option value="rtx-2060">RTX 2060</option>
+          <option v-for="gpu in gpus" :key="gpu.id" :value="gpu.id">{{ gpu.name }}</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="maxGpu" class="block mb-1 font-semibold">Requisito Máximo - GPU</label>
-        <select v-model="formData.maxGpu" id="maxGpu" required class="w-full border p-2">
-          <option value="" disabled>Selecione uma GPU</option>
-          <option value="rtx-2060">RTX 2060</option>
-          <option value="rtx-2070">RTX 2070</option>
-          <option value="rtx-3080">RTX 3080</option>
+        <label for="videoBoardIdeal" class="block mb-1 font-semibold">Requisito Ideal - GPU</label>
+        <select v-model="formData.videoBoardIdealId" id="videoBoardIdeal" required class="w-full border p-2">
+          <option value="" disabled>Selecione uma GPU ideal</option>
+          <option v-for="gpu in gpus" :key="gpu.id" :value="gpu.id">{{ gpu.name }}</option>
         </select>
       </div>
 
+      <!-- Requisitos de RAM -->
       <div class="form-group">
-        <label for="minRam" class="block mb-1 font-semibold">Requisito Mínimo - RAM</label>
-        <select v-model="formData.minRam" id="minRam" required class="w-full border p-2">
+        <label for="memoryRamMin" class="block mb-1 font-semibold">Requisito Mínimo - RAM</label>
+        <select v-model="formData.memoryRamMinId" id="memoryRamMin" required class="w-full border p-2">
           <option value="" disabled>Selecione a RAM mínima</option>
-          <option value="4gb">4GB</option>
-          <option value="8gb">8GB</option>
-          <option value="16gb">16GB</option>
+          <option v-for="ram in rams" :key="ram.id" :value="ram.id">{{ ram.name }}</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="maxRam" class="block mb-1 font-semibold">Requisito Máximo - RAM</label>
-        <select v-model="formData.maxRam" id="maxRam" required class="w-full border p-2">
-          <option value="" disabled>Selecione a RAM máxima</option>
-          <option value="16gb">16GB</option>
-          <option value="32gb">32GB</option>
-          <option value="64gb">64GB</option>
+        <label for="memoryRamIdeal" class="block mb-1 font-semibold">Requisito Ideal - RAM</label>
+        <select v-model="formData.memoryRamIdealId" id="memoryRamIdeal" required class="w-full border p-2">
+          <option value="" disabled>Selecione a RAM ideal</option>
+          <option v-for="ram in rams" :key="ram.id" :value="ram.id">{{ ram.name }}</option>
         </select>
       </div>
 
       <!-- Botão de salvar -->
       <div class="form-group col-span-1 md:col-span-2">
-        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Salvar</button>
+        <button type="submit" :disabled="isSubmitting"
+          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+          {{ isSubmitting ? 'Enviando...' : 'Salvar' }}
+        </button>
       </div>
     </form>
+
+    <!-- Feedback -->
+    <div v-if="feedbackMessage" :class="feedbackClass" class="mt-4 p-4">
+      {{ feedbackMessage }}
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+import { registerSoftware } from '@/api';
 export default {
   name: 'CadastrarSoftwares',
   data() {
     return {
       formData: {
-        icon: null,
-        softwareName: '',
-        category: '',
-        minProcessor: '',
-        maxProcessor: '',
-        minGpu: '',
-        maxGpu: '',
-        minRam: '',
-        maxRam: ''
-      }
+        name: '',
+        processadorMinId: null,
+        processadorIdealId: null,
+        memoryRamMinId: null,
+        memoryRamIdealId: null,
+        videoBoardMinId: null,
+        videoBoardIdealId: null,
+        categoryId: null,
+        icon: null
+      },
+      isSubmitting: false,
+      feedbackMessage: '',
+      feedbackClass: '',
+      categories: [], 
+      processors: [], 
+      gpus: [],
+      rams: [] 
     };
   },
   methods: {
     handleIconUpload(event) {
       this.formData.icon = event.target.files[0];
     },
-    async submitForm() {
+    async fetchData() {
       try {
-        const formData = new FormData();
-        formData.append('icon', this.formData.icon);
-        formData.append('softwareName', this.formData.softwareName);
-        formData.append('category', this.formData.category);
-        formData.append('minProcessor', this.formData.minProcessor);
-        formData.append('maxProcessor', this.formData.maxProcessor);
-        formData.append('minGpu', this.formData.minGpu);
-        formData.append('maxGpu', this.formData.maxGpu);
-        formData.append('minRam', this.formData.minRam);
-        formData.append('maxRam', this.formData.maxRam);
+        const [categoriesRes, processorsRes, gpusRes, ramsRes] = await Promise.all([
+          axios.get('/api/categories'),
+          axios.get('/api/processors'),
+          axios.get('/api/gpus'),
+          axios.get('/api/rams')
+        ]);
+        this.categories = categoriesRes.data;
+        this.processors = processorsRes.data;
+        this.gpus = gpusRes.data;
+        this.rams = ramsRes.data;
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+      }
+    },
+    async submitForm() {
+      this.isSubmitting = true;
+      this.feedbackMessage = '';
+      this.feedbackClass = '';
 
-        const response = await axios.post('https://your-api-endpoint.com/softwares', formData);
-        console.log('Software cadastrado com sucesso!', response.data);
+      try {
+        const response = await registerSoftware(this.formData);
+        this.showFeedback('Software cadastrado com sucesso!', 'bg-green-500');
+        console.log(response)
       } catch (error) {
         console.error('Erro ao cadastrar o software:', error);
+        this.showFeedback('Erro ao cadastrar o software, tente novamente.', 'bg-red-500');
+      } finally {
+        this.isSubmitting = false;
       }
+    },
+    showFeedback(message, className) {
+      this.feedbackMessage = message;
+      this.feedbackClass = className;
     }
+  },
+  mounted() {
+    this.fetchData();
   }
 };
 </script>
-
-<style scoped>
-.cadastrar-softwares {
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-</style>
