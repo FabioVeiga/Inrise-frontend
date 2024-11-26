@@ -104,6 +104,10 @@ const routes = [
         component: AnaliseFinanceira
       }
     ]
+  },
+  {
+    path: '/:catchAll(.*)', // Essa rota pega qualquer URL não reconhecida
+    redirect: '/adminLogin'  // Redireciona para o login
   }
 ];
 
