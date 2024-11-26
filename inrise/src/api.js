@@ -58,6 +58,8 @@ export async function registerPSU(data) {
   return apiClient.post('/PowerSupply', data, { headers });
 }
 
+
+// Fetch All
 export async function fetchAllRam() {
   const token = getToken();  
   const headers = token ? { 
@@ -81,6 +83,76 @@ export async function fetchAllRam() {
   }
 }
 
+export async function fetchAllPsu() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/PowerSupply', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
+export async function fetchAllGpu() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/VideoBoard', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
+export async function fetchAllMonitor() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MonitorScreen', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
+//Fetch by ID
 
 export function fetchRamById(id) {
   const token = getToken();
@@ -88,6 +160,30 @@ export function fetchRamById(id) {
     'Authorization': `Bearer ${token}`
   } : {};
   return apiClient.get(`/MemoryRam/${id}`, {headers})
+}
+
+export function fetchPsuById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/PowerSupply/${id}`, {headers})
+}
+
+export function fetchGpuById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/VideoBoard/${id}`, {headers})
+}
+
+export function fetchMonitorById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/MonitorScreen/${id}`, {headers})
 }
 
 // Função para buscar a página de destino

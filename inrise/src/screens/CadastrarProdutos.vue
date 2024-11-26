@@ -6,11 +6,13 @@
       <select v-model="productType" id="productType" @change="resetForm" required>
         <option value="ram">Memória RAM</option>
         <option value="fonte">Fonte</option>
+        <option value="monitor">Monitor</option>
         <option value="placaDeVideo">Placa de Vídeo</option>
         <option value="processador">Processador</option>
         <option value="gabinete">Gabinete</option>
         <option value="cooler">Cooler</option>
         <option value="disco">Disco</option>
+        <option value="computador">Computador</option>
       </select>
     </div>
 

@@ -6,11 +6,13 @@
       <select class="px-4 w-40 h-12" v-model="productType" id="productType" @change="loadProducts" required>
         <option value="ram">Memória RAM</option>
         <option value="psu">Fonte</option>
+        <option value="monitor">Monitor</option>
         <option value="placaDeVideo">Placa de Vídeo</option>
         <option value="processador">Processador</option>
         <option value="gabinete">Gabinete</option>
         <option value="cooler">Cooler</option>
         <option value="disco">Disco</option>
+        <option value="computador">Computador</option>
       </select>
     </div>
 
@@ -25,7 +27,7 @@
     </div>
 
     <!-- Exibe os produtos -->
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div v-else class="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       <component v-for="product in products" :key="product.id" :is="getProductComponent()" :product="product"
         :formatCurrency="formatCurrency" />
     </div>
@@ -35,19 +37,25 @@
 <script>
 import { fetchAllRam, fetchRamById } from '../api';
 import { fetchAllPsu, fetchPsuById } from '../api';
-import RamCard from './RamCard.vue';
-import PsuCard from './PsuCard.vue';
+import { fetchAllMonitor, fetchMonitorById } from '../api';
+import { fetchAllGpu, fetchGpuById } from '../api';
+import RamCard from '@/components/productCards/RamCard.vue';
+import PsuCard from '@/components/productCards/PsuCard.vue';
+import GpuCard from '@/components/productCards/GpuCard.vue';
+import MonitorCard from '@/components/productCards/MonitorCard.vue';
 export default {
   name: 'MeusProdutos',
   components: {
     RamCard,
     PsuCard,
+    GpuCard,
+    MonitorCard
   },
   data() {
     return {
       products: [],
       loading: true,
-      productType: 'psu', // Tipo de produto inicial
+      productType: 'ram',
     };
   },
   async created() {
@@ -55,8 +63,8 @@ export default {
   },
   methods: {
     async loadProducts() {
-      this.loading = true; 
-      this.products = []; 
+      this.loading = true;
+      this.products = [];
 
       try {
         let response;
@@ -71,6 +79,14 @@ export default {
           case 'psu':
             response = await fetchAllPsu();
             fetchDetails = fetchPsuById;
+            break;
+          case 'monitor':
+            response = await fetchAllMonitor();
+            fetchDetails = fetchMonitorById;
+            break;
+          case 'placaDeVideo':
+            response = await fetchAllGpu();
+            fetchDetails = fetchGpuById;
             break;
 
           default:
@@ -121,6 +137,10 @@ export default {
           return 'RamCard';
         case 'psu':
           return 'PsuCard';
+        case 'monitor':
+          return 'MonitorCard';
+        case 'placaDeVideo':
+          return 'GpuCard';
         default:
           return null;
       }
