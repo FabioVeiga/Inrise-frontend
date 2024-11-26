@@ -10,7 +10,7 @@
           <ul>
             <li><router-link to="/admin/meusProdutos" class="nav-button">Meus Produtos</router-link></li>
             <li><router-link to="/admin/cadastrarProdutos" class="nav-button">Cadastrar produtos</router-link></li>
-            <li><router-link to="/admin/computadoresProntos" class="nav-button">Computadores prontos</router-link></li>
+            <!--<li><router-link to="/admin/computadoresProntos" class="nav-button">Computadores prontos</router-link></li>-->
           </ul>
         </div> 
         <!-- Softwares Category -->

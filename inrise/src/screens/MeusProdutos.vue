@@ -16,8 +16,6 @@
       </select>
     </div>
 
-
-
     <div v-if="products.length === 0 && !loading" class="text-center text-xl text-gray-500">
       <p>Não há produtos cadastrados.</p>
     </div>
@@ -28,8 +26,35 @@
 
     <!-- Exibe os produtos -->
     <div v-else class="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <component v-for="product in products" :key="product.id" :is="getProductComponent()" :product="product"
-        :formatCurrency="formatCurrency" />
+      <component 
+        v-for="product in products" 
+        :key="product.id" 
+        :is="getProductComponent()" 
+        :product="product"
+        :formatCurrency="formatCurrency"
+        @edit-product="openEditModal" 
+      />
+    </div>
+
+    <!-- Modal de Edição -->
+    <div v-if="isEditModalOpen" class="modal-overlay">
+      <div class="modal-content">
+        <h2 class="text-2xl font-bold mb-4">Editar Produto</h2>
+        <form @submit.prevent="saveProduct">
+          <label for="productName">Nome do Produto:</label>
+          <input v-model="editableProduct.name" id="productName" type="text" required />
+
+          <label for="productPrice">Preço:</label>
+          <input v-model="editableProduct.price" id="productPrice" type="number" step="0.01" required />
+
+          <label for="productCapacity">Capacidade:</label>
+          <input v-model="editableProduct.capacity" id="productCapacity" type="number" required />
+
+          <!-- Outros campos conforme o tipo de produto -->
+          <button type="submit">Salvar</button>
+          <button @click="closeEditModal">Cancelar</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +98,8 @@ export default {
       products: [],
       loading: true,
       productType: 'ram',
+      isEditModalOpen: false,  // Controle do modal
+      editableProduct: {} // Produto a ser editado
     };
   },
   async created() {
@@ -142,7 +169,7 @@ export default {
 
           if (productDetails && productDetails.data) {
             product.name = productDetails.data.data.name;
-            product.price = productDetails.data.data.price.finalPrice;
+            product.price = productDetails.data.data.price;
             switch (this.productType) {
               case 'ram':
                 product.capacity = productDetails.data.data.capacity;
@@ -197,8 +224,25 @@ export default {
         default:
           return null;
       }
+    },
+    openEditModal(product) {
+      this.editableProduct = { ...product }; // Cria uma cópia do produto a ser editado
+      this.isEditModalOpen = true;
+    },
+    closeEditModal() {
+      this.isEditModalOpen = false;
+    },
+    saveProduct() {
+      // Aqui você pode adicionar a lógica para salvar o produto, por exemplo, enviar para a API
+      // Após salvar, atualiza o produto na lista
+      const index = this.products.findIndex(p => p.id === this.editableProduct.id);
+      if (index !== -1) {
+        this.products[index] = this.editableProduct; // Atualiza o produto na lista
+      }
+      this.closeEditModal();
+      location.reload()
     }
-  },
+  }
 };
 </script>
 
@@ -212,5 +256,38 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 8px;
+}
+
+/* Estilos do Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
 }
 </style>

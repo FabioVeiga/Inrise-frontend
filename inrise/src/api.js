@@ -347,6 +347,25 @@ export function fetchPCById(id) {
   return apiClient.get(`/Computer/${id}`, {headers})
 }
 
+//Put by ID
+
+export async function editRam(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/MemoryRam/${id}`, data, { headers });
+    return response.data; 
+  } catch (error) {
+    console.error('Erro ao editar a memória RAM:', error);
+    throw new Error('Erro ao editar a memória RAM');
+  }
+}
+
+
 export function fetchLandingPage() {
   return apiClient.get('/LandingPage');
 }
