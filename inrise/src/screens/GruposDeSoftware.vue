@@ -10,8 +10,14 @@
       >
         {{ category.name }}
       </button>
+
+      <!-- Indicador de carregamento -->
+      <div v-if="category.isLoading" class="mt-3 text-center">
+        <span>Carregando...</span>
+      </div>
+
       <!-- Tabela de Softwares (collapsable) -->
-      <div v-if="category.isOpen" class="mt-3">
+      <div v-if="category.isOpen && category.softwares" class="mt-3">
         <table class="w-full border-collapse">
           <thead>
             <tr class="bg-gray-200">
@@ -69,16 +75,16 @@ export default {
         software.videoBoardIdeal = maxGpu.data;
         software.memoryRamMin = minRam.data;
         software.memoryRamIdeal = maxRam.data;
-        console.log("Sofiti",software.memoryRamIdeal)
       } catch (error) {
         console.error('Erro ao carregar detalhes dos componentes para o software', software.id, error);
       }
     },
 
     async toggleCategory(categoryId) {
-      const category = this.categories[categoryId]; 
+      const category = this.categories[categoryId];
 
-      if (!category.softwares) {
+      if (!category.softwares && !category.isLoading) {
+        category.isLoading = true;
         try {
           const softwaresRes = await fetchAllSoftware(categoryId);
           category.softwares = softwaresRes.data.items.filter(software => software.categoryId === categoryId);
@@ -86,12 +92,16 @@ export default {
           for (let software of category.softwares) {
             await this.fetchSoftwareDetails(software);
           }
+          
+          category.isOpen = true;
         } catch (error) {
           console.error('Erro ao carregar softwares da categoria', categoryId, error);
+        } finally {
+          category.isLoading = false; 
         }
+      } else if (category.softwares) {
+        category.isOpen = !category.isOpen;
       }
-
-      category.isOpen = !category.isOpen;
     },
 
     async fetchCategories() {
