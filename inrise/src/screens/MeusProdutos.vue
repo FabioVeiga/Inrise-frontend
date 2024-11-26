@@ -1,6 +1,6 @@
 <template>
-  <div class="meus-produtos flex flex-col py-8 px-4">
-    <h1 class="text-3xl font-bold text-center mb-6">Meus Produtos</h1>
+  <div class="meus-produtos flex flex-col">
+    <h1 class="text-4xl font-bold my-8">Meus Produtos</h1>
 
     <div class="form-group my-8">
       <select class="px-4 w-40 h-12" v-model="productType" id="productType" @change="loadProducts" required>
@@ -98,8 +98,8 @@ export default {
       products: [],
       loading: true,
       productType: 'ram',
-      isEditModalOpen: false,  // Controle do modal
-      editableProduct: {} // Produto a ser editado
+      isEditModalOpen: false,  
+      editableProduct: {}
     };
   },
   async created() {
@@ -226,18 +226,16 @@ export default {
       }
     },
     openEditModal(product) {
-      this.editableProduct = { ...product }; // Cria uma cópia do produto a ser editado
+      this.editableProduct = { ...product }
       this.isEditModalOpen = true;
     },
     closeEditModal() {
       this.isEditModalOpen = false;
     },
     saveProduct() {
-      // Aqui você pode adicionar a lógica para salvar o produto, por exemplo, enviar para a API
-      // Após salvar, atualiza o produto na lista
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
-        this.products[index] = this.editableProduct; // Atualiza o produto na lista
+        this.products[index] = this.editableProduct;
       }
       this.closeEditModal();
       location.reload()

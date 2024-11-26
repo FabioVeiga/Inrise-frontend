@@ -1,6 +1,6 @@
 <template>
-  <div class="create-category-container flex flex-col justify-center items-center min-h-[400px]">
-    <h2 class="text-2xl font-bold mb-4">Criar Categoria de Software</h2>
+  <div class="create-category-container flex flex-col justify-start items-center min-h-[400px]">
+    <h2 class="text-4xl font-bold my-8">Criar Categoria de Software</h2>
 
     <form @submit.prevent="submitCategory" class="space-y-4">
       <div class="form-group flex flex-col justify-between items-center">

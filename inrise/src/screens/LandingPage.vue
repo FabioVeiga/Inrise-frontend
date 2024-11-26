@@ -312,7 +312,6 @@
 
 
 <script>
-//import axios from 'axios';
 import FaqCard from '../components/FaqCard.vue';
 import { submitLandingPage, fetchLandingPage } from '@/api';
 

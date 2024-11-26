@@ -1,6 +1,6 @@
 import axios from 'axios';
 const getToken = () => {
-  return localStorage.getItem('authToken');  // ou sessionStorage.getItem('token');
+  return localStorage.getItem('authToken');
 };
 
 const apiClient = axios.create({
@@ -14,7 +14,7 @@ const apiClient = axios.create({
 export function registerUser(data) {
   return apiClient.post('/register', data);
 }
-
+//@TODO: Organizar esse arquivo pra ficar bonitinho, os fetch by id, grupo, etc juntos
 export async function registerSoftware(data) {
   const token = getToken();
   const headers = token ? {
@@ -128,7 +128,7 @@ export async function registerPSU(data) {
 }
 
 
-// Fetch All
+//Fetch All
 export async function fetchAllRam() {
   const token = getToken();
   const headers = token ? {

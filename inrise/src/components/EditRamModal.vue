@@ -120,7 +120,7 @@
 
 <script>
 import { editRam } from '@/api';
-//TODO: Adicionar o alerta ao fazer a req com sucesso
+//@TODO: Adicionar o alerta ao fazer a req com sucesso
 export default {
   name: 'EditRamModal',
   props: {

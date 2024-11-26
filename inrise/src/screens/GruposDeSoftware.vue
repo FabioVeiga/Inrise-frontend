@@ -1,6 +1,6 @@
 <template>
-  <div class="grupos-de-software p-5">
-    <h1 class="text-2xl font-bold mb-4">Grupos de Software</h1>
+  <div class="grupos-de-software">
+    <h1 class="text-4xl font-bold my-8">Grupos de Software</h1>
 
     <div v-for="(category, categoryId) in categories" :key="categoryId" class="mb-5">
       <!-- Header da Categoria -->

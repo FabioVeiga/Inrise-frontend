@@ -57,10 +57,8 @@
     },
     methods: {
       registerUser() {
-        // Aqui você pode fazer a requisição PUT para o backend
         console.log('Dados do usuário:', this.user);
   
-        // Exemplo de requisição PUT usando fetch
         fetch('/User', {
           method: 'PUT',
           headers: {

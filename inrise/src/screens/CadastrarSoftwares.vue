@@ -1,6 +1,6 @@
 <template>
   <div class="cadastrar-softwares">
-    <h1 class="text-xl font-bold mb-4">Cadastrar Softwares</h1>
+    <h1 class="text-4xl font-bold my-8">Cadastrar Softwares</h1>
 
     <!-- Formulário de cadastro de software -->
     <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -109,7 +109,7 @@
 <script>
 import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor, fetchSoftwareGroup } from '@/api';
 import { registerSoftware } from '@/api';
-//TODO: Ver como é feito nos outros codigos e adicionar uma espera antes de carregar os dados
+//@TODO: Ver como é feito nos outros codigos e adicionar uma espera antes de carregar os dados
 export default {
   name: 'CadastrarSoftwares',
   data() {
@@ -127,7 +127,7 @@ export default {
       isSubmitting: false,
       feedbackMessage: '',
       feedbackClass: '',
-      categories: [], // Inicializamos como array vazio
+      categories: [],
       processors: [],
       gpus: [],
       rams: [],

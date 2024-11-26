@@ -62,13 +62,9 @@ export default {
         console.log('Login realizado com sucesso:', response.data);
 
         const token = response.data.data.acessToken.token;
-        //const expiresIn = response.data.data.acessToken.expiredIn;
         const expiresIn = 10800
-
-        console.log("Login token", token)
-        console.log("expiration",expiresIn)
-        //se quiser dar undefined proposital
-        //localStorage.setItem('authToken', response.token);
+        console.log("Login token:", token)
+        console.log("Expiration:",expiresIn)     
         localStorage.setItem('authToken', token);
         localStorage.setItem('tokenExpiry', new Date(expiresIn).getTime());
         this.$router.push('/admin');

@@ -92,7 +92,7 @@
       };
     },
     async created() {
-      const productId = this.$route.params.productId; // Obtém o ID do produto a partir da URL
+      const productId = this.$route.params.productId;
       await this.loadProductDetails(productId);
     },
     methods: {
@@ -122,7 +122,7 @@
           const response = await editRam(this.formData);
           console.log('Memória RAM atualizada com sucesso!', response);
           alert('Produto atualizado com sucesso!');
-          this.$router.push({ name: 'meusProdutos' }); // Redireciona de volta para a lista de produtos
+          this.$router.push({ name: 'meusProdutos' });
         } catch (error) {
           console.error('Erro ao atualizar memória RAM:', error);
           alert('Erro ao atualizar produto!');

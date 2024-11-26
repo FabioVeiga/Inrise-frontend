@@ -1,6 +1,6 @@
 <template>
   <div class="cadastrar-produtos">
-    <h1 class=" text-4xl font-bold">Cadastrar Produto</h1>
+    <h1 class="text-4xl font-bold my-8">Cadastrar Produto</h1>
     
     <div class="form-group my-8">
       <select v-model="productType" id="productType" @change="resetForm" required>
