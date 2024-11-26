@@ -4,11 +4,11 @@
 
     <!-- Formulário de cadastro de software -->
     <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Ícone -->
+      <!-- Ícone
       <div class="form-group col-span-1 md:col-span-2">
         <label for="icon" class="block mb-1 font-semibold">Ícone do Software</label>
         <input type="file" id="icon" @change="handleIconUpload" class="w-full border p-2" />
-      </div>
+      </div> -->
 
       <!-- Nome do Software -->
       <div class="form-group">
@@ -109,7 +109,7 @@
 <script>
 import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor, fetchSoftwareGroup } from '@/api';
 import { registerSoftware } from '@/api';
-
+//TODO: Ver como é feito nos outros codigos e adicionar uma espera antes de carregar os dados
 export default {
   name: 'CadastrarSoftwares',
   data() {
