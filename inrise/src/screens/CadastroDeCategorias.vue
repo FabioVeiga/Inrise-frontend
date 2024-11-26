@@ -1,68 +1,86 @@
 <template>
-  <div class="cadastro-de-categorias">
-    <h1>Cadastro de Categorias</h1>
+  <div class="create-category-container">
+    <div class="modal-overlay" v-if="isModalOpen">
+      <div class="modal-content">
+        <h2 class="text-2xl font-bold mb-4">Criar Categoria de Software</h2>
 
-    <!-- Formulário para cadastrar nova categoria -->
-    <form @submit.prevent="submitForm">
-      <!-- Nome da Categoria -->
-      <div class="form-group">
-        <label for="categoryName">Nome da Categoria</label>
-        <input type="text" v-model="formData.categoryName" id="categoryName" required />
+        <!-- Formulário para criar a categoria -->
+        <form @submit.prevent="submitCategory" class="space-y-4">
+          <div class="form-group">
+            <label for="categoryName" class="block mb-2 font-semibold">Nome da Categoria</label>
+            <input
+              v-model="categoryName"
+              id="categoryName"
+              type="text"
+              placeholder="Digite o nome da categoria"
+              required
+              class="w-full border p-2"
+            />
+          </div>
+
+          <!-- Botões -->
+          <div class="flex space-x-4">
+            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+              Criar Categoria
+            </button>
+            <button type="button" @click="closeModal" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400">
+              Cancelar
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <!-- Seleção de Softwares -->
-      <div class="form-group">
-        <label for="softwares">Selecione os Softwares</label>
-        <select v-model="formData.selectedSoftwares" id="softwares" multiple>
-          <option v-for="software in softwares" :key="software.id" :value="software.id">
-            {{ software.softwareName }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Botão de salvar -->
-      <button type="submit">Salvar Categoria</button>
-    </form>
+    <!-- Botão para abrir o modal -->
+    <div class="text-center mt-6">
+      <button
+        @click="openModal"
+        class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
+      >
+        Criar Nova Categoria
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { registerSoftwareGroup } from '@/api'; // Importe a função que envia os dados para o backend.
 
 export default {
   name: 'CadastroDeCategorias',
   data() {
     return {
-      softwares: [], // Lista de softwares para seleção
-      formData: {
-        categoryName: '',
-        selectedSoftwares: [] // Armazena os IDs dos softwares selecionados
-      }
+      categoryName: '', // Nome da categoria a ser criada
+      isModalOpen: false, // Controla a visibilidade do modal
     };
   },
-  created() {
-    this.fetchSoftwares(); // Carrega os softwares cadastrados ao montar o componente
-  },
   methods: {
-    async fetchSoftwares() {
-      try {
-        const response = await axios.get('https://your-api-endpoint.com/softwares');
-        this.softwares = response.data;
-      } catch (error) {
-        console.error('Erro ao carregar softwares:', error);
-      }
+    openModal() {
+      this.isModalOpen = true;
     },
-    async submitForm() {
-      try {
-        const payload = {
-          categoryName: this.formData.categoryName,
-          softwareIds: this.formData.selectedSoftwares
-        };
+    closeModal() {
+      this.isModalOpen = false;
+      this.categoryName = ''; // Limpa o campo de input ao fechar o modal
+    },
+    async submitCategory() {
+      if (!this.categoryName.trim()) {
+        alert("Por favor, insira um nome para a categoria.");
+        return;
+      }
 
-        const response = await axios.post('https://your-api-endpoint.com/categories', payload);
-        console.log('Categoria cadastrada com sucesso!', response.data);
+      try {
+        const newCategory = { name: this.categoryName };
+        // Envia os dados para o backend, através da API
+        const response = await registerSoftwareGroup(newCategory);
+
+        console.log('Categoria criada com sucesso!', response);
+        this.$emit('category-created', response.data); // Emite o evento para o pai
+
+        // Fecha o modal e limpa o campo
+        this.closeModal();
       } catch (error) {
-        console.error('Erro ao cadastrar categoria:', error);
+        console.error('Erro ao criar categoria:', error);
+        alert('Erro ao criar categoria. Tente novamente.');
       }
     }
   }
@@ -70,29 +88,49 @@ export default {
 </script>
 
 <style scoped>
-.cadastro-de-categorias {
+/* Estilos do Modal */
+.create-category-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
   padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-select[multiple] {
-  width: 100%;
-  height: 150px;
-  padding: 8px;
+  border-radius: 8px;
+  width: 400px;
 }
 
 button {
-  background-color: #007bff;
-  color: white;
   padding: 10px 20px;
+  margin: 5px;
+  background-color: #4CAF50;
+  color: white;
   border: none;
-  cursor: pointer;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
+}
+
+button[type="button"] {
+  background-color: #ccc;
+}
+
+button[type="button"]:hover {
+  background-color: #bbb;
 }
 </style>

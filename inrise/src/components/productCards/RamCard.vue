@@ -21,6 +21,7 @@
 </template>
 
 <script>
+//@TODO:Preço atualizando em real-time
 import EditRamModal from '@/components/EditRamModal.vue';
 
 export default {

@@ -4,10 +4,10 @@ const getToken = () => {
 };
 
 const apiClient = axios.create({
-  baseURL: 'https://apiinriseservice.azurewebsites.net/',  
+  baseURL: 'https://apiinriseservice.azurewebsites.net/',
   headers: {
     'Content-Type': 'application/json',
-    'secret': 'naf9uafjh_+mcdsaIFD023', 
+    'secret': 'naf9uafjh_+mcdsaIFD023',
   },
 });
 
@@ -16,9 +16,12 @@ export function registerUser(data) {
 }
 
 export async function registerSoftware(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
   try {
     const formData = new FormData();
-    formData.append('icon', data.icon); // Adicionando o arquivo de ícone
     formData.append('name', data.name);
     formData.append('categoryId', data.categoryId);
     formData.append('processadorMinId', data.processadorMinId);
@@ -28,11 +31,7 @@ export async function registerSoftware(data) {
     formData.append('memoryRamMinId', data.memoryRamMinId);
     formData.append('memoryRamIdealId', data.memoryRamIdealId);
 
-    const response = await apiClient.post('/softwares', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data' // Necessário para enviar FormData com arquivos
-      }
-    });
+    const response = await apiClient.post('/Software', formData, { headers });
     return response.data;
   } catch (error) {
     console.error('Erro ao cadastrar o software:', error);
@@ -40,9 +39,41 @@ export async function registerSoftware(data) {
   }
 }
 
+export async function registerSoftwareGroup(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  try {
+    const formData = new FormData();
+    formData.append('name', data.name);
+
+    const response = await apiClient.post('/Category', formData, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao cadastrar o software:', error);
+    throw new Error('Erro ao cadastrar o software');
+  }
+}
+
+export async function fetchSoftwareGroup() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  try {
+    const response = await apiClient.get('/Category', { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter as categorias de software:', error);
+    throw new Error('Erro ao obter as categorias de software');
+  }
+
+}
+
 export async function registerRam(data) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -51,7 +82,7 @@ export async function registerRam(data) {
 
 export async function registerPSU(data) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -61,8 +92,8 @@ export async function registerPSU(data) {
 
 // Fetch All
 export async function fetchAllRam() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -70,13 +101,13 @@ export async function fetchAllRam() {
     const response = await apiClient.get('/MemoryRam', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as memórias RAM:', error);
     throw new Error('Erro ao buscar as memórias RAM');
@@ -84,8 +115,8 @@ export async function fetchAllRam() {
 }
 
 export async function fetchAllPsu() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -93,13 +124,13 @@ export async function fetchAllPsu() {
     const response = await apiClient.get('/PowerSupply', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -107,8 +138,8 @@ export async function fetchAllPsu() {
 }
 
 export async function fetchAllMonitor() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -116,13 +147,13 @@ export async function fetchAllMonitor() {
     const response = await apiClient.get('/MonitorScreen', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -130,8 +161,8 @@ export async function fetchAllMonitor() {
 }
 
 export async function fetchAllGpu() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -139,13 +170,13 @@ export async function fetchAllGpu() {
     const response = await apiClient.get('/VideoBoard', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -154,8 +185,8 @@ export async function fetchAllGpu() {
 
 
 export async function fetchAllCpu() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -163,13 +194,13 @@ export async function fetchAllCpu() {
     const response = await apiClient.get('/Processor', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -178,8 +209,8 @@ export async function fetchAllCpu() {
 
 
 export async function fetchAllTower() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -187,13 +218,13 @@ export async function fetchAllTower() {
     const response = await apiClient.get('/Tower', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -202,8 +233,8 @@ export async function fetchAllTower() {
 
 
 export async function fetchAllCooler() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -211,13 +242,13 @@ export async function fetchAllCooler() {
     const response = await apiClient.get('/Cooler', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -226,8 +257,8 @@ export async function fetchAllCooler() {
 
 
 export async function fetchAllStorage() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -235,13 +266,13 @@ export async function fetchAllStorage() {
     const response = await apiClient.get('/MemoryRom', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -250,8 +281,8 @@ export async function fetchAllStorage() {
 
 
 export async function fetchAllPC() {
-  const token = getToken();  
-  const headers = token ? { 
+  const token = getToken();
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
@@ -259,13 +290,13 @@ export async function fetchAllPC() {
     const response = await apiClient.get('/Computer', {
       headers,
       params: {
-        "Pagination.PageIndex": 1,   
-        "Pagination.PageSize": 99, 
-      
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
       }
     });
 
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar as fontes:', error);
     throw new Error('Erro ao buscar as fontes');
@@ -277,74 +308,74 @@ export async function fetchAllPC() {
 
 export function fetchRamById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/MemoryRam/${id}`, {headers})
+  return apiClient.get(`/MemoryRam/${id}`, { headers })
 }
 
 export function fetchPsuById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/PowerSupply/${id}`, {headers})
+  return apiClient.get(`/PowerSupply/${id}`, { headers })
 }
 
 export function fetchGpuById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/VideoBoard/${id}`, {headers})
+  return apiClient.get(`/VideoBoard/${id}`, { headers })
 }
 
 export function fetchMonitorById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/MonitorScreen/${id}`, {headers})
+  return apiClient.get(`/MonitorScreen/${id}`, { headers })
 }
 
 export function fetchCpuById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/Processor/${id}`, {headers})
+  return apiClient.get(`/Processor/${id}`, { headers })
 }
 
 export function fetchTowerById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/Tower/${id}`, {headers})
+  return apiClient.get(`/Tower/${id}`, { headers })
 }
 
 export function fetchCoolerById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/Cooler/${id}`, {headers})
+  return apiClient.get(`/Cooler/${id}`, { headers })
 }
 
 export function fetchStorageById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/MemoryRom/${id}`, {headers})
+  return apiClient.get(`/MemoryRom/${id}`, { headers })
 }
 
 export function fetchPCById(id) {
   const token = getToken();
-  const headers = token ? { 
+  const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  return apiClient.get(`/Computer/${id}`, {headers})
+  return apiClient.get(`/Computer/${id}`, { headers })
 }
 
 //Put by ID
@@ -358,7 +389,7 @@ export async function editRam(id, data) {
 
   try {
     const response = await apiClient.put(`/MemoryRam/${id}`, data, { headers });
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error('Erro ao editar a memória RAM:', error);
     throw new Error('Erro ao editar a memória RAM');

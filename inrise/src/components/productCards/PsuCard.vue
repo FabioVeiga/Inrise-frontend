@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  //@TODO: ajeitar a prop de preço nesse card e nos outros
   name: 'PsuCard',
   props: {
     product: Object,

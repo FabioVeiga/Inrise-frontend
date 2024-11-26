@@ -107,7 +107,7 @@
 
 <script>
 import { registerRam } from '@/api';
-
+//@TODO: Cálculo do preço baseado nos impostos e descontos
 export default {
   name: 'CadastroRam',
   data() {
