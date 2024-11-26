@@ -21,7 +21,7 @@
         <label for="category" class="block mb-1 font-semibold">Categoria</label>
         <select v-model="formData.categoryId" id="category" required class="w-full border p-2">
           <option value="" disabled>Selecione uma categoria</option>
-          <option v-for="category in categories" :key="category.id" :value="category.id">
+          <option v-for="category in categories.items" :key="category.id" :value="category.id">
             {{ category.name }}
           </option>
         </select>
@@ -32,7 +32,7 @@
         <label for="processadorMin" class="block mb-1 font-semibold">Requisito Mínimo - Processador</label>
         <select v-model="formData.processadorMinId" id="processadorMin" required class="w-full border p-2">
           <option value="" disabled>Selecione um processador</option>
-          <option v-for="processor in items.processors.items" :key="processor.id" :value="processor.id">
+          <option v-for="processor in processors.items" :key="processor.id" :value="processor.id">
             {{ processor.name }}
           </option>
         </select>
@@ -42,7 +42,7 @@
         <label for="processadorIdeal" class="block mb-1 font-semibold">Requisito Ideal - Processador</label>
         <select v-model="formData.processadorIdealId" id="processadorIdeal" required class="w-full border p-2">
           <option value="" disabled>Selecione um processador ideal</option>
-          <option v-for="processor in items.processors.items" :key="processor.id" :value="processor.id">
+          <option v-for="processor in processors.items" :key="processor.id" :value="processor.id">
             {{ processor.name }}
           </option>
         </select>
@@ -53,7 +53,7 @@
         <label for="videoBoardMin" class="block mb-1 font-semibold">Requisito Mínimo - GPU</label>
         <select v-model="formData.videoBoardMinId" id="videoBoardMin" required class="w-full border p-2">
           <option value="" disabled>Selecione uma GPU</option>
-          <option v-for="gpu in items.gpus.items" :key="gpu.id" :value="gpu.id">
+          <option v-for="gpu in gpus.items" :key="gpu.id" :value="gpu.id">
             {{ gpu.name }}
           </option>
         </select>
@@ -63,7 +63,7 @@
         <label for="videoBoardIdeal" class="block mb-1 font-semibold">Requisito Ideal - GPU</label>
         <select v-model="formData.videoBoardIdealId" id="videoBoardIdeal" required class="w-full border p-2">
           <option value="" disabled>Selecione uma GPU ideal</option>
-          <option v-for="gpu in items.gpus.items" :key="gpu.id" :value="gpu.id">
+          <option v-for="gpu in gpus.items" :key="gpu.id" :value="gpu.id">
             {{ gpu.name }}
           </option>
         </select>
@@ -74,7 +74,7 @@
         <label for="memoryRamMin" class="block mb-1 font-semibold">Requisito Mínimo - RAM</label>
         <select v-model="formData.memoryRamMinId" id="memoryRamMin" required class="w-full border p-2">
           <option value="" disabled>Selecione a RAM mínima</option>
-          <option v-for="ram in items.rams.items" :key="ram.id" :value="ram.id">
+          <option v-for="ram in rams.items" :key="ram.id" :value="ram.id">
             {{ ram.name }}
           </option>
         </select>
@@ -84,7 +84,7 @@
         <label for="memoryRamIdeal" class="block mb-1 font-semibold">Requisito Ideal - RAM</label>
         <select v-model="formData.memoryRamIdealId" id="memoryRamIdeal" required class="w-full border p-2">
           <option value="" disabled>Selecione a RAM ideal</option>
-          <option v-for="ram in items.rams.items" :key="ram.id" :value="ram.id">
+          <option v-for="ram in rams.items" :key="ram.id" :value="ram.id">
             {{ ram.name }}
           </option>
         </select>
@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor } from '@/api';
+import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor, fetchSoftwareGroup } from '@/api';
 import { registerSoftware } from '@/api';
 
 export default {
@@ -127,39 +127,40 @@ export default {
       isSubmitting: false,
       feedbackMessage: '',
       feedbackClass: '',
-      categories: [],
-      items: { // Contém todos os itens como processadores, gpus, rams, etc.
-        processors: [],
-        gpus: [],
-        rams: [],
-        storage: [],
-        towers: [],
-        monitors: []
-      }
+      categories: [], // Inicializamos como array vazio
+      processors: [],
+      gpus: [],
+      rams: [],
+      storage: [],
+      towers: [],
+      monitors: []
+
     };
   },
   methods: {
     handleIconUpload(event) {
       this.formData.icon = event.target.files[0];
     },
+    //@TODO: Limpar esse this.items.x.items, mt bagunçado, tirar o primeiro items
     async fetchData() {
       try {
-        const [processorsRes, gpusRes, ramsRes, storageRes, towersRes, monitorsRes] = await Promise.all([
+        const [processorsRes, gpusRes, ramsRes, storageRes, towersRes, monitorsRes, categoriesRes] = await Promise.all([
           fetchAllCpu(),
           fetchAllGpu(),
           fetchAllRam(),
           fetchAllStorage(),
           fetchAllTower(),
-          fetchAllMonitor()
+          fetchAllMonitor(),
+          fetchSoftwareGroup() 
         ]);
-        this.items.processors = processorsRes.data;
-        this.items.gpus = gpusRes.data;
-        this.items.rams = ramsRes.data;
-        this.items.storage = storageRes.data;
-        this.items.towers = towersRes.data;
-        this.items.monitors = monitorsRes.data;
-        console.log(this.items)
-        this.categories = [{ id: 1, name: 'Categoria 1' }, { id: 2, name: 'Categoria 2' }];
+        this.processors = processorsRes.data;
+        this.gpus = gpusRes.data;
+        this.rams = ramsRes.data;
+        this.storage = storageRes.data;
+        this.towers = towersRes.data;
+        this.monitors = monitorsRes.data;
+        this.categories = categoriesRes.data; 
+        console.log(this.categories)
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
       }
@@ -170,7 +171,7 @@ export default {
       this.feedbackClass = '';
 
       try {
-        await registerSoftware(this.formData);  
+        await registerSoftware(this.formData);
         this.showFeedback('Software cadastrado com sucesso!', 'bg-green-500');
       } catch (error) {
         console.error('Erro ao cadastrar o software:', error);

@@ -62,7 +62,14 @@ export async function fetchSoftwareGroup() {
     'Authorization': `Bearer ${token}`
   } : {};
   try {
-    const response = await apiClient.get('/Category', { headers });
+    const response = await apiClient.get('/Category', {
+      headers, 
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Erro ao obter as categorias de software:', error);
