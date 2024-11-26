@@ -39,17 +39,34 @@ import { fetchAllRam, fetchRamById } from '../api';
 import { fetchAllPsu, fetchPsuById } from '../api';
 import { fetchAllMonitor, fetchMonitorById } from '../api';
 import { fetchAllGpu, fetchGpuById } from '../api';
+import { fetchAllCpu, fetchCpuById } from '../api';
+import { fetchAllTower, fetchTowerById } from '../api';
+import { fetchAllCooler, fetchCoolerById } from '../api';
+import { fetchAllStorage, fetchStorageById } from '../api';
+import { fetchAllPC, fetchPCById } from '../api';
+
 import RamCard from '@/components/productCards/RamCard.vue';
 import PsuCard from '@/components/productCards/PsuCard.vue';
 import GpuCard from '@/components/productCards/GpuCard.vue';
 import MonitorCard from '@/components/productCards/MonitorCard.vue';
+import CpuCard from '@/components/productCards/CpuCard.vue';
+import TowerCard from '@/components/productCards/TowerCard.vue';
+import CoolerCard from '@/components/productCards/CoolerCard.vue';
+import StorageCard from '@/components/productCards/StorageCard.vue';
+import ComputerCard from '@/components/productCards/ComputerCard.vue';
+
 export default {
   name: 'MeusProdutos',
   components: {
     RamCard,
     PsuCard,
     GpuCard,
-    MonitorCard
+    MonitorCard,
+    CpuCard,
+    TowerCard,
+    CoolerCard,
+    StorageCard,
+    ComputerCard
   },
   data() {
     return {
@@ -80,19 +97,45 @@ export default {
             response = await fetchAllPsu();
             fetchDetails = fetchPsuById;
             break;
+
           case 'monitor':
             response = await fetchAllMonitor();
             fetchDetails = fetchMonitorById;
             break;
+
           case 'placaDeVideo':
             response = await fetchAllGpu();
             fetchDetails = fetchGpuById;
             break;
 
+          case 'processador':
+            response = await fetchAllCpu();
+            fetchDetails = fetchCpuById;
+            break;
+
+          case 'gabinete':
+            response = await fetchAllTower();
+            fetchDetails = fetchTowerById;
+            break;
+
+          case 'cooler':
+            response = await fetchAllCooler();
+            fetchDetails = fetchCoolerById;
+            break;
+
+          case 'disco':
+            response = await fetchAllStorage();
+            fetchDetails = fetchStorageById;
+            break;
+
+          case 'computador':
+            response = await fetchAllPC();
+            fetchDetails = fetchPCById;
+            break;
+
           default:
             throw new Error('Tipo de produto não suportado');
         }
-
         const products = response.data.items;
         for (let product of products) {
           const productDetails = await fetchDetails(product.id);
@@ -141,6 +184,16 @@ export default {
           return 'MonitorCard';
         case 'placaDeVideo':
           return 'GpuCard';
+        case 'processador':
+          return 'CpuCard';
+        case 'gabinete':
+          return 'TowerCard';
+        case 'cooler':
+          return 'CoolerCard';
+        case 'disco':
+          return 'StorageCard';
+        case 'computador':
+          return 'PCCard';
         default:
           return null;
       }

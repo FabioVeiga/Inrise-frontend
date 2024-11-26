@@ -106,6 +106,29 @@ export async function fetchAllPsu() {
   }
 }
 
+export async function fetchAllMonitor() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MonitorScreen', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
 export async function fetchAllGpu() {
   const token = getToken();  
   const headers = token ? { 
@@ -129,14 +152,15 @@ export async function fetchAllGpu() {
   }
 }
 
-export async function fetchAllMonitor() {
+
+export async function fetchAllCpu() {
   const token = getToken();  
   const headers = token ? { 
     'Authorization': `Bearer ${token}`
   } : {};
 
   try {
-    const response = await apiClient.get('/MonitorScreen', {
+    const response = await apiClient.get('/Processor', {
       headers,
       params: {
         "Pagination.PageIndex": 1,   
@@ -151,6 +175,103 @@ export async function fetchAllMonitor() {
     throw new Error('Erro ao buscar as fontes');
   }
 }
+
+
+export async function fetchAllTower() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/Tower', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
+
+export async function fetchAllCooler() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/Cooler', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
+
+export async function fetchAllStorage() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MemoryRom', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
+
+export async function fetchAllPC() {
+  const token = getToken();  
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/Computer', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,   
+        "Pagination.PageSize": 99, 
+      
+      }
+    });
+
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao buscar as fontes:', error);
+    throw new Error('Erro ao buscar as fontes');
+  }
+}
+
 
 //Fetch by ID
 
@@ -186,7 +307,46 @@ export function fetchMonitorById(id) {
   return apiClient.get(`/MonitorScreen/${id}`, {headers})
 }
 
-// Função para buscar a página de destino
+export function fetchCpuById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Processor/${id}`, {headers})
+}
+
+export function fetchTowerById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Tower/${id}`, {headers})
+}
+
+export function fetchCoolerById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Cooler/${id}`, {headers})
+}
+
+export function fetchStorageById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/MemoryRom/${id}`, {headers})
+}
+
+export function fetchPCById(id) {
+  const token = getToken();
+  const headers = token ? { 
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Computer/${id}`, {headers})
+}
+
 export function fetchLandingPage() {
   return apiClient.get('/LandingPage');
 }
