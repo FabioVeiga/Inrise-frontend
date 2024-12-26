@@ -118,6 +118,15 @@ export async function registerRam(data) {
   return apiClient.post('/MemoryRam', data, { headers });
 }
 
+export async function registerRom(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/MemoryRom', data, { headers });
+}
+
 export async function registerPSU(data) {
   const token = getToken();
   const headers = token ? {
@@ -125,6 +134,62 @@ export async function registerPSU(data) {
   } : {};
 
   return apiClient.post('/PowerSupply', data, { headers });
+}
+
+export async function registerMonitor(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/MonitorScreen', data, { headers });
+}
+
+export async function registerMobo(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/MotherBoard', data, { headers });
+
+  
+}
+
+export async function registerCPU(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Processor', data, { headers });
+}
+
+export async function registerGPU(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/VideoBoard', data, { headers });
+}
+
+export async function registerCooler(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Cooler', data, { headers });
+}
+
+export async function registerTower(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Tower', data, { headers });
 }
 
 
