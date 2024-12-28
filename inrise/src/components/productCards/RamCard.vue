@@ -1,60 +1,47 @@
 <template>
-  <div 
-    class="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition duration-200 ease-in-out cursor-pointer"
-    @click="openEditModal"
-  >
-    <h3 class="h-12 mb-4 text-xl font-semibold text-gray-800">{{ product.name }}</h3>
-    <p class="text-gray-600">Socket: {{ product.socket }}</p>
-    <p class="text-gray-600">Frequência: {{ product.frequency }} MHz</p>
-    <p class="text-gray-600">Capacidade: {{ product.capacity }} GB</p>
-    <p v-if="product.price.finalPrice" class="mt-4 text-lg font-bold text-blue-600">Preço: {{ formatCurrency(product.price.finalPrice) }}</p>
-    <p v-else class="mt-4 text-lg text-gray-500">Preço não disponível</p>
-  </div>
-
-  <!-- Modal de Edição -->
-  <EditRamModal 
-    v-if="isEditModalOpen" 
-    :product="editedProduct" 
-    @close="closeEditModal" 
-    @save="saveProduct" 
-  />
+  <ProductCard :product="ramProduct" :formatCurrency="formatCurrency"
+  @delete-product="handleDeleteRam">
+    <template #default="{ product }">
+      <p>Socket: {{ product.socket }}</p>
+      <p>Frequência: {{ product.frequency }} MHz</p>
+      <p>Capacidade: {{ product.capacity }} GB</p>
+    </template>
+  </ProductCard>
 </template>
 
 <script>
-//@TODO:Preço atualizando em real-time
-import EditRamModal from '@/components/EditRamModal.vue';
+import ProductCard from './ProductCard.vue';
+import { deleteRam } from '@/api';
 
 export default {
   name: 'RamCard',
-  props: {
-    product: Object,
-    formatCurrency: Function,
-  },
-  created(){
-    console.log("Edited product in parent:", this.product )
-
+  components: {
+    ProductCard,
   },
   data() {
     return {
-      isEditModalOpen: false,
-      editedProduct: { ...this.product },
-      
+      ramProduct: {
+        id: 1,
+        name: '',
+        socket: '',
+        frequency: 0,
+        capacity: 0,
+        price: { finalPrice: 0 },
+      },
     };
   },
   methods: {
-    openEditModal() {
-      this.isEditModalOpen = true;
+    formatCurrency(value) {
+      return `R$ ${value.toFixed(2)}`;
     },
-    closeEditModal() {
-      this.isEditModalOpen = false;
+    async handleDeleteRam(product) {
+      try {
+        await deleteRam(product.id);
+        alert('Memória RAM excluída com sucesso!');
+      } catch (error) {
+        alert('Erro ao excluir a memória RAM');
+      }
     },
-    saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct);
-      this.closeEditModal();
-    }
   },
-  components: {
-    EditRamModal
-  }
 };
 </script>

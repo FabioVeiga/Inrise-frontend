@@ -226,18 +226,17 @@ export default {
       }
     },
     openEditModal(product) {
-      this.editableProduct = { ...product }; // Cria uma cópia do produto a ser editado
+      this.editableProduct = { ...product }; 
       this.isEditModalOpen = true;
     },
     closeEditModal() {
       this.isEditModalOpen = false;
     },
     saveProduct() {
-      // Aqui você pode adicionar a lógica para salvar o produto, por exemplo, enviar para a API
-      // Após salvar, atualiza o produto na lista
+   
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
-        this.products[index] = this.editableProduct; // Atualiza o produto na lista
+        this.products[index] = this.editableProduct; 
       }
       this.closeEditModal();
       location.reload()
@@ -258,7 +257,6 @@ export default {
   border-radius: 8px;
 }
 
-/* Estilos do Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
