@@ -90,7 +90,7 @@
             <span class="w-auto lg:w-auto text-base whitespace-normal max-w-[80%] lg:text-lg text-[#FFFFFF] mt-4">
               O Beta da InRise é muito mais do que um teste. É a tua chance de ser pioneiro, de experimentar em primeira
               mão os nossos PCs de alto desempenho, projetados especialmente para gamers e profissionais exigentes. As
-              inscrições estarão abertas de 15 a 31 de outubro de 2024, e os players terão acesso a:
+              inscrições estarão abertas de 20 de fevereiro a 06 de março de 2025, e os players terão acesso a:
             </span>
             <span class="w-auto lg:w-auto text-lg text-[#FFFFFF] ml-4 mt-4">
               • Preços exclusivos<br>
@@ -386,7 +386,7 @@ export default {
         { question: 'Quem pode participar?', answer: 'Qualquer pessoa que se inscreva na nossa newsletter e preencha o formulário de inscrição.' },
         { question: 'Preciso pagar para participar?', answer: 'Não, a participação no BETA é gratuita.' },
         { question: 'Quais são os benefícios exclusivos?', answer: 'Acesso a preços especiais, brindes exclusivos, suporte técnico prioritário e a oportunidade de participar em passatempos e contribuir para o desenvolvimento dos nossos produtos.' },
-        { question: 'Quais são as datas importantes?', answer: '• 1 a 15 de outubro: Período de inscrições.<br>• 15 a 30 de outubro: Acesso aos benefícios exclusivos.' },
+        { question: 'Quais são as datas importantes?', answer: '• 20 de fevereiro a 06 de março: Período de inscrições.<br>• 7 a 21 de março: Acesso aos benefícios exclusivos.' },
         { question: 'Como acompanho as atualizações?', answer: 'Através da nossa newsletter, Discord, e redes sociais (Instagram, Facebook, TikTok).' },
         { question: 'O que acontece após a inscrição?', answer: 'Receberás atualizações por e-mail. No início do BETA, terás acesso aos benefícios exclusivos e, após a compra, recolheremos o teu feedback.' },
         { question: 'Quando receberei o meu PC?', answer: 'Após a compra, o PC será enviado no prazo máximo de 10 dias úteis. Receberás atualizações por e-mail.' },
