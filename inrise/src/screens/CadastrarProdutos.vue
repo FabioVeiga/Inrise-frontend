@@ -13,6 +13,8 @@
         <option value="cooler">Cooler</option>
         <option value="disco">Disco</option>
         <option value="computador">Computador</option>
+        <option value="placaMae">Placa Mãe</option>
+
       </select>
     </div>
 
@@ -26,6 +28,8 @@
       <CadastroCooler v-if="productType === 'cooler'" />
       <CadastroDisco v-if="productType === 'disco'" />
       <CadastroPC v-if="productType === 'computador'" />
+      <CadastroMobo v-if="productType === 'placaMae'" />
+
     </div>
   </div>
 </template>
@@ -40,6 +44,7 @@ import CadastroProcessador from './CadastroProcessador.vue';
 import CadastroCooler from './CadastroCooler.vue';
 import CadastroDisco from './CadastroDisco.vue';
 import CadastroPC from './CadastroPC.vue';
+import CadastroMobo from './CadastroMobo.vue';
 
 export default {
   name: 'CadastrarProduto',
@@ -53,6 +58,7 @@ export default {
     CadastroCooler,
     CadastroDisco,
     CadastroPC,
+    CadastroMobo
   },
   data() {
     return {
