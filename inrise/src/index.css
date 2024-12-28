@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.no-scroll {
+    overflow: hidden; /* Bloqueia o scroll da página */
+    height: 100vh;
+  }
