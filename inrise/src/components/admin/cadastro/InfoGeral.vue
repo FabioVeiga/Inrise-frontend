@@ -98,7 +98,6 @@
       },
     },
     computed: {
-      // Retorna os valores de formData como propriedades computadas
       name: {
         get() {
           return this.formData.name;
@@ -137,7 +136,7 @@
   .image-upload-card img {
     max-height: 100%;
     max-width: 100%;
-    border-radius: 0.375rem; /* Matcha o design do Tailwind */
+    border-radius: 0.375rem;
   }
   </style>
   

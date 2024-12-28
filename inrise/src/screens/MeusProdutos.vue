@@ -226,16 +226,17 @@ export default {
       }
     },
     openEditModal(product) {
-      this.editableProduct = { ...product }
+      this.editableProduct = { ...product }; 
       this.isEditModalOpen = true;
     },
     closeEditModal() {
       this.isEditModalOpen = false;
     },
     saveProduct() {
+   
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
-        this.products[index] = this.editableProduct;
+        this.products[index] = this.editableProduct; 
       }
       this.closeEditModal();
       location.reload()
@@ -256,7 +257,6 @@ export default {
   border-radius: 8px;
 }
 
-/* Estilos do Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
