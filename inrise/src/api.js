@@ -138,6 +138,53 @@ export async function deletePSU() {
 }
 
 
+export async function deleteCooler() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/Cooler', { headers });
+}
+
+
+export async function deleteMonitor() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MonitorScreen', { headers });
+}
+
+
+export async function deleteRom() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MemoryRom', { headers });
+}
+
+
+export async function deleteGPU() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/VideoBoard', { headers });
+}
+
+export async function deleteTower() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/Tower', { headers });
+}
 export async function registerRom(data) {
   const token = getToken();
   const headers = token ? {
@@ -146,6 +193,7 @@ export async function registerRom(data) {
 
   return apiClient.post('/MemoryRom', data, { headers });
 }
+
 
 export async function registerPSU(data) {
   const token = getToken();
@@ -267,6 +315,31 @@ export async function fetchAllPsu() {
     throw new Error('Erro ao buscar as fontes');
   }
 }
+
+
+export async function fetchAllMobo() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MotherBoard', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar as placas mae:', error);
+    throw new Error('Erro ao buscar as placas mae');
+  }
+}
+
 
 export async function fetchAllMonitor() {
   const token = getToken();
@@ -509,7 +582,14 @@ export function fetchPCById(id) {
   return apiClient.get(`/Computer/${id}`, { headers })
 }
 
-//Put by ID
+
+export function fetchMoboById(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/MotherBoard/${id}`, { headers })
+}
 
 export async function editRam(id, data) {
   const token = getToken();

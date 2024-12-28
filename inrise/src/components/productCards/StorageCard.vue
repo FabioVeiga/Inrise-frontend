@@ -1,21 +1,47 @@
 <template>
-  <div class="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition duration-200 ease-in-out">
-    <h3 class="h-12 mb-4 text-xl font-semibold text-gray-800">{{ product.name }}</h3>
-    <p class="text-gray-600">Potência: {{ product.potency }} W</p>
-    <p class="text-gray-600">Potência Real: {{ product.potencyReal }} W</p>
-    <p class="text-gray-600">Selo: {{ formattedStamp }}</p>
-    <p class="text-gray-600">Modular: {{ formattedModular }}</p>
-    <p v-if="product.price" class="mt-4 text-lg font-bold text-blue-600">Preço: {{ formatCurrency(product.price) }}</p>
-    <p v-else class="mt-4 text-lg text-gray-500">Preço não disponível</p>
-  </div>
+  <ProductCard 
+    :product="product" 
+    :formatCurrency="formatCurrency"
+    @delete-product="handleDeleteStorage"
+  >
+    <template #default="{ product }">
+      <p>Vel. de Leitura: {{ product.velocityRead + 'MB/s'|| 'Velocidade não disponível' }}</p>
+      <p>Capacidade: {{ product.capacity ? product.capacity + ' GB' : 'Capacidade não disponível' }}</p>
+      <p>Vel. de Escrita: {{ product.velocityWrite +  'MB/s' || 'Velocidade não disponível' }}</p>
+    </template>
+  </ProductCard>
 </template>
 
 <script>
+import ProductCard from './ProductCard.vue';
+import { deleteRom } from '@/api';
+
 export default {
   name: 'StorageCard',
+  components: {
+    ProductCard,
+  },
   props: {
-    product: Object,
-    formatCurrency: Function,
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
+    async handleDeleteStorage(product) {
+      if (!product.id) {
+        alert('Produto sem ID para exclusão');
+        return;
+      }
+
+      try {
+        await deleteRom(product.id);
+        alert('Dispositivo de armazenamento excluído com sucesso!');
+      } catch (error) {
+        alert('Erro ao excluir o dispositivo de armazenamento');
+        console.error(error);
+      }
+    },
   },
 };
 </script>

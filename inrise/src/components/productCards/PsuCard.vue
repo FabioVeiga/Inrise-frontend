@@ -1,29 +1,56 @@
 <template>
-  <div class="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition duration-200 ease-in-out">
-    <h3 class="h-12 mb-4 text-xl font-semibold text-gray-800">{{ product.name }}</h3>
-    <p class="text-gray-600">Potência: {{ product.potency }} W</p>
-    <p class="text-gray-600">Potência Real: {{ product.potencyReal }} W</p>
-    <p class="text-gray-600">Selo: {{ formattedStamp }}</p>
-    <p class="text-gray-600">Modular: {{ formattedModular }}</p>
-    <p v-if="product.price" class="mt-4 text-lg font-bold text-blue-600">Preço: {{ formatCurrency(product.price) }}</p>
-    <p v-else class="mt-4 text-lg text-gray-500">Preço não disponível</p>
-  </div>
+  <ProductCard 
+    :product="product" 
+    :formatCurrency="formatCurrency"
+    @delete-product="handleDeletePSU"
+  >
+    <template #default="{ product }">
+      <p>Potência: {{ product.potency || 'Potência não disponível' }}</p>
+      <p>Potência Real: {{ product.potencyReal || 'Potência real não disponível' }}</p>
+      <p>Selo: {{ formatStamp(product.stamp) }}</p>
+      <p>Modular: {{ formatModular(product.modular) }}</p>
+    </template>
+  </ProductCard>
 </template>
 
 <script>
+import ProductCard from './ProductCard.vue';
+import { deletePSU } from '@/api'; 
+
 export default {
-  //@TODO: ajeitar a prop de preço nesse card e nos outros
   name: 'PsuCard',
-  props: {
-    product: Object,
-    formatCurrency: Function,
+  components: {
+    ProductCard,
   },
-  computed: {
-    formattedStamp() {
-      return this.product.stamp.charAt(0).toUpperCase() + this.product.stamp.slice(1);
+  props: {
+    product: {
+      type: Object,
+      required: true,
     },
-    formattedModular() {
-      return this.product.modular ? 'Sim' : 'Não';
+  },
+  methods: {
+    formatCurrency(value) {
+      return `R$ ${value.toFixed(2)}`;
+    },
+    formatStamp(stamp) {
+      return stamp ? stamp.charAt(0).toUpperCase() + stamp.slice(1) : 'Selo não disponível';
+    },
+    formatModular(modular) {
+      return modular ? 'Sim' : 'Não';
+    },
+    async handleDeletePSU(product) {
+      if (!product.id) {
+        alert('Produto sem ID para exclusão');
+        return;
+      }
+
+      try {
+        await deletePSU(product.id);
+        alert('Fonte de alimentação excluída com sucesso!');
+      } catch (error) {
+        alert('Erro ao excluir a fonte de alimentação');
+        console.error(error);
+      }
     },
   },
 };
