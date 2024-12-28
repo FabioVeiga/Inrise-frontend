@@ -1,4 +1,6 @@
 <template>
+
+
   <div class="landing-page font-spaceGrotesk">
     <!-- Menu Preto -->
     <nav class="navbar flex justify-between w-full h-[100px] bg-black text-xl items-center my-9 px-0 lg:px-16">
@@ -8,12 +10,37 @@
       </div>
 
       <!-- Itens do menu à direita -->
-      <ul class="hidden lg:flex justify-end items-center h-full space-x-8 pr-8">
+      <ul class="hidden lg:flex justify-end items-center h-full lg:space-x-8 lg:pr-8">
         <li><a class="hidden lg:flex" @click="scrollToSection('o-que-e')">O que é a InRise</a></li>
         <li><a class="hidden lg:flex" @click="scrollToSection('sobre-o-beta')">Sobre o Beta</a></li>
         <li><a class="hidden lg:flex" @click="scrollToSection('como-participar')">Como Participar</a></li>
         <li><a class="hidden lg:flex" @click="scrollToSection('inscreva-se')">Inscreva-se</a></li>
       </ul>
+
+      <!-- Hamburger Icon -->
+      <div class="lg:hidden flex items-center mr-8">
+        <button @click="toggleMenu" class=" text-gray-100">
+          <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div v-if="menuOpen" ref="menu"
+        class="lg:hidden absolute top-16 right-0 bg-gray-950 border border-gray-800 shadow-lg w-48 rounded-md"
+        @click.self="closeMenu">
+        <ul class="flex flex-col space-y-4 p-4">
+          <li><a @click="scrollToSection('o-que-e')" class="text-lg text-gray-700">O que é a InRise</a></li>
+          <li><a @click="scrollToSection('sobre-o-beta')" class="text-lg text-gray-700">Sobre o Beta</a></li>
+          <li><a @click="scrollToSection('como-participar')" class="text-lg text-gray-700">Como Participar</a></li>
+          <li><a @click="scrollToSection('inscreva-se')" class="text-lg text-gray-700">Inscreva-se</a></li>
+        </ul>
+      </div>
+
+
+
     </nav>
 
 
@@ -47,34 +74,37 @@
       <div
         class="flex flex-1 justify-between items-center min-w-[350px] lg:max-w-[1240px] h-auto rounded-[45px] w-[100%]  bg-[#191A23] py-8">
 
-        
+
         <div class="hidden lg:flex flex-1 max-w-[500px] max-h-[500px] mx-4 mb-6 lg:mb-0 items-center justify-center">
           <img src="@/assets/placeholder1.png" alt="Image" class="w-full h-full object-cover rounded-xl">
         </div>
 
 
 
-        
+
         <div class="flex-1 flex flex-col justify-center items-center text-center lg:text-left lg:mx-[100px]">
-          <span class="mx-0 w-52 lg:w-auto text-xl lg:text-3xl text-[#FFFFFF]">
-            O que é o Beta da InRise?
-          </span>
-          <span class="w-auto lg:w-auto text-base whitespace-normal max-w-[80%] lg:text-lg text-[#FFFFFF] mt-4">
-            O Beta da InRise é muito mais do que um teste. É a tua chance de ser pioneiro, de experimentar em primeira
-            mão os nossos PCs de alto desempenho, projetados especialmente para gamers e profissionais exigentes. As
-            inscrições estarão abertas de 15 a 31 de outubro de 2024, e os players terão acesso a:
-          </span>
-          <span class="w-auto lg:w-auto text-lg text-[#FFFFFF] ml-4 mt-4">
-            • Preços exclusivos<br>
-            • Brindes incríveis<br>
-            • Suporte técnico prioritário<br>
-            • Participação em passatempos<br>
-            • Contribuição no desenvolvimento futuro dos produtos
-          </span>
-          <button @click="scrollToSection('inscreva-se')"
-            class="w-[320px] lg:w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
-            Participar do pré-lançamento
-          </button>
+
+          <div class="ml-4 lg:ml-0 flex flex-col"><span class="mx-0 w-52 lg:w-auto text-xl lg:text-3xl text-[#FFFFFF]">
+              O que é o Beta da InRise?
+            </span>
+            <span class="w-auto lg:w-auto text-base whitespace-normal max-w-[80%] lg:text-lg text-[#FFFFFF] mt-4">
+              O Beta da InRise é muito mais do que um teste. É a tua chance de ser pioneiro, de experimentar em primeira
+              mão os nossos PCs de alto desempenho, projetados especialmente para gamers e profissionais exigentes. As
+              inscrições estarão abertas de 15 a 31 de outubro de 2024, e os players terão acesso a:
+            </span>
+            <span class="w-auto lg:w-auto text-lg text-[#FFFFFF] ml-4 mt-4">
+              • Preços exclusivos<br>
+              • Brindes incríveis<br>
+              • Suporte técnico prioritário<br>
+              • Participação em passatempos<br>
+              • Contribuição no desenvolvimento futuro dos produtos
+            </span>
+            <button @click="scrollToSection('inscreva-se')"
+              class="w-[320px] lg:w-[355px] h-[68px] rounded-[14px] mt-4 bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl">
+              Participar do pré-lançamento
+            </button>
+          </div>
+
         </div>
 
       </div>
@@ -87,30 +117,30 @@
       </span>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-[1240px] my-4 mx-auto">
-        <div class="flex flex-col justify-center items-center w-full max-w-[250px] h-auto">
+        <div class="flex flex-col justify-start items-center w-full max-w-[250px] h-auto">
           <img src="@/assets/beta.png" alt="Logo" class="object-scale-down w-[200px]">
-          <span class="min-w-[240px] text-center">
+          <span class="min-w-[240px] mt-12 text-center">
             1. Inscreva-se no Beta Teste <br> através do nosso newsletter.
           </span>
         </div>
 
-        <div class="flex flex-col justify-center items-center w-full max-w-[250px] h-auto">
+        <div class="flex flex-col justify-start items-center w-full max-w-[250px] h-auto">
           <img src="@/assets/discord.png" alt="Logo" class="object-scale-down w-[200px]">
-          <span class="min-w-[240px] text-center ">
+          <span class="min-w-[240px] mt-4 text-center ">
             2. Aceda ao servidor do <br> discord da InRise.
           </span>
         </div>
 
-        <div class="flex flex-col justify-center items-center w-full max-w-[250px] h-auto">
+        <div class="flex flex-col justify-start items-center w-full max-w-[250px] h-auto">
           <img src="@/assets/socials.png" alt="Logo" class="object-scale-down w-[200px]">
-          <span class="min-w-[240px] text-center">
+          <span class="min-w-[240px] mt-10 text-center">
             3. Siga a InRise nas Redes <br> Sociais para acompanhar <br> as novidades.
           </span>
         </div>
 
-        <div class="flex flex-col justify-center items-center w-full max-w-[250px] h-auto">
+        <div class="flex flex-col justify-start items-center w-full max-w-[250px] h-auto mb-12">
           <img src="@/assets/message.png" alt="Logo" class="object-scale-down w-[200px]">
-          <span class="min-w-[240px] text-center">
+          <span class="min-w-[240px] mt-6 text-center">
             4. Recebe atualizações pela <br> nossa newsletter.
           </span>
         </div>
@@ -119,7 +149,8 @@
 
 
     <section id="quem-somos" class="flex justify-center">
-      <div class="flex flex-1 justify-between items-center min-w-[350px] max-w-[1240px] h-[569px] rounded-[45px] bg-[#FFFFFF]">
+      <div
+        class="flex flex-1 justify-between items-center min-w-[350px] max-w-[1240px] h-[569px] rounded-[45px] bg-[#FFFFFF]">
         <div class="flex flex-1 justify-center">
           <div class="flex flex-1 flex-col max-w-[700px] mx-4">
             <span class="text-4xl lg:text-6xl font-medium my-4">
@@ -127,10 +158,16 @@
             </span>
             <span class="text-xl my-4">
               A InRise Computadores transforma a busca pelo computador perfeito, ao oferecer mais do que tecnologia:
-              um movimento pela democratização da informação técnica e acesso a infinitas possibilidades...
+              um movimento pela democratização da informação técnica e acesso a infinitas possibilidades.
+              Com uma equipa de especialistas apaixonados por tecnologia e gamers dedicados, ajudamos a encontrar
+              o computador dos teus sonhos.
+
             </span>
             <span class="text-xl my-4">
-              Escolher a InRise é optar por uma experiência descomplicada, acessível e transparente...
+
+              Escolher a InRise é optar por uma experiência descomplicada, acessível e transparente, onde as tuas
+              necessidades estão sempre em primeiro lugar. Junta-te a nós e descobre como é fácil explorar todo o
+              potencial do mundo digital com um computador feito à medida para ti.
             </span>
           </div>
           <div
@@ -152,7 +189,7 @@
               </div>
               <div class="my-8">
                 <span class="font-normal text-base lg:text-xl rounded-[7px]">
-                  Passo 1: Este é o teu
+                  Este é o teu
                   momento. Nesta etapa,
                   deverás escolher qual
                   tipo de computador
@@ -167,21 +204,22 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
+          <div
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 2</span>
               </div>
               <div class="my-8">
                 <span class="font-normal text-base lg:text-xl rounded-[7px]">
-                  Passo 2: Parabéns! Estás um
-                  passo mais próximo de 
-                  encontrar o computador 
-                  perfeito. Neste momento, 
-                  deves escolher o tipo de 
-                  software que utilizarás. 
-                  Através de menus interativos, 
-                  conseguirás localizar facilmente 
+                  Parabéns! Estás um
+                  passo mais próximo de
+                  encontrar o computador
+                  perfeito. Neste momento,
+                  deves escolher o tipo de
+                  software que utilizarás.
+                  Através de menus interativos,
+                  conseguirás localizar facilmente
                   o programa desejado.
                 </span>
               </div>
@@ -191,7 +229,8 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
+          <div
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
 
             <div class="flex flex-col justify-between w-3/5">
               <div>
@@ -199,14 +238,14 @@
               </div>
               <div class="my-8">
                 <span class="font-normal text-base lg:text-xl rounded-[7px]">
-                  Passo 3: É hora de escolher
-                  os componentes do teu PC! 
-                  Na InRise, temos peças 
+                  É hora de escolher
+                  os componentes do teu PC!
+                  Na InRise, temos peças
                   perfeitas para todos os
                   bolsos e necessidades,
-                  garantindo compatibilidade 
-                  e visualização do teu setup. 
-                  Finaliza a compra e deixa o 
+                  garantindo compatibilidade
+                  e visualização do teu setup.
+                  Finaliza a compra e deixa o
                   resto connosco!
                 </span>
               </div>
@@ -216,7 +255,8 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
+          <div
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 4</span>
@@ -224,15 +264,15 @@
               <div class="my-8">
                 <span class="font-normal text-base lg:text-xl rounded-[7px]">
                   Após o processamento do
-                  pagamento, o teu 
+                  pagamento, o teu
                   computador será montado
-                  por nossos profissionais com 
-                  os componentes escolhidos. 
+                  por nossos profissionais com
+                  os componentes escolhidos.
                   <br>
-                  Cada equipamento é 
-                  personalizado e enviado com 
-                  sistema operativo e drivers 
-                  pré-instalados, prontos para 
+                  Cada equipamento é
+                  personalizado e enviado com
+                  sistema operativo e drivers
+                  pré-instalados, prontos para
                   serem utilizados!
                 </span>
               </div>
@@ -246,12 +286,13 @@
       </div>
     </section>
 
-    
+
     <section id="faq" class="flex justify-center flex-col items-center">
       <div class="min-w-[350px] lg:min-w-[1240px] self-center">
         <div class="flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
-          <span class="text-4xl lg:text-6xl max-w-[350px] lg:max-w-max text-left self-center lg:self-start font-medium p-1 my-1 rounded-[7px]">
-            
+          <span
+            class="text-4xl lg:text-6xl max-w-[350px] lg:max-w-max text-left self-center lg:self-start font-medium p-1 my-1 rounded-[7px]">
+
             Perguntas Frequentes
           </span>
 
@@ -262,7 +303,7 @@
     </section>
     <section id="inscreva-se" class="flex flex-col justify-center my-8">
       <div class="w-[350px] lg:w-[1240px] self-center">
-        
+
         <span class="text-4xl lg:text-6xl text-left self-start font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
           Inscreva-se no beta da InRise
         </span>
@@ -287,9 +328,15 @@
             <div class="flex items-center">
               <input v-model="formData.privacy" id="privacy" type="checkbox"
                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-              <label for="privacy" class="ml-2 text-gray-700 text-sm">Ao inscrever, você alega concordar com nossa <a
-                  href="#" class="text-blue-600 hover:underline">política de privacidade</a></label>
+              <label for="privacy" class="ml-2 text-gray-700 text-sm">
+                Ao se inscrever, alega concordas com nossa
+                <a href="#" @click.prevent="openPrivacyModal" class="text-blue-600 hover:underline">
+                  política de privacidade
+                </a>
+              </label>
             </div>
+
+            <!-- Inclua o modal -->
 
             <div>
               <button type="submit"
@@ -308,10 +355,14 @@
 
     </section>
   </div>
+  <LpPrivacyPolicy :isVisible="showPrivacyModal" @close="closePrivacyModal" />
+
 </template>
 
 
 <script>
+//import axios from 'axios';
+import LpPrivacyPolicy from '../components/LpPrivacyPolicy.vue';
 import FaqCard from '../components/FaqCard.vue';
 import { submitLandingPage, fetchLandingPage } from '@/api';
 
@@ -319,9 +370,12 @@ export default {
   name: 'LandingPage',
   components: {
     FaqCard,
+    LpPrivacyPolicy
   },
   data() {
     return {
+      menuOpen: false,
+      showPrivacyModal: false,
       formData: {
         name: '',
         email: '',
@@ -343,11 +397,24 @@ export default {
     };
   },
   methods: {
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+    },
+    closeMenu() {
+      this.menuOpen = false;
+    },
+    openPrivacyModal() {
+      this.showPrivacyModal = true;
+    },
+    closePrivacyModal() {
+      this.showPrivacyModal = false;
+    },
     scrollToSection(sectionId) {
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
+      this.menuOpen = false;
     },
     formatNumber(num) {
       return num < 10 ? `0${num}` : num;
@@ -433,6 +500,7 @@ section {
 h2 {
   color: #333;
 }
+
 section {
   max-width: 100%;
 }
@@ -440,5 +508,28 @@ section {
 
 body {
   overflow-x: hidden;
+}
+
+.no-scroll {
+  overflow: hidden;
+  /* Pra bloquear scroll mas n ta funcionando o index.css global foi, idk.*/
+  height: 100vh;
+}
+
+/*add animacao pro menu aparecer*/
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu {
+  animation: slideIn 0.3s ease-out;
 }
 </style>
