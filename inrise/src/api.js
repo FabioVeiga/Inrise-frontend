@@ -293,6 +293,30 @@ export async function fetchAllRam() {
   }
 }
 
+
+export async function fetchAllRom() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MemoryRom', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar as memórias RAM:', error);
+    throw new Error('Erro ao buscar as memórias RAM');
+  }
+}
+
 export async function fetchAllPsu() {
   const token = getToken();
   const headers = token ? {
