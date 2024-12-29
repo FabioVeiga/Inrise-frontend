@@ -127,7 +127,7 @@ export default {
       isSubmitting: false,
       feedbackMessage: '',
       feedbackClass: '',
-      categories: [], // Inicializamos como array vazio
+      categories: [],
       processors: [],
       gpus: [],
       rams: [],
