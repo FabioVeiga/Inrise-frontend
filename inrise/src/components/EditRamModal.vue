@@ -85,7 +85,7 @@
 <script>
 import { editRam } from '@/api';
 //@TODO: Adicionar o alerta ao fazer a req com sucesso
-import InfoGeral from './admin/cadastro/InfoGeral.vue'
+import InfoGeral from './admin/cadastro/InfoGeral.vue';
 import InfoPreco from './admin/cadastro/InfoPreco.vue';
 
 export default {
