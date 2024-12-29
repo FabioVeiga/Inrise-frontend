@@ -118,6 +118,83 @@ export async function registerRam(data) {
   return apiClient.post('/MemoryRam', data, { headers });
 }
 
+
+export async function deleteRam() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MemoryRam', { headers });
+}
+
+export async function deletePSU() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/PowerSupply', { headers });
+}
+
+
+export async function deleteCooler() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/Cooler', { headers });
+}
+
+
+export async function deleteMonitor() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MonitorScreen', { headers });
+}
+
+
+export async function deleteRom() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MemoryRom', { headers });
+}
+
+
+export async function deleteGPU() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/VideoBoard', { headers });
+}
+
+export async function deleteTower() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/Tower', { headers });
+}
+export async function registerRom(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/MemoryRom', data, { headers });
+}
+
+
 export async function registerPSU(data) {
   const token = getToken();
   const headers = token ? {
@@ -127,6 +204,70 @@ export async function registerPSU(data) {
   return apiClient.post('/PowerSupply', data, { headers });
 }
 
+export async function registerMonitor(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/MonitorScreen', data, { headers });
+}
+
+export async function registerMobo(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/MotherBoard', data, { headers });
+
+  
+}
+
+export async function registerCPU(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Processor', data, { headers });
+}
+
+export async function registerGPU(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/VideoBoard', data, { headers });
+}
+
+export async function registerCooler(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Cooler', data, { headers });
+}
+
+export async function registerTower(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Tower', data, { headers });
+}
+
+export async function registerPC(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Computer', data, { headers });
+}
 
 //Fetch All
 export async function fetchAllRam() {
@@ -137,6 +278,30 @@ export async function fetchAllRam() {
 
   try {
     const response = await apiClient.get('/MemoryRam', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar as memórias RAM:', error);
+    throw new Error('Erro ao buscar as memórias RAM');
+  }
+}
+
+
+export async function fetchAllRom() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MemoryRom', {
       headers,
       params: {
         "Pagination.PageIndex": 1,
@@ -174,6 +339,31 @@ export async function fetchAllPsu() {
     throw new Error('Erro ao buscar as fontes');
   }
 }
+
+
+export async function fetchAllMobo() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.get('/MotherBoard', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar as placas mae:', error);
+    throw new Error('Erro ao buscar as placas mae');
+  }
+}
+
 
 export async function fetchAllMonitor() {
   const token = getToken();
@@ -416,7 +606,14 @@ export function fetchPCById(id) {
   return apiClient.get(`/Computer/${id}`, { headers })
 }
 
-//Put by ID
+
+export function fetchMoboById(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/MotherBoard/${id}`, { headers })
+}
 
 export async function editRam(id, data) {
   const token = getToken();

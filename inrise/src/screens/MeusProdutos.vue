@@ -13,6 +13,7 @@
         <option value="cooler">Cooler</option>
         <option value="disco">Disco</option>
         <option value="computador">Computador</option>
+        <option value="placaMae">Placa Mãe</option>
       </select>
     </div>
 
@@ -69,6 +70,7 @@ import { fetchAllTower, fetchTowerById } from '../api';
 import { fetchAllCooler, fetchCoolerById } from '../api';
 import { fetchAllStorage, fetchStorageById } from '../api';
 import { fetchAllPC, fetchPCById } from '../api';
+import { fetchAllMobo, fetchMoboById } from '../api';
 
 import RamCard from '@/components/productCards/RamCard.vue';
 import PsuCard from '@/components/productCards/PsuCard.vue';
@@ -79,7 +81,7 @@ import TowerCard from '@/components/productCards/TowerCard.vue';
 import CoolerCard from '@/components/productCards/CoolerCard.vue';
 import StorageCard from '@/components/productCards/StorageCard.vue';
 import ComputerCard from '@/components/productCards/ComputerCard.vue';
-
+import MoboCard from '@/components/productCards/MoboCard.vue';
 export default {
   name: 'MeusProdutos',
   components: {
@@ -91,14 +93,15 @@ export default {
     TowerCard,
     CoolerCard,
     StorageCard,
-    ComputerCard
+    ComputerCard,
+    MoboCard
   },
   data() {
     return {
       products: [],
       loading: true,
       productType: 'ram',
-      isEditModalOpen: false,  
+      isEditModalOpen: false, 
       editableProduct: {}
     };
   },
@@ -158,6 +161,11 @@ export default {
           case 'computador':
             response = await fetchAllPC();
             fetchDetails = fetchPCById;
+            break;
+          
+          case 'placaMae':
+            response = await fetchAllMobo();
+            fetchDetails = fetchMoboById;
             break;
 
           default:
@@ -221,21 +229,24 @@ export default {
           return 'StorageCard';
         case 'computador':
           return 'PCCard';
+        case 'placaMae':
+          return 'MoboCard';
         default:
           return null;
       }
     },
     openEditModal(product) {
-      this.editableProduct = { ...product }
+      this.editableProduct = { ...product }; 
       this.isEditModalOpen = true;
     },
     closeEditModal() {
       this.isEditModalOpen = false;
     },
     saveProduct() {
+   
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
-        this.products[index] = this.editableProduct;
+        this.products[index] = this.editableProduct; 
       }
       this.closeEditModal();
       location.reload()
@@ -256,7 +267,6 @@ export default {
   border-radius: 8px;
 }
 
-/* Estilos do Modal */
 .modal-overlay {
   position: fixed;
   top: 0;

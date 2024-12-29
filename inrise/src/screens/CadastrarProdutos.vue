@@ -13,12 +13,23 @@
         <option value="cooler">Cooler</option>
         <option value="disco">Disco</option>
         <option value="computador">Computador</option>
+        <option value="placaMae">Placa Mãe</option>
+
       </select>
     </div>
 
     <div>
       <CadastroRam v-if="productType === 'ram'" />
       <CadastroFonte v-if="productType === 'fonte'" />
+      <CadastroGabinete v-if="productType === 'gabinete'" />
+      <CadastroMonitor v-if="productType === 'monitor'" />
+      <CadastroPlacaDeVideo v-if="productType === 'placaDeVideo'" />
+      <CadastroProcessador v-if="productType === 'processador'" />
+      <CadastroCooler v-if="productType === 'cooler'" />
+      <CadastroDisco v-if="productType === 'disco'" />
+      <CadastroPC v-if="productType === 'computador'" />
+      <CadastroMobo v-if="productType === 'placaMae'" />
+
     </div>
   </div>
 </template>
@@ -26,12 +37,28 @@
 <script>
 import CadastroRam from './CadastroRam.vue';
 import CadastroFonte from './CadastroFonte.vue';
+import CadastroGabinete from './CadastroGabinete.vue';
+import CadastroMonitor from './CadastroMonitor.vue';
+import CadastroPlacaDeVideo from './CadastroPlacaDeVideo.vue';
+import CadastroProcessador from './CadastroProcessador.vue';
+import CadastroCooler from './CadastroCooler.vue';
+import CadastroDisco from './CadastroDisco.vue';
+import CadastroPC from './CadastroPC.vue';
+import CadastroMobo from './CadastroMobo.vue';
 
 export default {
   name: 'CadastrarProduto',
   components: {
     CadastroRam,
     CadastroFonte,
+    CadastroGabinete,
+    CadastroMonitor,
+    CadastroPlacaDeVideo,
+    CadastroProcessador,
+    CadastroCooler,
+    CadastroDisco,
+    CadastroPC,
+    CadastroMobo
   },
   data() {
     return {

@@ -1,20 +1,50 @@
 <template>
-  <div class="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition duration-200 ease-in-out">
-    <h3 class="h-12 mb-4 text-xl font-semibold text-gray-800">{{ product.name }}</h3>
-    <p class="text-gray-600">Dimensão: {{ product.dimesion }} "</p>
-    <p class="text-gray-600">Frequência: {{ product.updateVolume }} Hz</p>
-    <p class="text-gray-600">Resolução: {{ product.quality }}</p>
-    <p v-if="product.price" class="mt-4 text-lg font-bold text-blue-600">Preço: {{ formatCurrency(product.price) }}</p>
-    <p v-else class="mt-4 text-lg text-gray-500">Preço não disponível</p>
-  </div>
+  <ProductCard 
+    :product="product" 
+    :formatCurrency="formatCurrency"
+    @delete-product="handleDeleteMonitor"
+  >
+    <template #default="{ product }">
+      <p>Dimensão: {{ product.dimesion ? product.dimesion + ' "' : 'Dimensão não disponível' }}</p>
+      <p>Frequência: {{ product.updateVolume ? product.updateVolume + ' Hz' : 'Frequência não disponível' }}</p>
+      <p>Resolução: {{ product.quality || 'Resolução não disponível' }}</p>
+    </template>
+  </ProductCard>
 </template>
 
 <script>
+import ProductCard from './ProductCard.vue';
+import { deleteMonitor } from '@/api';
+
 export default {
   name: 'MonitorCard',
+  components: {
+    ProductCard,
+  },
   props: {
-    product: Object,
-    formatCurrency: Function,
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
+    formatCurrency(value) {
+      return `R$ ${value.toFixed(2)}`;
+    },
+    async handleDeleteMonitor(product) {
+      if (!product.id) {
+        alert('Produto sem ID para exclusão');
+        return;
+      }
+
+      try {
+        await deleteMonitor(product.id);
+        alert('Monitor excluído com sucesso!');
+      } catch (error) {
+        alert('Erro ao excluir o monitor');
+        console.error(error);
+      }
+    },
   },
 };
 </script>
