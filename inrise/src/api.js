@@ -118,6 +118,26 @@ export async function registerRam(data) {
   return apiClient.post('/MemoryRam', data, { headers });
 }
 
+
+export async function deleteRam() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MemoryRam', { headers });
+}
+
+export async function deletePSU() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/PowerSupply', { headers });
+}
+
+
 export async function registerRom(data) {
   const token = getToken();
   const headers = token ? {
@@ -192,6 +212,14 @@ export async function registerTower(data) {
   return apiClient.post('/Tower', data, { headers });
 }
 
+export async function registerPC(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Computer', data, { headers });
+}
 
 //Fetch All
 export async function fetchAllRam() {

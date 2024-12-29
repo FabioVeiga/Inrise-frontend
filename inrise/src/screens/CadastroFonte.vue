@@ -36,7 +36,12 @@
         <!-- Modularidade -->
         <div class="form-group">
           <label for="modular" class="block mb-1 font-semibold">Modular?</label>
-          <input type="checkbox" v-model="formData.modular" id="modular" class="w-full border p-2" />
+          <input 
+            type="checkbox" 
+            v-model="formData.modular" 
+            id="modular" 
+            class="w-full border p-2" 
+          />
         </div>
       </div>
 
@@ -73,7 +78,6 @@ export default {
         stamp: 'standard',
         modular: false,
         description: '',
-        //image: null,
         valueClassification: 0,
         price: {
           costPrice: 0,
@@ -99,18 +103,12 @@ export default {
     },
     async submitForm() {
       try {
-        const formData = new FormData();
-        Object.keys(this.formData).forEach((key) => {
-          if (key === 'price') {
-            Object.keys(this.formData.price).forEach((priceKey) => {
-              formData.append(`price.${priceKey}`, this.formData.price[priceKey]);
-            });
-          } else {
-            formData.append(key, this.formData[key]);
-          }
-        });
+        const formDataToSend = {
+          ...this.formData,
+          modular: this.formData.modular,
+        };
 
-        const response = await registerPSU(formData);
+        const response = await registerPSU(formDataToSend);
         console.log('Fonte cadastrada com sucesso!', response);
         alert('Produto cadastrado com sucesso!');
         this.resetForm();
@@ -127,7 +125,6 @@ export default {
         stamp: 'standard',
         modular: false,
         description: '',
-        //image: null,
         valueClassification: 0,
         price: {
           costPrice: 0,
