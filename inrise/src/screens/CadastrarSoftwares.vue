@@ -17,15 +17,17 @@
       </div>
 
       <!-- Categoria do Software -->
+      <!-- Categoria do Software -->
       <div class="form-group">
         <label for="category" class="block mb-1 font-semibold">Categoria</label>
-        <select v-model="formData.categoryId" id="category" required class="w-full border p-2">
+        <select v-model="formData.categoryId" id="category" required class="w-full border p-2" @change="logCategoryId">
           <option value="" disabled>Selecione uma categoria</option>
           <option v-for="category in categories.items" :key="category.id" :value="category.id">
             {{ category.name }}
           </option>
         </select>
       </div>
+
 
       <!-- Requisitos de Processador -->
       <div class="form-group">
@@ -138,6 +140,9 @@ export default {
     };
   },
   methods: {
+    logCategoryId() {
+    console.log("Categoria selecionada:", this.formData.categoryId);
+  },
     handleIconUpload(event) {
       this.formData.icon = event.target.files[0];
     },
@@ -151,7 +156,7 @@ export default {
           fetchAllStorage(),
           fetchAllTower(),
           fetchAllMonitor(),
-          fetchSoftwareGroup() 
+          fetchSoftwareGroup()
         ]);
         this.processors = processorsRes.data;
         this.gpus = gpusRes.data;
@@ -159,7 +164,7 @@ export default {
         this.storage = storageRes.data;
         this.towers = towersRes.data;
         this.monitors = monitorsRes.data;
-        this.categories = categoriesRes.data; 
+        this.categories = categoriesRes.data;
         console.log(this.categories)
       } catch (error) {
         console.error('Erro ao carregar dados:', error);

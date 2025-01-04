@@ -4,12 +4,20 @@
 
     <div v-for="(category, categoryId) in categories" :key="categoryId" class="mb-5">
       <!-- Header da Categoria -->
-      <button 
-        @click="toggleCategory(categoryId)" 
-        class="w-full text-left bg-blue-500 text-white py-2 px-4 rounded-md"
-      >
-        {{ category.name }}
-      </button>
+      <div class="flex justify-between items-center bg-blue-500 text-white py-2 px-4 rounded-md">
+        <button 
+          @click="toggleCategory(categoryId)" 
+          class="text-left flex-1"
+        >
+          {{ category.name }}
+        </button>
+        <button 
+          @click="deleteCategory(categoryId+1)" 
+          class="bg-red-500 text-white px-4 py-2 rounded-md"
+        >
+          Excluir Grupo
+        </button>
+      </div>
 
       <!-- Indicador de carregamento -->
       <div v-if="category.isLoading" class="mt-3 text-center">
@@ -48,7 +56,7 @@
 </template>
 
 <script>
-import { fetchSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById } from '@/api';
+import { fetchSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup } from '@/api';
 
 export default {
   name: 'GruposDeSoftware',
@@ -86,8 +94,8 @@ export default {
       if (!category.softwares && !category.isLoading) {
         category.isLoading = true;
         try {
-          const softwaresRes = await fetchAllSoftware(categoryId);
-          category.softwares = softwaresRes.data.items.filter(software => software.categoryId === categoryId);
+          const softwaresRes = await fetchAllSoftware(categoryId-1);
+          category.softwares = softwaresRes.data.items.filter(software => software.categoryId-1 === categoryId);
           
           for (let software of category.softwares) {
             await this.fetchSoftwareDetails(software);
@@ -108,8 +116,20 @@ export default {
       try {
         const categoriesRes = await fetchSoftwareGroup();
         this.categories = categoriesRes.data.items;
+        console.log(this.categories)
       } catch (error) {
         console.error('Erro ao carregar categorias de software', error);
+      }
+    },
+
+    async deleteCategory(categoryId) {
+      try {
+        await deleteSoftwareGroup(categoryId);
+        this.$delete(this.categories, categoryId);
+        alert('Grupo excluído com sucesso!');
+      } catch (error) {
+        console.error('Erro ao excluir o grupo de software', categoryId, error);
+        alert('Erro ao excluir o grupo.');
       }
     },
   },

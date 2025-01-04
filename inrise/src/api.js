@@ -56,6 +56,15 @@ export async function registerSoftwareGroup(data) {
   }
 }
 
+export async function deleteSoftwareGroup(categoryId) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete(`/Category/${categoryId}`, { headers });
+}
+
 export async function fetchSoftwareGroup() {
   const token = getToken();
   const headers = token ? {
