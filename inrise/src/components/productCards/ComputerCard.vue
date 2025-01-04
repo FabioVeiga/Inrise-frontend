@@ -9,9 +9,9 @@
     <p v-else class="mt-4 text-lg text-gray-500">Preço não disponível</p>
   </div>
 </template>
-
 <script>
 export default {
+  //TODO FAZER AQUI AAAA tem que REGISTRAR PCS AINDA
   name: 'ComputerCard',
   props: {
     product: Object,

@@ -659,6 +659,104 @@ export async function editRam(id, data) {
   }
 }
 
+export async function editGpu(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/VideoBoard/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar a gpu:', error);
+    throw new Error('Erro ao editar a gpu');
+  }
+}
+
+
+
+export async function editCpu(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Processor/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar a CPU:', error);
+    throw new Error('Erro ao editar a CPU');
+  }
+}
+
+export async function editMobo(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/MotherBoard/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar a MOBO:', error);
+    throw new Error('Erro ao editar a MOBO');
+  }
+}
+
+export async function editMonitor(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/MonitorScreen/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o Monitor:', error);
+    throw new Error('Erro ao editar o Monitor');
+  }
+}
+
+export async function editPsu(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/PowerSupply/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar a fonte:', error);
+    throw new Error('Erro ao editar a fonte');
+  }
+}
+
+export async function editCooler(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Cooler/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o cooler:', error);
+    throw new Error('Erro ao editar o cooler');
+  }
+}
+
 
 export function fetchLandingPage() {
   return apiClient.get('/LandingPage');

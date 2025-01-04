@@ -1,32 +1,41 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeletePSU"
-  >
-    <template #default="{ product }">
-      <p>Potência: {{ product.potency || 'Potência não disponível' }}</p>
-      <p>Potência Real: {{ product.potencyReal || 'Potência real não disponível' }}</p>
-      <p>Selo: {{ formatStamp(product.stamp) }}</p>
-      <p>Modular: {{ formatModular(product.modular) }}</p>
-    </template>
-  </ProductCard>
+  <div>
+    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeletePSU"
+      @edit-product="openEditPsuModal">
+      <template #default="{ product }">
+        <p>Potência: {{ product.potency || 'Potência não disponível' }}</p>
+        <p>Potência Real: {{ product.potencyReal || 'Potência real não disponível' }}</p>
+        <p>Selo: {{ formatStamp(product.stamp) }}</p>
+        <p>Modular: {{ formatModular(product.modular) }}</p>
+      </template>
+    </ProductCard>
+
+    <!-- Modal de PSU -->
+    <EditPsuModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+  </div>
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
-import { deletePSU } from '@/api'; 
+import EditPsuModal from '@/components/EditPsuModal.vue';
+import { deletePSU } from '@/api';
 
 export default {
   name: 'PsuCard',
   components: {
     ProductCard,
+    EditPsuModal, // Modal de PSU
   },
   props: {
     product: {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      isEditModalOpen: false,
+    };
   },
   methods: {
     formatCurrency(value) {
@@ -52,6 +61,16 @@ export default {
         console.error(error);
       }
     },
+    openEditPsuModal() {
+      this.isEditModalOpen = true;
+    },
+    closeEditModal() {
+      this.isEditModalOpen = false;
+    },
+    saveProduct(updatedProduct) {
+      this.$emit('update-product', updatedProduct);
+      this.closeEditModal();
+    }
   },
 };
 </script>

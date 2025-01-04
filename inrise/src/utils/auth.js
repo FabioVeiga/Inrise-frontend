@@ -1,6 +1,6 @@
 export function isAuthenticated() {
   const token = localStorage.getItem('authToken');
-  console.log("AuthToken:", token); 
+  console.log("Bearer", token); 
   const validToken = (token != undefined)  
   console.log(validToken)
   return validToken;

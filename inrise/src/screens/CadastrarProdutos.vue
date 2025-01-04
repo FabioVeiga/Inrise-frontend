@@ -60,7 +60,7 @@ export default {
   },
   data() {
     return {
-      productType: 'memoryRam',  // Definido para 'memoryRam' por padrão
+      productType: 'memoryRam',
     };
   },
   methods: {

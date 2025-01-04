@@ -14,7 +14,6 @@ import AnaliseFinanceira from '../screens/AnaliseFinanceira.vue';
 import CadastroUser from '@/screens/CadastroUser.vue';
 import LandingPage from '@/screens/LandingPage.vue';
 import AdminLogin from '@/screens/AdminLogin.vue';
-import EditRam from '@/screens/EditRam.vue';
 
 const routes = [
   {
@@ -57,11 +56,6 @@ const routes = [
         path: 'meusProdutos',
         name: 'MeusProdutos',
         component: MeusProdutos
-      },
-      {
-        path: '/edit-ram/:productId',
-        name: 'editRam',
-        component: EditRam,
       },
       {
         path: 'cadastrarProdutos',

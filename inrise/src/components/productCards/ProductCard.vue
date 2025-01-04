@@ -20,47 +20,32 @@
       Excluir
     </button>
   </div>
-
-  <!-- Modal de Edição -->
-  <EditRamModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
-
 </template>
 
 <script>
-import EditRamModal from '@/components/EditRamModal.vue';
-
 export default {
   name: 'ProductCard',
   props: {
     product: Object,
     formatCurrency: Function,
   },
-
   emits: ['update-product', 'delete-product', 'edit-product'],
-  data() {
-    return {
-      isEditModalOpen: false,
-    };
-  },
   methods: {
     openEditModal() {
-      this.isEditModalOpen = true;
+      this.$emit('edit-product');
     },
     closeEditModal() {
       this.isEditModalOpen = false;
-    }, saveProduct(updatedProduct) {
+    }, 
+    saveProduct(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-
     async deleteProduct(event) {
       event.preventDefault();
       // Emitir evento de exclusão para o componente pai
       this.$emit('delete-product', this.product);
     }
   },
-  components: {
-    EditRamModal,
-  }
 };
 </script>
