@@ -185,6 +185,25 @@ export async function deleteTower() {
 
   return apiClient.delete('/Tower', { headers });
 }
+
+export async function deleteCpu() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/Processor', { headers });
+}
+
+export async function deleteMobo() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete('/MotherBoard', { headers });
+}
+
 export async function registerRom(data) {
   const token = getToken();
   const headers = token ? {

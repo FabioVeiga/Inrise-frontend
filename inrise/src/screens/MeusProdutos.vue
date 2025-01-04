@@ -3,7 +3,15 @@
     <h1 class="text-4xl font-bold my-8">Meus Produtos</h1>
 
     <div class="form-group my-8">
-      <select class="px-4 w-40 h-12" v-model="productType" id="productType" @change="loadProducts" required>
+      <select 
+        class="px-4 w-52 h-12" 
+        v-model="productType" 
+        id="productType" 
+        @change="loadProducts" 
+        required
+        :disabled="loading"
+      >
+        <option value="select">Selecione uma opção</option>
         <option value="ram">Memória RAM</option>
         <option value="psu">Fonte</option>
         <option value="monitor">Monitor</option>
@@ -17,11 +25,17 @@
       </select>
     </div>
 
-    <div v-if="products.length === 0 && !loading" class="text-center text-xl text-gray-500">
+    <div 
+      v-if="products.length === 0 && !loading && productType !== 'select'" 
+      class="text-center text-xl text-gray-500"
+    >
       <p>Não há produtos cadastrados.</p>
     </div>
 
-    <div v-else-if="loading" class="text-center text-xl text-gray-500">
+    <div 
+      v-if="loading && productType !== 'select'" 
+      class="text-center text-xl text-gray-500"
+    >
       <p>Carregando produtos...</p>
     </div>
 
@@ -82,6 +96,7 @@ import CoolerCard from '@/components/productCards/CoolerCard.vue';
 import StorageCard from '@/components/productCards/StorageCard.vue';
 import ComputerCard from '@/components/productCards/ComputerCard.vue';
 import MoboCard from '@/components/productCards/MoboCard.vue';
+
 export default {
   name: 'MeusProdutos',
   components: {
@@ -99,17 +114,18 @@ export default {
   data() {
     return {
       products: [],
-      loading: true,
-      productType: 'ram',
+      loading: false,
+      productType: 'select',
       isEditModalOpen: false, 
       editableProduct: {}
     };
   },
-  async created() {
-    await this.loadProducts();
-  },
   methods: {
     async loadProducts() {
+      if (this.productType === 'select') {
+        return;
+      }
+
       this.loading = true;
       this.products = [];
 
@@ -122,55 +138,46 @@ export default {
             response = await fetchAllRam();
             fetchDetails = fetchRamById;
             break;
-
           case 'psu':
             response = await fetchAllPsu();
             fetchDetails = fetchPsuById;
             break;
-
           case 'monitor':
             response = await fetchAllMonitor();
             fetchDetails = fetchMonitorById;
             break;
-
           case 'placaDeVideo':
             response = await fetchAllGpu();
             fetchDetails = fetchGpuById;
             break;
-
           case 'processador':
             response = await fetchAllCpu();
             fetchDetails = fetchCpuById;
             break;
-
           case 'gabinete':
             response = await fetchAllTower();
             fetchDetails = fetchTowerById;
             break;
-
           case 'cooler':
             response = await fetchAllCooler();
             fetchDetails = fetchCoolerById;
             break;
-
           case 'disco':
             response = await fetchAllStorage();
             fetchDetails = fetchStorageById;
             break;
-
           case 'computador':
             response = await fetchAllPC();
             fetchDetails = fetchPCById;
             break;
-          
           case 'placaMae':
             response = await fetchAllMobo();
             fetchDetails = fetchMoboById;
             break;
-
           default:
             throw new Error('Tipo de produto não suportado');
         }
+
         const products = response.data.items;
         for (let product of products) {
           const productDetails = await fetchDetails(product.id);
@@ -184,7 +191,6 @@ export default {
                 product.socket = productDetails.data.data.socket;
                 product.frequency = productDetails.data.data.frequency;
                 break;
-
               case 'psu':
                 product.potency = productDetails.data.data.potency;
                 product.potencyReal = productDetails.data.data.potencyReal;
@@ -196,6 +202,7 @@ export default {
             product.price = null;
           }
         }
+
         this.products = products;
         this.loading = false;
       } catch (error) {
@@ -243,7 +250,6 @@ export default {
       this.isEditModalOpen = false;
     },
     saveProduct() {
-   
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
         this.products[index] = this.editableProduct; 
