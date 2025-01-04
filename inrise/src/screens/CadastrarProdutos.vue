@@ -4,32 +4,30 @@
     
     <div class="form-group my-8">
       <select v-model="productType" id="productType" @change="resetForm" required>
-        <option value="ram">Memória RAM</option>
-        <option value="fonte">Fonte</option>
-        <option value="monitor">Monitor</option>
-        <option value="placaDeVideo">Placa de Vídeo</option>
-        <option value="processador">Processador</option>
-        <option value="gabinete">Gabinete</option>
+        <option value="memoryRam">Memória RAM</option>
+        <option value="powerSupply">Fonte</option>
+        <option value="monitorScreen">Monitor</option>
+        <option value="videoBoard">Placa de Vídeo</option>
+        <option value="processor">Processador</option>
+        <option value="tower">Gabinete</option>
         <option value="cooler">Cooler</option>
-        <option value="disco">Disco</option>
-        <option value="computador">Computador</option>
-        <option value="placaMae">Placa Mãe</option>
-
+        <option value="memoryRom">Disco</option>
+        <option value="computer">Computador</option>
+        <option value="motherBoard">Placa Mãe</option>
       </select>
     </div>
 
     <div>
-      <CadastroRam v-if="productType === 'ram'" />
-      <CadastroFonte v-if="productType === 'fonte'" />
-      <CadastroGabinete v-if="productType === 'gabinete'" />
-      <CadastroMonitor v-if="productType === 'monitor'" />
-      <CadastroPlacaDeVideo v-if="productType === 'placaDeVideo'" />
-      <CadastroProcessador v-if="productType === 'processador'" />
+      <CadastroRam v-if="productType === 'memoryRam'" />
+      <CadastroFonte v-if="productType === 'powerSupply'" />
+      <CadastroGabinete v-if="productType === 'tower'" />
+      <CadastroMonitor v-if="productType === 'monitorScreen'" />
+      <CadastroPlacaDeVideo v-if="productType === 'videoBoard'" />
+      <CadastroProcessador v-if="productType === 'processor'" />
       <CadastroCooler v-if="productType === 'cooler'" />
-      <CadastroDisco v-if="productType === 'disco'" />
-      <CadastroPC v-if="productType === 'computador'" />
-      <CadastroMobo v-if="productType === 'placaMae'" />
-
+      <CadastroDisco v-if="productType === 'memoryRom'" />
+      <CadastroPC v-if="productType === 'computer'" />
+      <CadastroMobo v-if="productType === 'motherBoard'" />
     </div>
   </div>
 </template>
@@ -62,7 +60,7 @@ export default {
   },
   data() {
     return {
-      productType: 'ram', 
+      productType: 'memoryRam',  // Definido para 'memoryRam' por padrão
     };
   },
   methods: {
