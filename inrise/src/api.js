@@ -677,7 +677,7 @@ export async function editGpu(id, data) {
 
 
 
-export async function editCpu(id, data) {
+export async function editRom(id, data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
@@ -685,13 +685,30 @@ export async function editCpu(id, data) {
   } : {};
 
   try {
-    const response = await apiClient.put(`/Processor/${id}`, data, { headers });
+    const response = await apiClient.put(`/MemoryRom/${id}`, data, { headers });
     return response.data;
   } catch (error) {
-    console.error('Erro ao editar a CPU:', error);
-    throw new Error('Erro ao editar a CPU');
+    console.error('Erro ao editar a ROM:', error);
+    throw new Error('Erro ao editar a ROM');
   }
 }
+
+export async function editTower(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Tower/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o gabinete:', error);
+    throw new Error('Erro ao editar a gabinete!');
+  }
+}
+
 
 export async function editMobo(id, data) {
   const token = getToken();
