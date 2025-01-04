@@ -117,17 +117,10 @@
           </select>
         </div>
 
-        <!-- Preço Final -->
-        <div class="form-group">
-          <label for="finalPrice" class="block mb-1 font-semibold">Preço Final</label>
-          <input
-            type="number"
-            v-model="formData.finalPrice"
-            id="finalPrice"
-            required
-            class="w-full border p-2"
-          />
-        </div>
+        <!-- Preço  -->
+
+        <InfoPreco :formData="formData" @update-form-data="updateFormData" />
+
       </div>
 
       <!-- Botão de Salvar -->
@@ -143,11 +136,13 @@
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
 import { fetchAllCpu, fetchAllMobo, fetchAllTower, fetchAllRam, fetchAllStorage, fetchAllGpu, fetchAllPsu, fetchAllCooler, fetchAllMonitor, registerPC } from '@/api';
+import InfoPreco from '@/components/admin/cadastro/InfoPreco.vue';
 
 export default {
   name: 'CadastroPC',
   components: {
     InfoGeral,
+    InfoPreco
   },
   data() {
     return {
@@ -165,7 +160,16 @@ export default {
         powerSupplyId: 0,
         coolerId: 0,
         monitorScreenId: 0,
-        finalPrice: 0,
+        price: {
+          costPrice: 0,
+          porcentageProfit: 0,
+          porcentageFixedCost: 0,
+          porcentageADMCost: 0,
+          porcentageDiscount: 0,
+          subtotal: 0,
+          iva: 0,
+          finalPrice: 0
+        }
       },
       processadores: [],
       placasMae: [],
