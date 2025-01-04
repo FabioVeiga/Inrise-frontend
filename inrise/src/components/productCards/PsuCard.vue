@@ -24,11 +24,15 @@ export default {
   name: 'PsuCard',
   components: {
     ProductCard,
-    EditPsuModal, // Modal de PSU
+    EditPsuModal,
   },
   props: {
     product: {
       type: Object,
+      required: true,
+    },
+    formatCurrency: {
+      type: Function,
       required: true,
     },
   },
@@ -38,9 +42,6 @@ export default {
     };
   },
   methods: {
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2)}`;
-    },
     formatStamp(stamp) {
       return stamp ? stamp.charAt(0).toUpperCase() + stamp.slice(1) : 'Selo não disponível';
     },

@@ -1,11 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency" 
-    @update-product="updateProduct"
-    @delete-product="handleDeleteCooler"
-    @edit-product="openCoolerModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @update-product="updateProduct"
+    @delete-product="handleDeleteCooler" @edit-product="openCoolerModal">
     <template #default="{ product }">
       <p>Ar: {{ product.air }}</p>
       <p>Refrigeração: {{ product.refrigeration }}</p>
@@ -33,6 +28,10 @@ export default {
     product: {
       type: Object,
       required: true,
+    },
+    formatCurrency: {
+      type: Function,
+      required: true,
     }
   },
   data() {
@@ -41,9 +40,6 @@ export default {
     };
   },
   methods: {
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2)}`;
-    },
     openCoolerModal() {
       this.isEditModalOpen = true;
     },

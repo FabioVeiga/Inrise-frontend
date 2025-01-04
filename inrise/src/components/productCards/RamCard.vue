@@ -1,11 +1,7 @@
 <template>
   <div>
-    <ProductCard 
-      :product="product" 
-      :formatCurrency="formatCurrency"
-      @delete-product="handleDeleteRam"
-      @edit-product="openEditRamModal"
-    >
+    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteRam"
+      @edit-product="openEditRamModal">
       <template #default="{ product }">
         <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
         <p>Frequência: {{ product.frequency || 0 }} MHz</p>
@@ -27,11 +23,15 @@ export default {
   name: 'RamCard',
   components: {
     ProductCard,
-    EditRamModal, // Modal de RAM
+    EditRamModal,
   },
   props: {
     product: {
       type: Object,
+      required: true,
+    },
+    formatCurrency: {
+      type: Function,
       required: true,
     },
   },
@@ -41,9 +41,7 @@ export default {
     };
   },
   methods: {
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2)}`;
-    },
+
     async handleDeleteRam(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');

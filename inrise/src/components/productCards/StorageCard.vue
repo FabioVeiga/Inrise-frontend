@@ -18,7 +18,7 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
-import EditRomModal from '../EditRomModal.vue';  // Importando o modal de ROM
+import EditRomModal from '../EditRomModal.vue';
 import { deleteRom } from '@/api';
 
 export default {
@@ -32,16 +32,17 @@ export default {
       type: Object,
       required: true,
     },
+    formatCurrency: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
-      isEditModalOpen: false,  // Controle para abrir o modal de ROM
+      isEditModalOpen: false, 
     };
   },
   methods: {
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2)}`;
-    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -49,7 +50,7 @@ export default {
       this.isEditModalOpen = false;
     },
     saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct); // Emite o evento de atualização do produto
+      this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
     async handleDeleteStorage(product) {

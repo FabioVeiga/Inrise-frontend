@@ -43,7 +43,6 @@ export default {
     },
     async deleteProduct(event) {
       event.preventDefault();
-      // Emitir evento de exclusão para o componente pai
       this.$emit('delete-product', this.product);
     }
   },

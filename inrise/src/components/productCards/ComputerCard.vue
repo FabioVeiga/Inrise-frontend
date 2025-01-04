@@ -14,8 +14,15 @@ export default {
   //TODO FAZER AQUI AAAA tem que REGISTRAR PCS AINDA
   name: 'ComputerCard',
   props: {
-    product: Object,
-    formatCurrency: Function,
+    product: {
+      type: Object,
+      required: true,
+    },
+    formatCurrency: {
+      type: Function,
+      required: true,
+    },
   },
+
 };
 </script>

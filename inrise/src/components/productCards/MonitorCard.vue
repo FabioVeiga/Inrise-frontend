@@ -1,10 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteMonitor"
-    @edit-product="openEditModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteMonitor"
+    @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Dimensão: {{ product.dimesion ? product.dimesion + ' "' : 'Dimensão não disponível' }}</p>
       <p>Frequência: {{ product.updateVolume ? product.updateVolume + ' Hz' : 'Frequência não disponível' }}</p>
@@ -18,7 +14,7 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
-import EditMonitorModal from '../EditMonitorModal.vue';  // Importando o modal de monitor
+import EditMonitorModal from '../EditMonitorModal.vue';
 import { deleteMonitor } from '@/api';
 
 export default {
@@ -32,16 +28,17 @@ export default {
       type: Object,
       required: true,
     },
+    formatCurrency: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
-      isEditModalOpen: false,  // Controle para abrir o modal de monitor
+      isEditModalOpen: false,
     };
   },
   methods: {
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2)}`;
-    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -49,7 +46,7 @@ export default {
       this.isEditModalOpen = false;
     },
     saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct); // Emite o evento de atualização do produto
+      this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
     async handleDeleteMonitor(product) {

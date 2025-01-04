@@ -18,7 +18,7 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
-import EditMoboModal from '../EditMoboModal.vue';  // Importando o modal de placa-mãe
+import EditMoboModal from '../EditMoboModal.vue';
 import { deleteMobo } from '@/api';
 
 export default {
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      isEditModalOpen: false,  // Controle para abrir o modal de placa-mãe
+      isEditModalOpen: false,
     };
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
       this.isEditModalOpen = false;
     },
     saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct); // Emite o evento de atualização do produto
+      this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
     async handleDeleteMobo(product) {
