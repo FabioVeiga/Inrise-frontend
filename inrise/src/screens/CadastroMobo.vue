@@ -79,17 +79,8 @@
             ></textarea>
           </div>
   
-          <!-- Classificação de Valor -->
-          <div class="form-group">
-            <label for="valueClassification" class="block mb-1 font-semibold">Classificação de Valor</label>
-            <input
-              type="number"
-              v-model="formData.valueClassification"
-              id="valueClassification"
-              required
-              class="w-full border p-2"
-            />
-          </div>
+          <!-- TODO: Isso n é pra estar aqui Classificação de Valor -->
+          
         </div>
   
         <!-- Componente de Preço -->
