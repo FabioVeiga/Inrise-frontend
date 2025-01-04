@@ -3,6 +3,7 @@
     :product="product" 
     :formatCurrency="formatCurrency"
     @delete-product="handleDeleteGPU"
+    @edit-product="openEditModal"
   >
     <template #default="{ product }">
       <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
@@ -10,16 +11,21 @@
       <p>Memória: {{ product.capacity ? product.capacity + ' GB' : 'Memória não disponível' }}</p>
     </template>
   </ProductCard>
+
+  <!-- Modal de Edição de GPU -->
+  <EditGpuModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
+import EditGpuModal from '../EditGpuModal.vue';  // Importando o modal de GPU
 import { deleteGPU } from '@/api';
 
 export default {
   name: 'GpuCard',
   components: {
     ProductCard,
+    EditGpuModal,
   },
   props: {
     product: {
@@ -31,7 +37,22 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isEditModalOpen: false,  // Controle para abrir o modal de GPU
+    };
+  },
   methods: {
+    openEditModal() {
+      this.isEditModalOpen = true;
+    },
+    closeEditModal() {
+      this.isEditModalOpen = false;
+    },
+    saveProduct(updatedProduct) {
+      this.$emit('update-product', updatedProduct); // Emite o evento de atualização do produto
+      this.closeEditModal();
+    },
     async handleDeleteGPU(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
