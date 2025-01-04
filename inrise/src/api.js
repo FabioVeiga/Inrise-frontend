@@ -758,6 +758,22 @@ export async function editPsu(id, data) {
   }
 }
 
+export async function editCpu(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Processor/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar a CPU:', error);
+    throw new Error('Erro ao editar a CPU');
+  }
+}
+
 export async function editCooler(id, data) {
   const token = getToken();
   const headers = token ? {
