@@ -2,11 +2,7 @@
     <div class="cadastrar-produto my-5">
       <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Componente de Informações Gerais -->
-<<<<<<< HEAD
         <InfoGeral :formData="formData" @update-form-data="updateFormData" :product-type="'motherBoard'" />
-=======
-        <InfoGeral :formData="formData" @update-form-data="updateFormData" />
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
   
         <!-- Informações Específicas da Placa Mãe -->
         <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -83,22 +79,8 @@
             ></textarea>
           </div>
   
-<<<<<<< HEAD
           <!-- TODO: Isso n é pra estar aqui Classificação de Valor -->
           
-=======
-          <!-- Classificação de Valor -->
-          <div class="form-group">
-            <label for="valueClassification" class="block mb-1 font-semibold">Classificação de Valor</label>
-            <input
-              type="number"
-              v-model="formData.valueClassification"
-              id="valueClassification"
-              required
-              class="w-full border p-2"
-            />
-          </div>
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
         </div>
   
         <!-- Componente de Preço -->

@@ -1,51 +1,33 @@
 <template>
-<<<<<<< HEAD
   <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteMonitor"
     @edit-product="openEditModal">
-=======
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteMonitor"
-  >
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
     <template #default="{ product }">
       <p>Dimensão: {{ product.dimesion ? product.dimesion + ' "' : 'Dimensão não disponível' }}</p>
       <p>Frequência: {{ product.updateVolume ? product.updateVolume + ' Hz' : 'Frequência não disponível' }}</p>
       <p>Resolução: {{ product.quality || 'Resolução não disponível' }}</p>
     </template>
   </ProductCard>
-<<<<<<< HEAD
 
   <!-- Modal de Edição de Monitor -->
   <EditMonitorModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
-=======
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
-<<<<<<< HEAD
 import EditMonitorModal from '../EditMonitorModal.vue';
-=======
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
 import { deleteMonitor } from '@/api';
 
 export default {
   name: 'MonitorCard',
   components: {
     ProductCard,
-<<<<<<< HEAD
     EditMonitorModal,
-=======
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
   },
   props: {
     product: {
       type: Object,
       required: true,
     },
-<<<<<<< HEAD
     formatCurrency: {
       type: Function,
       required: true,
@@ -66,12 +48,6 @@ export default {
     saveProduct(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
-=======
-  },
-  methods: {
-    formatCurrency(value) {
-      return `R$ ${value.toFixed(2)}`;
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
     },
     async handleDeleteMonitor(product) {
       if (!product.id) {

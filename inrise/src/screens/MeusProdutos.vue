@@ -96,10 +96,6 @@ import CoolerCard from '@/components/productCards/CoolerCard.vue';
 import StorageCard from '@/components/productCards/StorageCard.vue';
 import ComputerCard from '@/components/productCards/ComputerCard.vue';
 import MoboCard from '@/components/productCards/MoboCard.vue';
-<<<<<<< HEAD
-
-=======
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
 export default {
   name: 'MeusProdutos',
   components: {
@@ -117,13 +113,8 @@ export default {
   data() {
     return {
       products: [],
-<<<<<<< HEAD
       loading: false,
       productType: 'select',
-=======
-      loading: true,
-      productType: 'ram',
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
       isEditModalOpen: false, 
       editableProduct: {}
     };
@@ -178,18 +169,10 @@ export default {
             response = await fetchAllPC();
             fetchDetails = fetchPCById;
             break;
-<<<<<<< HEAD
-=======
-          
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
           case 'placaMae':
             response = await fetchAllMobo();
             fetchDetails = fetchMoboById;
             break;
-<<<<<<< HEAD
-=======
-
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
           default:
             throw new Error('Tipo de produto não suportado');
         }
@@ -266,10 +249,6 @@ export default {
       this.isEditModalOpen = false;
     },
     saveProduct() {
-<<<<<<< HEAD
-=======
-   
->>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
         this.products[index] = this.editableProduct; 
