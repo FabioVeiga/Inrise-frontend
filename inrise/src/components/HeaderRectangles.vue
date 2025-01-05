@@ -28,8 +28,9 @@
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
-    font-size: 60px;
+    font-size: 64px;
     font-weight: 900;
+    line-height: 66px;
     color: white; 
     text-align: center; 
   }

@@ -22,7 +22,6 @@ export default {
 
 .right-image {
   width: 1000px;
-  padding-left: 200px;
   height: 100%;
   display: block;
   object-fit: cover;
