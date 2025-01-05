@@ -106,7 +106,8 @@ export default {
     async submitForm() {
       try {
         const updatedRam = await editMonitor(this.editedProduct.id, this.editedProduct);
-        console.log('Memória RAM editada com sucesso!', updatedRam);
+        console.log('Monitor editado com sucesso!', updatedRam);
+        alert('Monitor editado com sucesso!');
         this.$emit('save', updatedRam);
         this.closeModal();
       } catch (error) {

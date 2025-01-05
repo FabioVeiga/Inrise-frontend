@@ -137,6 +137,7 @@
         try {
           const updatedPsu = await editPsu(this.editedProduct.id, this.editedProduct);
           console.log('Fonte editada com sucesso!', updatedPsu);
+          alert('Fonte editada com sucesso!');
           this.$emit('save', updatedPsu);
           this.closeModal();
         } catch (error) {

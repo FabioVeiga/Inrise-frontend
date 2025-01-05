@@ -126,6 +126,7 @@ export default {
       try {
         const updatedMobo = await editMobo(this.editedProduct.id, this.editedProduct);
         console.log('Placa Mãe editada com sucesso!', updatedMobo);
+        alert('Placa mãe editada com sucesso!');
         this.$emit('save', updatedMobo);
         this.closeModal();
       } catch (error) {

@@ -163,6 +163,7 @@ export default {
       try {
         const updatedCooler = await editCooler(this.editedProduct.id, this.editedProduct);
         console.log('Cooler editado com sucesso!', updatedCooler);
+        alert('Cooler editado com sucesso!');
         this.$emit('save', updatedCooler);
         this.closeModal();
       } catch (error) {

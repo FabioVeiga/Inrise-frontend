@@ -125,6 +125,7 @@ export default {
       try {
         const updatedRam = await editRam(this.editedProduct.id, this.editedProduct);
         console.log('Memória RAM editada com sucesso!', updatedRam);
+        alert('Memória RAM editada com sucesso!');
         this.$emit('save', updatedRam);
         this.closeModal();
       } catch (error) {

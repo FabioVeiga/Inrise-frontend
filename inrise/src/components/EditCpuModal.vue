@@ -138,6 +138,7 @@ export default {
             try {
                 const updatedCpu = await editCpu(this.editedProduct.id, this.editedProduct);
                 console.log('Processador editado com sucesso!', updatedCpu);
+                alert('Processador editado com sucesso!');
                 this.$emit('save', updatedCpu);
                 this.closeModal();
             } catch (error) {

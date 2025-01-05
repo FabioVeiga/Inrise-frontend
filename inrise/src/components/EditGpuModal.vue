@@ -120,6 +120,8 @@
         try {
           const updatedGpu = await editGpu(this.editedProduct.id, this.editedProduct);
           console.log('Placa de Vídeo editada com sucesso!', updatedGpu);
+          alert('Placa de vídeo editada com sucesso!');
+
           this.$emit('save', updatedGpu);
           this.closeModal();
         } catch (error) {

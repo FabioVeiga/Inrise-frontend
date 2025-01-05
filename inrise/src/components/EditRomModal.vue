@@ -143,6 +143,7 @@ export default {
       try {
         const updatedRom = await editRom(this.editedProduct.id, this.editedProduct);
         console.log('Disco editado com sucesso!', updatedRom);
+        alert('Disco editado com sucesso!');
         this.$emit('save', updatedRom);
         this.closeModal();
       } catch (error) {

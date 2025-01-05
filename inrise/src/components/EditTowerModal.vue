@@ -111,6 +111,7 @@
         try {
           const updatedTower = await editTower(this.editedProduct.id, this.editedProduct);
           console.log('Gabinete editado com sucesso!', updatedTower);
+          alert('Disco editada com sucesso!');
           this.$emit('save', updatedTower);
           this.closeModal();
         } catch (error) {
