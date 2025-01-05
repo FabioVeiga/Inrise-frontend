@@ -34,7 +34,6 @@
         >
         <p class="text-2xl font-bold my-2">TRABALHO</p>
         <p class="text-sm font-normal px-16 text-center">Escolha os programas que pretende usar no seu computador</p>
-        
       </div>
   
       <!-- Casual Box -->
@@ -53,35 +52,41 @@
         >
         <p class="text-2xl font-bold my-2">CASUAL</p>
         <p class="text-sm font-normal px-16 text-center">Monte e compre seu futuro computador com a InRise!</p>
-        
       </div>
     </div>
   </template>
   
   <script>
+  import Cookies from 'js-cookie';
+  
   export default {
     name: 'ActivityTypes',
     data() {
       return {
-        selectedTypes: [] // Array to hold selected types
+        selectedTypes: []
       };
     },
+    created() {
+      const savedTypes = Cookies.get('selectedActivities');
+      console.log("Saved Types from Cookie:", savedTypes);
+      if (savedTypes) {
+        this.selectedTypes = JSON.parse(savedTypes);
+      }
+    },
     methods: {
-      // Method to toggle the checkbox when the div is clicked
       toggleCheckbox(type) {
         const index = this.selectedTypes.indexOf(type);
         if (index > -1) {
-          // Remove the type if already selected (uncheck it)
           this.selectedTypes.splice(index, 1);
         } else {
-          // Add the type if not selected (check it)
           this.selectedTypes.push(type);
         }
         this.updateSelection();
       },
       updateSelection() {
-        // Emit the selected types to the parent component
-        this.$emit('software-selected', this.selectedTypes);
+        this.$emit('software-selected', this.selectedTypes);    
+        Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
+        console.log("Updated Cookies:", Cookies.get('selectedActivities'));
       }
     }
   }
@@ -93,7 +98,7 @@
   }
   
   .square:hover {
-    transform: scale(1.05); /* Keep the zoom effect */
+    transform: scale(1.05)
   }
   
   input[type="checkbox"] {
@@ -101,7 +106,7 @@
   }
   
   input[type="checkbox"]:checked {
-    transform: scale(1.2); /* Optional: Slight zoom-in for checked box */
+    transform: scale(1.2);
   }
   </style>
   
