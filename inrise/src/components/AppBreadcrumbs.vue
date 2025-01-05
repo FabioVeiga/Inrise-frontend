@@ -1,39 +1,40 @@
 <template>
-  <div class="flex items-center space-x-6">
+  <div class="relative min-w-[800px] my-12 flex justify-between items-center">
+    <!-- Line behind steps -->
+    <div class="absolute inset-0 mb-8 flex justify-center items-center z-0">
+      <div class="h-1 w-[33%] bg-gray-500"></div>
+      <div class="h-1 w-[33%] bg-gray-500"></div>
+    </div>
+
     <!-- Step 1: Client Activity -->
-    <div class="flex flex-col items-center space-y-2 cursor-default">
+    <div class="flex flex-col items-center w-[33%] space-y-2 cursor-default z-10 mx-12">
       <div 
         class="w-8 h-8 rounded-full flex items-center justify-center"
-        :class="{'bg-blue-600 text-white': isActiveStep(1), 'border-2 border-blue-600': !isActiveStep(1)}"
+        :class="{'bg-blue-600 text-white': isActiveStep(1), 'border-2 border-blue-600 bg-white': !isActiveStep(1)}"
       ></div>
       <span :class="{'text-blue-600': isActiveStep(1)}">Computadores</span>
     </div>
     
-    <!-- Line between steps -->
-    <div v-if="isActiveStep(1)" class="h-1 w-16 bg-blue-600"></div>
-
     <!-- Step 2: Escolha a Atividade -->
-    <div class="flex flex-col items-center space-y-2 cursor-default">
+    <div class="flex flex-col items-center w-[33%] space-y-2 cursor-default z-10 mx-12">
       <div 
         class="w-8 h-8 rounded-full flex items-center justify-center"
-        :class="{'bg-blue-600 text-white': isActiveStep(2), 'border-2 border-blue-600': !isActiveStep(2)}"
+        :class="{'bg-blue-600 text-white': isActiveStep(2), 'border-2 border-blue-600 bg-white': !isActiveStep(2)}"
       ></div>
       <span :class="{'text-blue-600': isActiveStep(2)}">Escolha a Atividade</span>
     </div>
     
-    <!-- Line between steps -->
-    <div v-if="isActiveStep(2)" class="h-1 w-16 bg-blue-600"></div>
-
     <!-- Step 3: Final Step -->
-    <div class="flex flex-col items-center space-y-2 cursor-default">
+    <div class="flex flex-col items-center w-[33%] space-y-2 cursor-default z-10 mx-12">
       <div 
         class="w-8 h-8 rounded-full flex items-center justify-center"
-        :class="{'bg-blue-600 text-white': isActiveStep(3), 'border-2 border-blue-600': !isActiveStep(3)}"
+        :class="{'bg-blue-600 text-white': isActiveStep(3), 'border-2 border-blue-600 bg-white': !isActiveStep(3)}"
       ></div>
       <span :class="{'text-blue-600': isActiveStep(3)}">Passo Final</span>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

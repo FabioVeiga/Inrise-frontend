@@ -5,7 +5,7 @@
         class="square p-8 w-1/3 flex flex-col items-center cursor-pointer"
         @click="toggleCheckbox('Games')"
       >
-        <img src="@/assets/client/passo1.png" alt="Games" class="w-auto h-auto object-fill">
+        <img src="@/assets/client/act1.png" alt="Games" class="w-auto h-auto object-fill">
         <input 
           type="checkbox" 
           id="games" 
@@ -15,7 +15,7 @@
           class="mt-2 w-6 h-6"
         >
         <p class="text-2xl font-bold my-2">JOGOS</p>
-        <p class="text-sm font-normal px-16 text-center">Selecione a finalidade do seu computador entre jogos, trabalho ou estudo</p>
+        <p class="text-sm font-normal px-16 text-center">Jogos da última geração e competitivos</p>
       </div>
   
       <!-- Work Box -->
@@ -23,7 +23,7 @@
         class="square p-8 w-1/3 flex flex-col items-center cursor-pointer"
         @click="toggleCheckbox('Work')"
       >
-        <img src="@/assets/client/passo2.png" alt="Work" class="w-auto h-auto object-fill">
+        <img src="@/assets/client/act2.png" alt="Work" class="w-auto h-auto object-fill">
         <input 
           type="checkbox" 
           id="work" 
@@ -33,7 +33,7 @@
           class="mt-2 w-6 h-6"
         >
         <p class="text-2xl font-bold my-2">TRABALHO</p>
-        <p class="text-sm font-normal px-16 text-center">Escolha os programas que pretende usar no seu computador</p>
+        <p class="text-sm font-normal px-16 text-center">Designers gráficos, engenheiros, artistas 3D, streamers, etc.</p>
       </div>
   
       <!-- Casual Box -->
@@ -41,7 +41,7 @@
         class="square p-8 w-1/3 flex flex-col items-center cursor-pointer"
         @click="toggleCheckbox('Casual')"
       >
-        <img src="@/assets/client/passo3.png" alt="Casual" class="w-auto h-auto object-fill">
+        <img src="@/assets/client/act3.png" alt="Casual" class="w-auto h-auto object-fill">
         <input 
           type="checkbox" 
           id="casual" 
@@ -51,7 +51,7 @@
           class="mt-2 w-6 h-6"
         >
         <p class="text-2xl font-bold my-2">CASUAL</p>
-        <p class="text-sm font-normal px-16 text-center">Monte e compre seu futuro computador com a InRise!</p>
+        <p class="text-sm font-normal px-16 text-center">Redes sociais, séries e filmes, trabalhos de escola/faculdade, etc.</p>
       </div>
     </div>
   </template>
