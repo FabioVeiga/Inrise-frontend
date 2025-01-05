@@ -15,7 +15,7 @@ import AnaliseFinanceira from '../screens/AnaliseFinanceira.vue';
 import CadastroUser from '@/screens/CadastroUser.vue';
 import LandingPage from '@/screens/LandingPage.vue';
 import AdminLogin from '@/screens/AdminLogin.vue';
-
+import ClientActivity from '@/screens/ClientActivity.vue';
 const routes = [
   {
     path: '/client',
@@ -23,9 +23,14 @@ const routes = [
     component: ClientHome,
     children: [
       {
-        path: '',  // Default child route that will load ClientComputers
+        path: '', 
         name: 'ClientComputers',
         component: ClientComputers
+      },
+      {
+        path: 'activity', 
+        name: 'ClientActivity',
+        component: ClientActivity
       }
     ]
   },
