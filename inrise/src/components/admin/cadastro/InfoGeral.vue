@@ -1,7 +1,6 @@
 <template>
     <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
       <h2 class="col-span-2 text-2xl font-bold">Informações Gerais</h2>
-  
       <!-- Uploader de Imagem -->
       <div
         class="col-span-2 image-upload-card border-dashed border-2 border-gray-300 rounded-lg flex justify-center items-center p-4 cursor-pointer hover:bg-gray-100 transition relative"
@@ -67,8 +66,17 @@
         type: Object,
         required: true,
       },
+      //TODO: Usar esse productType pro upload de imagem.
+      productType:{
+        type: String,
+        required: true
+      }
+    },
+    mounted(){
+      console.log(this.productType)
     },
     methods: {
+      
       handleImageUpload(event) {
         const file = event.target.files[0];
         if (file) {
