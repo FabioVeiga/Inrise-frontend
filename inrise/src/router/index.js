@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { isAuthenticated } from '@/utils/auth';
 import ClientHome from '../screens/ClientHome.vue';
+import ClientComputers from '@/screens/ClientComputers.vue';
 import AdminHome from '../screens/AdminHome.vue';
 import MeusProdutos from '../screens/MeusProdutos.vue';
 import CadastrarProdutos from '../screens/CadastrarProdutos.vue';
@@ -19,7 +20,14 @@ const routes = [
   {
     path: '/client',
     name: 'client',
-    component: ClientHome
+    component: ClientHome,
+    children: [
+      {
+        path: '',  // Default child route that will load ClientComputers
+        name: 'ClientComputers',
+        component: ClientComputers
+      }
+    ]
   },
   {
     path: '/adminLogin',
@@ -100,8 +108,8 @@ const routes = [
     ]
   },
   {
-    path: '/:catchAll(.*)', // Essa rota pega qualquer URL não reconhecida
-    redirect: '/adminLogin'  // Redireciona para o login
+    path: '/:catchAll(.*)', // This catches any unrecognized URL
+    redirect: '/adminLogin'  // Redirect to login
   }
 ];
 
