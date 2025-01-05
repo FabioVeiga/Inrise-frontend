@@ -146,7 +146,6 @@
   </div>
 </template>
 
-
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
 import { fetchAllCpu, fetchAllMobo, fetchAllTower, fetchAllRam, fetchAllStorage, fetchAllGpu, fetchAllPsu, fetchAllCooler, fetchAllMonitor, registerPC } from '@/api';
@@ -266,7 +265,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .cadastrar-pc {

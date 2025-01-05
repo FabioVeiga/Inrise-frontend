@@ -3,6 +3,7 @@
     :product="product" 
     :formatCurrency="formatCurrency"
     @delete-product="handleDeleteStorage"
+<<<<<<< HEAD
     @edit-product="openEditModal"
   >
     <template #default="{ product }">
@@ -14,24 +15,40 @@
 
   <!-- Modal de Edição de Storage (ROM) -->
   <EditRomModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+=======
+  >
+    <template #default="{ product }">
+      <p>Vel. de Leitura: {{ product.velocityRead + 'MB/s'|| 'Velocidade não disponível' }}</p>
+      <p>Capacidade: {{ product.capacity ? product.capacity + ' GB' : 'Capacidade não disponível' }}</p>
+      <p>Vel. de Escrita: {{ product.velocityWrite +  'MB/s' || 'Velocidade não disponível' }}</p>
+    </template>
+  </ProductCard>
+>>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
+<<<<<<< HEAD
 import EditRomModal from '../EditRomModal.vue';
+=======
+>>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
 import { deleteRom } from '@/api';
 
 export default {
   name: 'StorageCard',
   components: {
     ProductCard,
+<<<<<<< HEAD
     EditRomModal,
+=======
+>>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
   },
   props: {
     product: {
       type: Object,
       required: true,
     },
+<<<<<<< HEAD
     formatCurrency: {
       type: Function,
       required: true,
@@ -53,6 +70,10 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
+=======
+  },
+  methods: {
+>>>>>>> 554b403ba4cb801d05e1f534f77e3493d6196ca5
     async handleDeleteStorage(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');

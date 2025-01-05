@@ -59,13 +59,20 @@ export default {
     openEditRamModal() {
       this.isEditModalOpen = true;
     },
-    closeEditModal() {
-      this.isEditModalOpen = false;
+    async handleDeleteRam(product) {
+      if (!product.id) {
+        alert('Produto sem ID para exclusão');
+        return;
+      }
+
+      try {
+        await deleteRam(product.id);
+        alert('Memória RAM excluída com sucesso!');
+      } catch (error) {
+        alert('Erro ao excluir a memória RAM');
+        console.error(error);
+      }
     },
-    saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct);
-      this.closeEditModal();
-    }
   },
 };
 </script>
