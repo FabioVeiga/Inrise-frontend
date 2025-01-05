@@ -1,6 +1,6 @@
 <template>
-  <div class="image-view">
-    <img src="@/assets/homeScreenPic.jpg" alt="Image" class="right-image">
+  <div class="w-[32vw] h-screen bg-black flex justify-end overflow-hidden">
+    <img src="@/assets/homeScreenPic.jpg" alt="Image" class="w-[1000px] h-full object-cover">
   </div>
 </template>
 
@@ -9,22 +9,3 @@ export default {
   name: 'HomeImageView'
 }
 </script>
-
-<style scoped>
-.image-view {
-  width: 32vw; 
-  height: 100vh; 
-  background-color: #000; 
-  display: flex;
-  justify-content: flex-end;
-  overflow: hidden;
-}
-
-.right-image {
-  width: 1000px;
-  height: 100%;
-  display: block;
-  object-fit: cover;
- 
-}
-</style>

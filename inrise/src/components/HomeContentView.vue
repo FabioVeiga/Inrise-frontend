@@ -1,25 +1,11 @@
 <template>
-    <div class="content-view">
-      <!-- Conteúdo da view aqui -->
-       <slot></slot>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'HomeContentView'
-  }
-  </script>
-  
-  <style scoped>
-  .content-view {
-    flex: 1; 
-    display:flex;
-    flex-direction: column;
-    padding-left: 176px;
-    padding-bottom: 87px;
-    align-items: center;
-    box-sizing: border-box;
-  }
-  </style>
-  
+  <div class="flex flex-col flex-1 pl-[176px] pb-[87px] items-center box-border">
+    <slot></slot>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HomeContentView'
+}
+</script>

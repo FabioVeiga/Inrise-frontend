@@ -1,71 +1,25 @@
 <template>
-    <div class="home-steps">
-      <div class="square">
-          <img src="@/assets/client/passo1.png" alt="Bar" className="w-max h-max object-fill">
-        <p class = "p1">PASSO 1</p>
-        <p class = "p2">Selecione a finalidade
-            do seu computador entre jogos, trabalho ou estudo</p>
-      </div>
-      <div class="square">
-        <img src="@/assets/client/passo2.png" alt="Bar" className="w-max h-max object-fill">
-        <p class = "p1">PASSO 2</p>
-        <p class = "p2">Escolha os programas
-que pretende usar
-no seu computador</p>
-      </div>
-      <div class="square">
-        <img src="@/assets/client/passo3.png" alt="Bar" className="w-max h-max object-fill">
-        <p class = "p1">PASSO 3</p>
-        <p class = "p2">Monte e compre
-seu futuro 
-computador com 
-a InRise!</p>
-      </div>
+  <div class="flex justify-center">
+    <div class="square p-8 w-1/3 flex flex-col items-center">
+      <img src="@/assets/client/passo1.png" alt="Bar" class="w-auto h-auto object-fill">
+      <p class="text-2xl font-bold my-2">PASSO 1</p>
+      <p class="text-sm font-normal px-16 text-center">Selecione a finalidade do seu computador entre jogos, trabalho ou estudo</p>
     </div>
-  </template>
-  
+    <div class="square p-8 w-1/3 flex flex-col items-center">
+      <img src="@/assets/client/passo2.png" alt="Bar" class="w-auto h-auto object-fill">
+      <p class="text-2xl font-bold my-2">PASSO 2</p>
+      <p class="text-sm font-normal px-16 text-center">Escolha os programas que pretende usar no seu computador</p>
+    </div>
+    <div class="square p-8 w-1/3 flex flex-col items-center">
+      <img src="@/assets/client/passo3.png" alt="Bar" class="w-auto h-auto object-fill">
+      <p class="text-2xl font-bold my-2">PASSO 3</p>
+      <p class="text-sm font-normal px-16 text-center">Monte e compre seu futuro computador com a InRise!</p>
+    </div>
+  </div>
+</template>
+
 <script>
- export default {
-    name: 'HomeSteps'
-  }
+export default {
+  name: 'HomeSteps'
+}
 </script>
-
-  <style scoped>
-  .home-steps {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .p1{
-    font-size:24px;
-    font-weight: 700;
-    margin:0px;
-    padding: 10px;
-  }
-  .p2{
-    font-size:14px;
-    font-weight: 400px;
-    padding-left: 60px;
-    padding-right: 60px;
-  }
-  .square {
-    padding: 30px;
-    width: 33%;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-
-  }
-  
-  .gray-square {
-    right:50%;
-    width: 150px;
-    height: 150px;
-    background-color: #ccc;
-  }
-  
-  .square p {
-    margin-top: 5px;
-  }
-  </style>
-  

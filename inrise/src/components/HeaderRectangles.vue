@@ -1,38 +1,14 @@
 <template>
-    <div class="headerRectangles">
-      <img src="@/assets/bar.png" alt="Bar" class="bar">
-      <div class="overlay-text">
-            <p style="white-space: nowrap">VOCÊ MONTA <br> A SUA MÁQUINA</p>
-      </div>
+  <div class="relative p-8">
+    <img src="@/assets/bar.png" alt="Bar" class="w-[630px] h-[145px]">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center text-[64px] font-extrabold leading-[66px]">
+      <p class="whitespace-nowrap">VOCÊ MONTA <br> A SUA MÁQUINA</p>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'HeaderRectangles'
-  }
-  </script>
-  
-  <style>
-  .headerRectangles {
-    padding: 30px;
-    position: relative;
-  }  
-  .bar {
-    width: 630px;
-    height: 145px;
-  }
-  
-  .overlay-text {
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    font-size: 64px;
-    font-weight: 900;
-    line-height: 66px;
-    color: white; 
-    text-align: center; 
-  }
-  </style>
-  
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HeaderRectangles'
+}
+</script>
