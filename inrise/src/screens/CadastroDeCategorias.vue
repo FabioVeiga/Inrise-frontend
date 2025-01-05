@@ -44,6 +44,7 @@ export default {
       try {
         const newCategory = { name: this.categoryName };
         const response = await registerSoftwareGroup(newCategory);
+        alert('Categoria criada com sucesso!');
         this.$emit('category-created', response.data);
       } catch (error) {
         console.error('Erro ao criar categoria:', error);

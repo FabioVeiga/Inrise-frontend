@@ -177,6 +177,7 @@ export default {
 
       try {
         await registerSoftware(this.formData);
+        alert('Software cadastrado com sucesso!');
         this.showFeedback('Software cadastrado com sucesso!', 'bg-green-500');
       } catch (error) {
         console.error('Erro ao cadastrar o software:', error);

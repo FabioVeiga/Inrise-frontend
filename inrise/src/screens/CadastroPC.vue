@@ -13,7 +13,7 @@
           <label for="processadorId" class="block mb-1 font-semibold">Processador</label>
           <select v-model="formData.processadorId" id="processadorId" class="w-full border p-2" required>
             <option value="" disabled>Selecione um Processador</option>
-            <option v-for="item in processadores" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in processadores.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -22,7 +22,7 @@
           <label for="motherBoardId" class="block mb-1 font-semibold">Placa Mãe</label>
           <select v-model="formData.motherBoardId" id="motherBoardId" class="w-full border p-2" required>
             <option value="" disabled>Selecione uma Placa Mãe</option>
-            <option v-for="item in placasMae" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in placasMae.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -31,7 +31,7 @@
           <label for="towerId" class="block mb-1 font-semibold">Gabinete</label>
           <select v-model="formData.towerId" id="towerId" class="w-full border p-2" required>
             <option value="" disabled>Selecione um Gabinete</option>
-            <option v-for="item in gabinetes" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in gabinetes.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -40,7 +40,7 @@
           <label for="memoryRamSlot01Id" class="block mb-1 font-semibold">Memória RAM Slot 01</label>
           <select v-model="formData.memoryRamSlot01Id" id="memoryRamSlot01Id" class="w-full border p-2" required>
             <option value="" disabled>Selecione Memória RAM</option>
-            <option v-for="item in memoriasRam" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in memoriasRam.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -49,7 +49,7 @@
           <label for="memoryRamSlot02Id" class="block mb-1 font-semibold">Memória RAM Slot 02</label>
           <select v-model="formData.memoryRamSlot02Id" id="memoryRamSlot02Id" class="w-full border p-2" required>
             <option value="" disabled>Selecione Memória RAM</option>
-            <option v-for="item in memoriasRam" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in memoriasRam.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -58,7 +58,7 @@
           <label for="memoryRomHHDId" class="block mb-1 font-semibold">Disco HDD</label>
           <select v-model="formData.memoryRomHHDId" id="memoryRomHHDId" class="w-full border p-2" required>
             <option value="" disabled>Selecione Disco HDD</option>
-            <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in discos.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -67,7 +67,7 @@
           <label for="memoryRomSSDId" class="block mb-1 font-semibold">Disco SSD</label>
           <select v-model="formData.memoryRomSSDId" id="memoryRomSSDId" class="w-full border p-2" required>
             <option value="" disabled>Selecione Disco SSD</option>
-            <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in discos.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -77,7 +77,7 @@
           <label for="memoryRomSSDM2Id" class="block mb-1 font-semibold">Disco SSD M.2</label>
           <select v-model="formData.memoryRomSSDM2Id" id="memoryRomSSDM2Id" class="w-full border p-2" required>
             <option value="" disabled>Selecione Disco SSD M.2</option>
-            <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in discos.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -86,7 +86,7 @@
           <label for="videoBoardId" class="block mb-1 font-semibold">Placa de Vídeo</label>
           <select v-model="formData.videoBoardId" id="videoBoardId" class="w-full border p-2" required>
             <option value="" disabled>Selecione Placa de Vídeo</option>
-            <option v-for="item in placasVideo" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in placasVideo.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -95,7 +95,7 @@
           <label for="powerSupplyId" class="block mb-1 font-semibold">Fonte de Alimentação</label>
           <select v-model="formData.powerSupplyId" id="powerSupplyId" class="w-full border p-2" required>
             <option value="" disabled>Selecione Fonte de Alimentação</option>
-            <option v-for="item in fontesAlimentacao" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in fontesAlimentacao.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -104,7 +104,7 @@
           <label for="coolerId" class="block mb-1 font-semibold">Cooler</label>
           <select v-model="formData.coolerId" id="coolerId" class="w-full border p-2" required>
             <option value="" disabled>Selecione Cooler</option>
-            <option v-for="item in coolers" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in coolers.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -113,7 +113,7 @@
           <label for="monitorScreenId" class="block mb-1 font-semibold">Monitor</label>
           <select v-model="formData.monitorScreenId" id="monitorScreenId" class="w-full border p-2" required>
             <option value="" disabled>Selecione Monitor</option>
-            <option v-for="item in monitores" :key="item.id" :value="item.id">{{ item.name }}</option>
+            <option v-for="item in monitores.items" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
 
@@ -184,56 +184,50 @@ export default {
   },
   methods: {
     async fetchData() {
-      const [
-        processadores,
-        placasMae,
-        gabinetes,
-        memoriasRam,
-        discos,
-        placasVideo,
-        fontesAlimentacao,
-        coolers,
-        monitores,
-      ] = await Promise.all([
-        fetchAllCpu(),
-        fetchAllMobo(),
-        fetchAllTower(),
-        fetchAllRam(),
-        fetchAllStorage(),
-        fetchAllGpu(),
-        fetchAllPsu(),
-        fetchAllCooler(),
-        fetchAllMonitor(),
-      ]);
-
-      this.processadores = processadores;
-      this.placasMae = placasMae;
-      this.gabinetes = gabinetes;
-      this.memoriasRam = memoriasRam;
-      this.discos = discos;
-      this.placasVideo = placasVideo;
-      this.fontesAlimentacao = fontesAlimentacao;
-      this.coolers = coolers;
-      this.monitores = monitores;
-    },
-
-    updateFormData(key, value) {
-      this.formData[key] = value;
-    },
-
-    async submitForm() {
       try {
-        await registerPC(this.formData);
-        this.$router.push({ name: 'pc-dashboard' }); // Redirecionar após salvar
+        const [processadores, placasMae, gabinetes, memoriasRam, discos, placasVideo, fontesAlimentacao, coolers, monitores] = await Promise.all([
+          fetchAllCpu(),
+          fetchAllMobo(),
+          fetchAllTower(),
+          fetchAllRam(),
+          fetchAllStorage(),
+          fetchAllGpu(),
+          fetchAllPsu(),
+          fetchAllCooler(),
+          fetchAllMonitor(),
+        ]);
+
+        this.processadores = processadores.data;
+        this.placasMae = placasMae.data;
+        this.gabinetes = gabinetes.data;
+        this.memoriasRam = memoriasRam.data;
+        this.discos = discos.data;
+        this.placasVideo = placasVideo.data;
+        this.fontesAlimentacao = fontesAlimentacao.data;
+        this.coolers = coolers.data;
+        this.monitores = monitores.data;
+        console.log("Woof", this.processadores, this.placasMae)
       } catch (error) {
-        console.error('Erro ao salvar PC:', error);
+        console.error('Erro ao carregar dados:', error);
       }
     },
-  },
-  created() {
-    this.fetchData();
-  },
-};
+      updateFormData(key, value) {
+        this.formData[key] = value;
+      },
+
+    async submitForm() {
+        try {
+          await registerPC(this.formData);
+          this.$router.push({ name: 'pc-dashboard' }); // Redirecionar após salvar
+        } catch (error) {
+          console.error('Erro ao salvar PC:', error);
+        }
+      },
+    },
+    created() {
+      this.fetchData();
+    },
+  };
 </script>
 
 <style scoped>
