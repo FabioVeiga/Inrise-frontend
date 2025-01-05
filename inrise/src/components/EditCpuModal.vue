@@ -10,7 +10,7 @@
 
             <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-4">
                 <!-- Componente InfoGeral -->
-                <InfoGeral :form-data="editedProduct" @update-form-data="updateFormData" />
+                <InfoGeral :form-data="editedProduct" @update-form-data="updateFormData" productType="processor" />
 
                 <!-- Informações Específicas do Processador -->
                 <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">

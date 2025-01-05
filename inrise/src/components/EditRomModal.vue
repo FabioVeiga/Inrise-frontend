@@ -12,6 +12,7 @@
         <InfoGeral
           :form-data="editedProduct"
           @update-form-data="updateFormData"
+          :product-type="'memoryRom'"
         />
 
         <!-- Informações Específicas do Disco -->

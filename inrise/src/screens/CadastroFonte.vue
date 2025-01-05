@@ -2,7 +2,7 @@
   <div class="cadastrar-produto my-5">
     <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Componente de Informações Gerais -->
-      <InfoGeral :formData="formData" @update-form-data="updateFormData" />
+      <InfoGeral :formData="formData" @update-form-data="updateFormData" :product-type="'towerSupply'" />
 
       <!-- Informações Específicas da Fonte -->
       <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -12,6 +12,7 @@
           <InfoGeral
             :form-data="editedProduct"
             @update-form-data="updateFormData"
+            :product-type="'powerSupply'"
           />
   
           <!-- Exclusivos de Fonte -->

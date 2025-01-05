@@ -2,7 +2,7 @@
   <div class="cadastrar-produtos my-5">
     <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- General Info Component -->
-      <InfoGeral :formData="formData" @update-form-data="updateFormData" />
+      <InfoGeral :formData="formData" @update-form-data="updateFormData" :product-type="'memoryRam'" />
 
       <!-- RAM Info Section -->
       <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
