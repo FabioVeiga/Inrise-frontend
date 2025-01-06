@@ -6,8 +6,9 @@
       <router-view />
     </div>
 
-    <AppFooter></AppFooter>
   </div>
+  <AppFooter></AppFooter>
+
 </template>
 
 <script>

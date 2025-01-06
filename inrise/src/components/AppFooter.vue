@@ -33,36 +33,33 @@ export default {
 }
 </script>
 
-<style scoped>
-.footer {
-  width: 100vw;
-  height: 87px;
+<style scoped>.footer {
+  width: 100%;
+  height: 87px;  /* You can adjust this as needed */
   background: linear-gradient(to bottom, #54C0ED, #E431FE);
-  padding: 0px;
+  padding: 0;
   box-sizing: border-box;
-  position: fixed;
-  bottom: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: auto;  /* This ensures the footer goes to the bottom of the page */
 }
 
 .flex-container {
   width: 100%;
-  height:100%;
+  height: 100%;
   display: flex;
 }
 
-.topText{
-  padding:10px;
+.topText {
+  padding: 10px;
   font-size: 16px;
   font-weight: 900;
 }
 
-.icon-holder{
- display:flex;
- flex-direction: row;
+.iconHolder {
+  display: flex;
+  flex-direction: row;
 }
 
 .flex-item {
@@ -71,18 +68,18 @@ export default {
   color: #FFF;
 }
 
-p{
-  margin:0px;
+p {
+  margin: 0;
 }
 
 .main-column {
-  flex-basis: 70%; 
+  flex-basis: 70%;
 }
 
-.square-grey{
+.square-grey {
   flex-grow: 1;
   width: 30px;
-  height:30px;
-  
+  height: 30px;
 }
+
 </style>
