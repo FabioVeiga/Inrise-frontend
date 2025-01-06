@@ -214,9 +214,6 @@ export default {
         this.fontesAlimentacao = fontesAlimentacao;
         this.coolers = coolers;
         this.monitores = monitores;
-
-        console.log(this.processadores, this.placasMae, this.gabinetes, this.memoriasRam, this.discos, this.placasVideo, this.fontesAlimentacao, this.coolers, this.monitores);
-
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
       }
@@ -231,38 +228,38 @@ export default {
       }
     },
 
-    // Function to calculate the final price based on selected items
     calcularPrecoFinal() {
       let totalPrice = 0;
+      const selectedItems = [
+        { id: this.formData.processadorId, list: this.processadores },
+        { id: this.formData.motherBoardId, list: this.placasMae },
+        { id: this.formData.towerId, list: this.gabinetes },
+        { id: this.formData.memoryRamSlot01Id, list: this.memoriasRam },
+        { id: this.formData.memoryRamSlot02Id, list: this.memoriasRam },
+        { id: this.formData.memoryRomHHDId, list: this.discos },
+        { id: this.formData.memoryRomSSDId, list: this.discos },
+        { id: this.formData.memoryRomSSDM2Id, list: this.discos },
+        { id: this.formData.videoBoardId, list: this.placasVideo },
+        { id: this.formData.powerSupplyId, list: this.fontesAlimentacao },
+        { id: this.formData.coolerId, list: this.coolers },
+        { id: this.formData.monitorScreenId, list: this.monitores },
+      ];
 
-      // Helper function to find price by item ID
-      const getPrice = (id, items) => {
-        const item = items.find(item => item.id === id);
-        return item ? item.price : 0;
-      };
+      selectedItems.forEach(({ id, list }) => {
+        const item = list.find(item => item.id === id);
+        console.log("Item",item)
 
-      // Calculate total price by adding the price of each selected item
-      totalPrice += getPrice(this.formData.processadorId, this.processadores);
-      totalPrice += getPrice(this.formData.motherBoardId, this.placasMae);
-      totalPrice += getPrice(this.formData.towerId, this.gabinetes);
-      totalPrice += getPrice(this.formData.memoryRamSlot01Id, this.memoriasRam);
-      totalPrice += getPrice(this.formData.memoryRamSlot02Id, this.memoriasRam);
-      totalPrice += getPrice(this.formData.memoryRomHHDId, this.discos);
-      totalPrice += getPrice(this.formData.memoryRomSSDId, this.discos);
-      totalPrice += getPrice(this.formData.memoryRomSSDM2Id, this.discos);
-      totalPrice += getPrice(this.formData.videoBoardId, this.placasVideo);
-      totalPrice += getPrice(this.formData.powerSupplyId, this.fontesAlimentacao);
-      totalPrice += getPrice(this.formData.coolerId, this.coolers);
-      totalPrice += getPrice(this.formData.monitorScreenId, this.monitores);
+        if (item && item.price && item.price.finalPrice) {
+          totalPrice += item.price.finalPrice;
+        }
+      });
 
-      // Update the final price
       this.formData.finalPrice = totalPrice;
     },
 
-    // Submit the form and register the PC
+
     async submitForm() {
       try {
-        // Register the PC with the form data
         await registerPC(this.formData);
         alert('Produto cadastrado com sucesso!');
       } catch (error) {
@@ -272,7 +269,6 @@ export default {
     },
   },
 
-  // Fetch product data when the component is created
   mounted() {
     this.fetchData();
   },
