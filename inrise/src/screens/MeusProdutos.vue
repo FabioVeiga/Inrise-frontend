@@ -75,17 +75,7 @@
 </template>
 
 <script>
-import { fetchAllRam, fetchRamById } from '../api';
-import { fetchAllPsu, fetchPsuById } from '../api';
-import { fetchAllMonitor, fetchMonitorById } from '../api';
-import { fetchAllGpu, fetchGpuById } from '../api';
-import { fetchAllCpu, fetchCpuById } from '../api';
-import { fetchAllTower, fetchTowerById } from '../api';
-import { fetchAllCooler, fetchCoolerById } from '../api';
-import { fetchAllStorage, fetchStorageById } from '../api';
-import { fetchAllPC, fetchPCById } from '../api';
-import { fetchAllMobo, fetchMoboById } from '../api';
-
+import { loadProducts } from '@/utils/productUtils.js'
 import RamCard from '@/components/productCards/RamCard.vue';
 import PsuCard from '@/components/productCards/PsuCard.vue';
 import GpuCard from '@/components/productCards/GpuCard.vue';
@@ -96,6 +86,7 @@ import CoolerCard from '@/components/productCards/CoolerCard.vue';
 import StorageCard from '@/components/productCards/StorageCard.vue';
 import ComputerCard from '@/components/productCards/ComputerCard.vue';
 import MoboCard from '@/components/productCards/MoboCard.vue';
+
 export default {
   name: 'MeusProdutos',
   components: {
@@ -129,92 +120,21 @@ export default {
       this.products = [];
 
       try {
-        let response;
-        let fetchDetails;
-
-        switch (this.productType) {
-          case 'ram':
-            response = await fetchAllRam();
-            fetchDetails = fetchRamById;
-            break;
-          case 'psu':
-            response = await fetchAllPsu();
-            fetchDetails = fetchPsuById;
-            break;
-          case 'monitor':
-            response = await fetchAllMonitor();
-            fetchDetails = fetchMonitorById;
-            break;
-          case 'placaDeVideo':
-            response = await fetchAllGpu();
-            fetchDetails = fetchGpuById;
-            break;
-          case 'processador':
-            response = await fetchAllCpu();
-            fetchDetails = fetchCpuById;
-            break;
-          case 'gabinete':
-            response = await fetchAllTower();
-            fetchDetails = fetchTowerById;
-            break;
-          case 'cooler':
-            response = await fetchAllCooler();
-            fetchDetails = fetchCoolerById;
-            break;
-          case 'disco':
-            response = await fetchAllStorage();
-            fetchDetails = fetchStorageById;
-            break;
-          case 'computador':
-            response = await fetchAllPC();
-            fetchDetails = fetchPCById;
-            break;
-          case 'placaMae':
-            response = await fetchAllMobo();
-            fetchDetails = fetchMoboById;
-            break;
-          default:
-            throw new Error('Tipo de produto não suportado');
-        }
-
-        const products = response.data.items;
-        for (let product of products) {
-          const productDetails = await fetchDetails(product.id);
-
-          if (productDetails && productDetails.data) {
-            product.name = productDetails.data.data.name;
-            product.price = productDetails.data.data.price;
-            switch (this.productType) {
-              case 'ram':
-                product.capacity = productDetails.data.data.capacity;
-                product.socket = productDetails.data.data.socket;
-                product.frequency = productDetails.data.data.frequency;
-                break;
-              case 'psu':
-                product.potency = productDetails.data.data.potency;
-                product.potencyReal = productDetails.data.data.potencyReal;
-                product.stamp = productDetails.data.data.stamp;
-                product.modular = productDetails.data.data.modular;
-                break;
-            }
-          } else {
-            product.price = null;
-          }
-        }
-
-        this.products = products;
+        this.products = await loadProducts(this.productType);
         this.loading = false;
       } catch (error) {
         console.error('Erro ao carregar os produtos:', error);
         this.loading = false;
       }
     },
+
     formatCurrency(value) {
       return value ? value.toLocaleString('pt', {
         style: 'currency',
         currency: 'EUR',
       }) : 'Preço não disponível';
     },
+
     getProductComponent() {
       switch (this.productType) {
         case 'ram':
@@ -241,20 +161,24 @@ export default {
           return null;
       }
     },
+
     openEditModal(product) {
       this.editableProduct = { ...product }; 
       this.isEditModalOpen = true;
     },
+
     closeEditModal() {
       this.isEditModalOpen = false;
+      location.reload();
     },
+
     saveProduct() {
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
         this.products[index] = this.editableProduct; 
       }
       this.closeEditModal();
-      location.reload()
+      location.reload();
     }
   }
 };
