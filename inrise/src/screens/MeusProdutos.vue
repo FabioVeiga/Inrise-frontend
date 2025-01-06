@@ -49,28 +49,7 @@
         :formatCurrency="formatCurrency"
         @edit-product="openEditModal" 
       />
-    </div>
-
-    <!-- Modal de Edição -->
-    <div v-if="isEditModalOpen" class="modal-overlay">
-      <div class="modal-content">
-        <h2 class="text-2xl font-bold mb-4">Editar Produto</h2>
-        <form @submit.prevent="saveProduct">
-          <label for="productName">Nome do Produto:</label>
-          <input v-model="editableProduct.name" id="productName" type="text" required />
-
-          <label for="productPrice">Preço:</label>
-          <input v-model="editableProduct.price" id="productPrice" type="number" step="0.01" required />
-
-          <label for="productCapacity">Capacidade:</label>
-          <input v-model="editableProduct.capacity" id="productCapacity" type="number" required />
-
-          <!-- Outros campos conforme o tipo de produto -->
-          <button type="submit">Salvar</button>
-          <button @click="closeEditModal">Cancelar</button>
-        </form>
-      </div>
-    </div>
+    </div>    
   </div>
 </template>
 
