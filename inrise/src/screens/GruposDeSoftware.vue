@@ -12,7 +12,7 @@
           {{ category.name }}
         </button>
         <button 
-          @click="deleteCategory(categoryId+1)" 
+          @click="deleteCategory(categoryId)" 
           class="bg-red-500 text-white px-4 py-2 rounded-md"
         >
           Excluir Grupo
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { fetchSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup } from '@/api';
+import { fetchAllSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup  } from '@/api';
 
 export default {
   name: 'GruposDeSoftware',
@@ -93,10 +93,13 @@ export default {
 
       if (!category.softwares && !category.isLoading) {
         category.isLoading = true;
+        //console.log("CatId",categoryId,"CatIdObject",category.id)
         try {
-          const softwaresRes = await fetchAllSoftware(categoryId-1);
-          category.softwares = softwaresRes.data.items.filter(software => software.categoryId-1 === categoryId);
-          
+          const softwaresRes = await fetchAllSoftware(category.id);
+          //console.log("Catid",category.id,"Softwaresres",softwaresRes)
+          category.softwares = softwaresRes.data.items.filter(software => software.categoryId === category.id);
+          //category.softwares = softwaresRes.data.items
+          //console.log("Softwares",category.softwares)
           for (let software of category.softwares) {
             await this.fetchSoftwareDetails(software);
           }
@@ -114,19 +117,24 @@ export default {
 
     async fetchCategories() {
       try {
-        const categoriesRes = await fetchSoftwareGroup();
+        const categoriesRes = await fetchAllSoftwareGroup();
         this.categories = categoriesRes.data.items;
         console.log(this.categories)
       } catch (error) {
         console.error('Erro ao carregar categorias de software', error);
       }
     },
-
     async deleteCategory(categoryId) {
+      const category = this.categories[categoryId];
+      //console.log("Cats",this.categories)
+      //console.log("DELETE","CatId",categoryId,"CatIdObject",category.id)
       try {
-        await deleteSoftwareGroup(categoryId);
-        this.$delete(this.categories, categoryId);
+        await deleteSoftwareGroup(category.id);
+        //TODO: Usar esse reload em outras paginas
         alert('Grupo excluído com sucesso!');
+        setTimeout(() => {
+    location.reload();  // This will reload the page after the alert is closed
+  }, 100);
       } catch (error) {
         console.error('Erro ao excluir o grupo de software', categoryId, error);
         alert('Erro ao excluir o grupo.');
