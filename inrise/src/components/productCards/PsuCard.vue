@@ -67,6 +67,8 @@ export default {
     },
     closeEditModal() {
       this.isEditModalOpen = false;
+      //todo: o reload dá f5 na pagina e isso pode ser um metodo comum pra todos os edits i guess location.reload();
+
     },
     saveProduct(updatedProduct) {
       this.$emit('update-product', updatedProduct);
