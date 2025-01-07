@@ -88,19 +88,31 @@ export async function fetchAllSoftwareGroup() {
 
 }
 
-export async function registerImage(category, id) {
+export async function registerImage(category, id, imageFile) {
   const token = getToken();
+
+  // Set up headers with Authorization if token exists
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
   } : {};
 
+  const formData = new FormData();
+  formData.append('ContentType', imageFile.type);  // e.g., 'image/jpeg'
+  formData.append('ContentDisposition', `attachment; filename="${imageFile.name}"`);
+  formData.append('Length', imageFile.size);  // Image size in bytes
+  formData.append('Name', imageFile.name);     // Just the image name
+  formData.append('FileName', imageFile.name); // File name
+
+  // Append the image file itself
+  formData.append('image', imageFile);
+
   try {
-    const response = await apiClient.post(`/Image/upload/${category}/${id}`, { headers });
-    return response.data;
+    const response = await apiClient.post(`/Image/upload/${category}/${id}`, formData, { headers });
+
+    return response.data;  // Return the response data (success message or data)
   } catch (error) {
-    console.error('Erro ao cadastrar a imagem:', error);
-    throw new Error('Erro ao cadastrar a imagem');
+    console.error('Error uploading the image:', error);
+    throw new Error('Error uploading the image');
   }
 }
 
@@ -267,7 +279,7 @@ export async function registerMobo(data) {
 
   return apiClient.post('/MotherBoard', data, { headers });
 
-  
+
 }
 
 export async function registerCPU(data) {

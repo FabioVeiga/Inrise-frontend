@@ -40,7 +40,7 @@
 
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
-import { registerRam } from '@/api';
+import { registerRam, registerImage } from '@/api';
 import InfoPreco from '@/components/admin/cadastro/InfoPreco.vue';
 
 export default {
@@ -67,12 +67,14 @@ export default {
           subtotal: 0,
           iva: 0,
           finalPrice: 0
-        }
+        },
+        image: null,
       }
     };
   },
   methods: {
     updateFormData({ key, value }) {
+      console.log('Image file before uploading:', this.formData.image);
       const keys = key.split('.');
       if (keys.length === 2) {
         this.formData[keys[0]][keys[1]] = value;
@@ -84,6 +86,14 @@ export default {
       try {
         const response = await registerRam(this.formData);
         console.log('Memória RAM cadastrada com sucesso!', response);
+
+        const ramId = response.data.data.id;
+        console.log("Resp", response)
+        if (this.formData.image) {
+          console.log('Image file before requesting:', this.formData.image);
+          const imageResponse = await registerImage('memoryRam', ramId, this.formData.image);
+          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        }
         alert('Produto cadastrado com sucesso!');
         this.resetForm();
       } catch (error) {
@@ -108,7 +118,8 @@ export default {
           subtotal: 0,
           iva: 0,
           finalPrice: 0
-        }
+        },
+        image: null
       };
     }
   }
