@@ -16,8 +16,8 @@ import CadastroUser from '@/screens/CadastroUser.vue';
 import LandingPage from '@/screens/LandingPage.vue';
 import AdminLogin from '@/screens/AdminLogin.vue';
 import ClientActivity from '@/screens/ClientActivity.vue';
-import ClientSoftware from '@/screens/ClientActivity.vue';
-
+import ClientSoftware from '@/screens/ClientSoftware.vue';
+import ClientPCPartPicker from '@/screens/ClientPCPartPicker.vue';
 const routes = [
   {
     path: '/client',
@@ -38,6 +38,11 @@ const routes = [
         path: 'software', 
         name: 'ClientSoftware',
         component: ClientSoftware
+      },
+      {
+        path: 'pcpartpicker', 
+        name: 'ClientPCPartPicker',
+        component: ClientPCPartPicker
       },
     ]
   },

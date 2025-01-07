@@ -91,25 +91,23 @@ export async function fetchAllSoftwareGroup() {
 export async function registerImage(category, id, imageFile) {
   const token = getToken();
 
-  // Set up headers with Authorization if token exists
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
   } : {};
 
   const formData = new FormData();
-  formData.append('ContentType', imageFile.type);  // e.g., 'image/jpeg'
+  formData.append('ContentType', imageFile.type); 
   formData.append('ContentDisposition', `attachment; filename="${imageFile.name}"`);
-  formData.append('Length', imageFile.size);  // Image size in bytes
-  formData.append('Name', imageFile.name);     // Just the image name
-  formData.append('FileName', imageFile.name); // File name
+  formData.append('Length', imageFile.size);
+  formData.append('Name', imageFile.name);
+  formData.append('FileName', imageFile.name);
 
-  // Append the image file itself
   formData.append('image', imageFile);
-
+  console.log("Imagefile on request:",imageFile,"Formdata on request:",formData)
   try {
     const response = await apiClient.post(`/Image/upload/${category}/${id}`, formData, { headers });
 
-    return response.data;  // Return the response data (success message or data)
+    return response.data; 
   } catch (error) {
     console.error('Error uploading the image:', error);
     throw new Error('Error uploading the image');
