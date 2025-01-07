@@ -1,112 +1,65 @@
 <template>
-    <div class="flex justify-center space-x-8">
-      <!-- Games Box -->
-      <div 
-        class="square p-8 w-1/3 flex flex-col items-center cursor-pointer"
-        @click="toggleCheckbox('Games')"
-      >
-        <img src="@/assets/client/act1.png" alt="Games" class="w-auto h-auto object-fill">
-        <input 
-          type="checkbox" 
-          id="games" 
-          v-model="selectedTypes"
-          value="Games" 
-          @change="updateSelection"
-          class="mt-2 w-6 h-6"
-        >
-        <p class="text-2xl font-bold my-2">JOGOS</p>
-        <p class="text-sm font-normal px-16 text-center">Jogos da última geração e competitivos</p>
-      </div>
-  
-      <!-- Work Box -->
-      <div 
-        class="square p-8 w-1/3 flex flex-col items-center cursor-pointer"
-        @click="toggleCheckbox('Work')"
-      >
-        <img src="@/assets/client/act2.png" alt="Work" class="w-auto h-auto object-fill">
-        <input 
-          type="checkbox" 
-          id="work" 
-          v-model="selectedTypes"
-          value="Work" 
-          @change="updateSelection"
-          class="mt-2 w-6 h-6"
-        >
-        <p class="text-2xl font-bold my-2">TRABALHO</p>
-        <p class="text-sm font-normal px-16 text-center">Designers gráficos, engenheiros, artistas 3D, streamers, etc.</p>
-      </div>
-  
-      <!-- Casual Box -->
-      <div 
-        class="square p-8 w-1/3 flex flex-col items-center cursor-pointer"
-        @click="toggleCheckbox('Casual')"
-      >
-        <img src="@/assets/client/act3.png" alt="Casual" class="w-auto h-auto object-fill">
-        <input 
-          type="checkbox" 
-          id="casual" 
-          v-model="selectedTypes"
-          value="Casual" 
-          @change="updateSelection"
-          class="mt-2 w-6 h-6"
-        >
-        <p class="text-2xl font-bold my-2">CASUAL</p>
-        <p class="text-sm font-normal px-16 text-center">Redes sociais, séries e filmes, trabalhos de escola/faculdade, etc.</p>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  import Cookies from 'js-cookie';
-  
-  export default {
-    name: 'ActivityTypes',
-    data() {
-      return {
-        selectedTypes: []
-      };
-    },
-    created() {
-      const savedTypes = Cookies.get('selectedActivities');
-      console.log("Saved Types from Cookie:", savedTypes);
-      if (savedTypes) {
-        this.selectedTypes = JSON.parse(savedTypes);
-      }
-    },
-    methods: {
-      toggleCheckbox(type) {
-        const index = this.selectedTypes.indexOf(type);
-        if (index > -1) {
-          this.selectedTypes.splice(index, 1);
-        } else {
-          this.selectedTypes.push(type);
+  <div class="flex justify-center space-x-8">
+    <ActivityBox 
+      v-for="(item, index) in activityItems" 
+      :key="index"
+      :label="item.label" 
+      :image="item.image" 
+      :description="item.description"
+      :value="item.value"
+      :selectedTypes="selectedTypes"
+      @update:selectedTypes="updateSelection"
+    />
+  </div>
+</template>
+
+<script>
+import Cookies from 'js-cookie';
+import ActivityBox from './ActivityBox.vue';
+export default {
+  name: 'ActivityTypes',
+  components: {
+    ActivityBox
+  },
+  data() {
+    return {
+      selectedTypes: [],
+      activityItems: [
+        {
+          label: 'Jogos',
+          image: 'act1.png',
+          description: 'Jogos da última geração e competitivos',
+          value: 'Games'
+        },
+        {
+          label: 'Trabalho',
+          image: 'act2.png',
+          description: 'Designers gráficos, engenheiros, artistas 3D, streamers, etc.',
+          value: 'Work'
+        },
+        {
+          label: 'Casual',
+          image: 'act3.png',
+          description: 'Redes sociais, séries e filmes, trabalhos de escola/faculdade, etc.',
+          value: 'Casual'
         }
-        this.updateSelection();
-      },
-      updateSelection() {
-        this.$emit('software-selected', this.selectedTypes);    
-        Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
-        console.log("Updated Cookies:", Cookies.get('selectedActivities'));
-      }
+      ]
+    };
+  },
+  created() {
+    const savedTypes = Cookies.get('selectedActivities');
+    console.log("Saved Types from Cookie:", savedTypes);
+    if (savedTypes) {
+      this.selectedTypes = JSON.parse(savedTypes);
+    }
+  },
+  methods: {
+    updateSelection(newSelection) {
+      this.selectedTypes = newSelection;
+      this.$emit('software-selected', this.selectedTypes);
+      Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
+      console.log("Updated Cookies:", Cookies.get('selectedActivities'));
     }
   }
-  </script>
-  
-  <style scoped>
-  .square {
-    transition: transform 0.3s ease;
-  }
-  
-  .square:hover {
-    transform: scale(1.05)
-  }
-  
-  input[type="checkbox"] {
-    transition: transform 0.2s ease;
-  }
-  
-  input[type="checkbox"]:checked {
-    transform: scale(1.2);
-  }
-  </style>
-  
+};
+</script>
