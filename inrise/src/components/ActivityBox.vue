@@ -12,7 +12,6 @@
         @change="handleCheckboxChange"
         class="mt-2 w-6 h-6"
       >
-      
       <p class="text-2xl font-bold my-2">{{ label.toUpperCase() }}</p>
       <p class="text-sm font-normal px-16 text-center">{{ description }}</p>
     </div>
