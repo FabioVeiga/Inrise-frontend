@@ -65,7 +65,7 @@ export async function deleteSoftwareGroup(categoryId) {
   return apiClient.delete(`/Category/${categoryId}`, { headers });
 }
 
-export async function fetchSoftwareGroup() {
+export async function fetchAllSoftwareGroup() {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -74,6 +74,7 @@ export async function fetchSoftwareGroup() {
     const response = await apiClient.get('/Category', {
       headers,
       params: {
+        "isDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -86,6 +87,23 @@ export async function fetchSoftwareGroup() {
   }
 
 }
+
+export async function registerImage(category, id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  } : {};
+
+  try {
+    const response = await apiClient.post(`/Image/upload/${category}/${id}`, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao cadastrar a imagem:', error);
+    throw new Error('Erro ao cadastrar a imagem');
+  }
+}
+
 
 export async function fetchAllSoftware() {
   const token = getToken();
