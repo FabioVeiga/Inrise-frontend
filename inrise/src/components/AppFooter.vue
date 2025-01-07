@@ -35,14 +35,14 @@ export default {
 
 <style scoped>.footer {
   width: 100%;
-  height: 87px;  /* You can adjust this as needed */
-  background: linear-gradient(to bottom, #54C0ED, #E431FE);
+  height: 157px;  /* You can adjust this as needed */
+  background: #191919;
   padding: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: auto;  /* This ensures the footer goes to the bottom of the page */
+  margin-top: auto;
 }
 
 .flex-container {
@@ -74,6 +74,7 @@ p {
 
 .main-column {
   flex-basis: 70%;
+  
 }
 
 .square-grey {

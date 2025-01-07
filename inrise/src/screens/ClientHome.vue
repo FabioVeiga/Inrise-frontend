@@ -2,7 +2,7 @@
   <div id="client-home" class="flex flex-col h-screen p-0 m-0">
     <AppSidebar></AppSidebar>
 
-    <div class="main-content flex-1 overflow-x-hidden p-0 m-0">
+    <div class="main-content flex-1 overflow-hidden p-0 m-0">
       <router-view />
     </div>
 

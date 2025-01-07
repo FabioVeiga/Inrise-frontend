@@ -8,9 +8,11 @@
         type="checkbox" 
         :id="value" 
         :checked="selectedTypes.includes(value)"
+        @click.stop="handleCheckboxClick"
         @change="handleCheckboxChange"
         class="mt-2 w-6 h-6"
       >
+      
       <p class="text-2xl font-bold my-2">{{ label.toUpperCase() }}</p>
       <p class="text-sm font-normal px-16 text-center">{{ description }}</p>
     </div>
@@ -42,6 +44,13 @@
       }
     },
     methods: {
+      toggleCheckbox() {
+        if (this.selectedTypes.includes(this.value)) {
+          this.deselect();
+        } else {
+          this.select();
+        }
+      },
       handleCheckboxChange(event) {
         const isChecked = event.target.checked;
         let newSelectedTypes = [...this.selectedTypes];
@@ -51,7 +60,17 @@
         } else {
           newSelectedTypes = newSelectedTypes.filter(type => type !== this.value);
         }
-          this.$emit('update:selectedTypes', newSelectedTypes);
+  
+        this.$emit('update:selectedTypes', newSelectedTypes);
+      },
+      handleCheckboxClick(event) {
+        event.stopPropagation();
+      },
+      select() {
+        this.$emit('update:selectedTypes', [...this.selectedTypes, this.value]);
+      },
+      deselect() {
+        this.$emit('update:selectedTypes', this.selectedTypes.filter(type => type !== this.value));
       }
     }
   };

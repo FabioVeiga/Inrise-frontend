@@ -130,7 +130,7 @@ export default {
       //console.log("DELETE","CatId",categoryId,"CatIdObject",category.id)
       try {
         await deleteSoftwareGroup(category.id);
-        //TODO: Usar esse reload em outras paginas
+        //@TODO: Usar esse reload em outras paginas
         alert('Grupo excluído com sucesso!');
         setTimeout(() => {
     location.reload();  // This will reload the page after the alert is closed
