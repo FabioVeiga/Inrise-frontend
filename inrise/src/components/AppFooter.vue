@@ -90,7 +90,6 @@
         <div class="flex-grow min-w-[12rem]"></div>
       </div>
     </div>
-    <div class="w-full min-h-[56px] bg-[#b7b7b7] flex flex-col items-center mt-auto"></div>
   </div>
 </template>
 

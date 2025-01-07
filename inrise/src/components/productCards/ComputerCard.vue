@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  //TODO FAZER AQUI AAAA tem que REGISTRAR PCS AINDA
+  //@TODO FAZER AQUI AAAA tem que REGISTRAR PCS AINDA
   name: 'ComputerCard',
   props: {
     product: {

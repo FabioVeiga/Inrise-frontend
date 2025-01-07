@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     resetForm() {
-      console.log(`Selecionado: ${this.productType}`);
+      console.log(`Produto no CadastrarProdutos: ${this.productType}`);
     }
   }
 };

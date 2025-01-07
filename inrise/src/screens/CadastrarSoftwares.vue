@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor, fetchSoftwareGroup } from '@/api';
+import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor, fetchAllSoftwareGroup } from '@/api';
 import { registerSoftware } from '@/api';
 //@TODO: Ver como é feito nos outros codigos e adicionar uma espera antes de carregar os dados
 export default {
@@ -156,7 +156,7 @@ export default {
           fetchAllStorage(),
           fetchAllTower(),
           fetchAllMonitor(),
-          fetchSoftwareGroup()
+          fetchAllSoftwareGroup()
         ]);
         this.processors = processorsRes.data;
         this.gpus = gpusRes.data;

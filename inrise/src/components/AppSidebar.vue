@@ -7,13 +7,13 @@
 <script>
 export default {
   name: 'AppSidebar'
-}
+};
 </script>
 
 <style scoped>
 .sidebar {
   width: 176px;
-  height: 100vh;
+  height: 100%;
   background-color: #191919;
   padding: 20px;
   box-sizing: border-box;
@@ -23,10 +23,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 10;
 }
 
 .logo {
-  width: 100px; 
+  width: 100px;
   margin-bottom: 20px;
 }
 </style>

@@ -8,18 +8,21 @@
 
   </div>
   <AppFooter></AppFooter>
+  <LowerFooter></LowerFooter>
 
 </template>
 
 <script>
 import AppSidebar from '../components/AppSidebar.vue';
 import AppFooter from '../components/AppFooter.vue';
+import LowerFooter from '@/components/LowerFooter.vue';
 
 export default {
   name: 'ClientHome',
   components: {
     AppSidebar,
-    AppFooter
+    AppFooter,
+    LowerFooter
   }
 };
 </script>

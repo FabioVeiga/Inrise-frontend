@@ -77,10 +77,7 @@
               required
               class="w-full border p-2"
             ></textarea>
-          </div>
-  
-          <!-- TODO: Isso n é pra estar aqui Classificação de Valor -->
-          
+          </div>          
         </div>
   
         <!-- Componente de Preço -->
