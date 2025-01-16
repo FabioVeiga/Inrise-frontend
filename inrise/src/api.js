@@ -93,17 +93,15 @@ export async function registerImage(category, id, imageFile) {
 
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
+    'Content-Type': 'multipart/form-data'
   } : {};
 
   const formData = new FormData();
-  formData.append('ContentType', imageFile.type); 
+  formData.append('file', imageFile);
   formData.append('ContentDisposition', `attachment; filename="${imageFile.name}"`);
   formData.append('Length', imageFile.size);
   formData.append('Name', imageFile.name);
   formData.append('FileName', imageFile.name);
-
-  formData.append('image', imageFile);
-  console.log("Imagefile on request:",imageFile,"Formdata on request:",formData)
   try {
     const response = await apiClient.post(`/Image/upload/${category}/${id}`, formData, { headers });
 
@@ -336,6 +334,7 @@ export async function fetchAllRam() {
     const response = await apiClient.get('/MemoryRam', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -350,28 +349,6 @@ export async function fetchAllRam() {
 }
 
 
-export async function fetchAllRom() {
-  const token = getToken();
-  const headers = token ? {
-    'Authorization': `Bearer ${token}`
-  } : {};
-
-  try {
-    const response = await apiClient.get('/MemoryRom', {
-      headers,
-      params: {
-        "Pagination.PageIndex": 1,
-        "Pagination.PageSize": 99,
-
-      }
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao buscar as memórias RAM:', error);
-    throw new Error('Erro ao buscar as memórias RAM');
-  }
-}
 
 export async function fetchAllPsu() {
   const token = getToken();
@@ -383,6 +360,7 @@ export async function fetchAllPsu() {
     const response = await apiClient.get('/PowerSupply', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -407,6 +385,7 @@ export async function fetchAllMobo() {
     const response = await apiClient.get('/MotherBoard', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -431,6 +410,7 @@ export async function fetchAllMonitor() {
     const response = await apiClient.get('/MonitorScreen', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -439,8 +419,8 @@ export async function fetchAllMonitor() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar os monitores:', error);
+    throw new Error('Erro ao buscar os monitores');
   }
 }
 
@@ -454,6 +434,7 @@ export async function fetchAllGpu() {
     const response = await apiClient.get('/VideoBoard', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -462,8 +443,8 @@ export async function fetchAllGpu() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar as GPUs:', error);
+    throw new Error('Erro ao buscar as GPUs');
   }
 }
 
@@ -478,6 +459,7 @@ export async function fetchAllCpu() {
     const response = await apiClient.get('/Processor', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -486,8 +468,8 @@ export async function fetchAllCpu() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar as CPUs:', error);
+    throw new Error('Erro ao buscar as CPUs');
   }
 }
 
@@ -502,6 +484,7 @@ export async function fetchAllTower() {
     const response = await apiClient.get('/Tower', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -510,8 +493,8 @@ export async function fetchAllTower() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar os gabinetes:', error);
+    throw new Error('Erro ao buscar os gabinetes');
   }
 }
 
@@ -526,6 +509,7 @@ export async function fetchAllCooler() {
     const response = await apiClient.get('/Cooler', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -534,8 +518,8 @@ export async function fetchAllCooler() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar os coolers:', error);
+    throw new Error('Erro ao buscar os coolers');
   }
 }
 
@@ -550,6 +534,7 @@ export async function fetchAllStorage() {
     const response = await apiClient.get('/MemoryRom', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -558,8 +543,8 @@ export async function fetchAllStorage() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar os discos:', error);
+    throw new Error('Erro ao buscar os discos');
   }
 }
 
@@ -574,6 +559,7 @@ export async function fetchAllPC() {
     const response = await apiClient.get('/Computer', {
       headers,
       params: {
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -582,8 +568,8 @@ export async function fetchAllPC() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar as fontes:', error);
-    throw new Error('Erro ao buscar as fontes');
+    console.error('Erro ao buscar os PCs:', error);
+    throw new Error('Erro ao buscar os PCs');
   }
 }
 
