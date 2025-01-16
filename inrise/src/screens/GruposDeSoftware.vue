@@ -15,14 +15,22 @@
 
       <!-- Image Display Section -->
       <div v-if="category.isOpen && (category.images || category.imagePreview)"
-        class="col-span-2 image-upload-card border-dashed border-2 border-gray-300 rounded-lg flex justify-center items-center p-4 cursor-pointer hover:bg-gray-100 transition relative mt-4">
-
-        <!-- Show image if available -->
+        class="col-span-2 image-upload-card border-dashed border-2 border-gray-300 rounded-lg flex justify-center items-center p-4 cursor-pointer hover:bg-gray-100 transition relative mt-4"
+        @dragover.prevent @drop="handleImageDrop($event, category)" @click="triggerFileInput(categoryId)">
+        
         <img v-if="category.images[0]?.url" :src="category.images[0]?.url" alt="Imagem do Grupo"
           class="w-full h-full object-cover rounded-md" />
-
+        
         <img v-if="category.imagePreview && !category.images[0]?.url" :src="category.imagePreview"
           alt="Pré-visualização da imagem" class="w-full h-full object-cover rounded-md" />
+        
+        <div v-if="!category.images[0]?.url" class="text-center text-gray-500">
+          <span>Arraste ou clique para carregar uma imagem</span>
+        </div>
+
+        <input type="file" :ref="'fileInput' + categoryId"
+          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" @change="handleImageUpload($event, category)"
+          accept="image/*" />
       </div>
 
       <!-- Software List and Table -->
@@ -99,10 +107,20 @@ export default {
     },
 
     handleDragEnd() {
-      console.log("uepa")
       this.draggedItemIndex = null;
+    },
 
-    }
+    triggerFileInput(categoryId) {
+      softwareUtils.triggerFileInput(categoryId, this.$refs);
+    },
+
+    handleImageUpload(event, category) {
+      softwareUtils.handleImageUpload(event, category);
+    },
+
+    handleImageDrop(event, category) {
+      softwareUtils.handleImageDrop(event, category);
+    },
   },
 
   mounted() {

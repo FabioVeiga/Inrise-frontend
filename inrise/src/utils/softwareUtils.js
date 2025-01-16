@@ -105,9 +105,51 @@ export function handleDrop(index, category, event) {
     saveOrder(category);
 }
 
+// softwareUtils.js
+
+export function handleImageUpload(event, category) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        category.imagePreview = e.target.result;
+  
+        const imageObject = {
+          file: file,
+        };
+  
+        // Assuming category.images is an array, updating it with the new image object
+        category.images[0] = imageObject;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+  export function handleImageDrop(event, category) {
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        category.imagePreview = e.target.result;
+  
+        const imageObject = {
+          file: file,
+        };
+  
+        // Assuming category.images is an array, updating it with the new image object
+        category.images[0] = imageObject;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+  export function triggerFileInput(categoryId, refs) {
+    refs['fileInput' + categoryId][0].click();
+  }
+
+  
 export function handleDragEnd(event) {
-    // Reset the dragged index by clearing the dataTransfer object
-    event.dataTransfer.setData('index', null); // Clear the stored dragged index
+    event.dataTransfer.setData('index', null); 
 }
 export function saveOrder(category) {
     const updatedOrder = category.softwares;
