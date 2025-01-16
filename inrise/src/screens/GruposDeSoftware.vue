@@ -3,28 +3,19 @@
     <h1 class="text-4xl font-bold my-8">Grupos de Software</h1>
 
     <div v-for="(category, categoryId) in categories" :key="categoryId" class="mb-5">
-      <!-- Header da Categoria -->
       <div class="flex justify-between items-center bg-blue-500 text-white py-2 px-4 rounded-md">
-        <button 
-          @click="toggleCategory(categoryId)" 
-          class="text-left flex-1"
-        >
+        <button @click="toggleCategory(categoryId)" class="text-left flex-1">
           {{ category.name }}
         </button>
-        <button 
-          @click="deleteCategory(categoryId)" 
-          class="bg-red-500 text-white px-4 py-2 rounded-md"
-        >
+        <button @click="deleteCategory(categoryId)" class="bg-red-500 text-white px-4 py-2 rounded-md">
           Excluir Grupo
         </button>
       </div>
 
-      <!-- Indicador de carregamento -->
       <div v-if="category.isLoading" class="mt-3 text-center">
         <span>Carregando...</span>
       </div>
 
-      <!-- Tabela de Softwares (collapsable) -->
       <div v-if="category.isOpen && category.softwares" class="mt-3">
         <table class="w-full border-collapse">
           <thead>
@@ -39,7 +30,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="software in category.softwares" :key="software.id" class="hover:bg-gray-100">
+            <tr v-for="(software, index) in category.softwares" :key="software.id" class="hover:bg-gray-100"
+              :draggable="true" @dragstart="handleDragStart(index, categoryId, $event)"
+              @dragover="handleDragOver($event)" @drop="handleDrop(index, category, $event)"
+              @dragend="handleDragEnd($event)">
               <td class="border px-4 py-2">{{ software.name }}</td>
               <td class="border px-4 py-2">{{ software.processadorMin.data.name }}</td>
               <td class="border px-4 py-2">{{ software.processadorIdeal.data.name }}</td>
@@ -56,7 +50,8 @@
 </template>
 
 <script>
-import { fetchAllSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup  } from '@/api';
+import { fetchAllSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup, //updateSoftwareOrder 
+ } from '@/api';
 
 export default {
   name: 'GruposDeSoftware',
@@ -93,22 +88,17 @@ export default {
 
       if (!category.softwares && !category.isLoading) {
         category.isLoading = true;
-        //console.log("CatId",categoryId,"CatIdObject",category.id)
         try {
           const softwaresRes = await fetchAllSoftware(category.id);
-          //console.log("Catid",category.id,"Softwaresres",softwaresRes)
           category.softwares = softwaresRes.data.items.filter(software => software.categoryId === category.id);
-          //category.softwares = softwaresRes.data.items
-          //console.log("Softwares",category.softwares)
           for (let software of category.softwares) {
             await this.fetchSoftwareDetails(software);
           }
-          
           category.isOpen = true;
         } catch (error) {
           console.error('Erro ao carregar softwares da categoria', categoryId, error);
         } finally {
-          category.isLoading = false; 
+          category.isLoading = false;
         }
       } else if (category.softwares) {
         category.isOpen = !category.isOpen;
@@ -124,23 +114,54 @@ export default {
         console.error('Erro ao carregar categorias de software', error);
       }
     },
+
     async deleteCategory(categoryId) {
       const category = this.categories[categoryId];
-      //console.log("Cats",this.categories)
-      //console.log("DELETE","CatId",categoryId,"CatIdObject",category.id)
       try {
         await deleteSoftwareGroup(category.id);
         //@TODO: Usar esse reload em outras paginas
         alert('Grupo excluído com sucesso!');
         setTimeout(() => {
-    location.reload();  // This will reload the page after the alert is closed
-  }, 100);
+          location.reload();
+        }, 100);
       } catch (error) {
         console.error('Erro ao excluir o grupo de software', categoryId, error);
         alert('Erro ao excluir o grupo.');
       }
     },
+
+    handleDragStart(index, categoryId, event) {
+      this.draggedItemIndex = index;
+      event.dataTransfer.effectAllowed = 'move';
+    },
+
+    handleDragOver(event) {
+      event.preventDefault(); 
+    },
+
+    handleDrop(index, category, event) {
+      event.preventDefault();
+      if (this.draggedItemIndex !== index) {
+        const draggedItem = category.softwares[this.draggedItemIndex];
+        const targetItem = category.softwares[index];
+
+        category.softwares[this.draggedItemIndex] = targetItem;
+        category.softwares[index] = draggedItem;
+
+        this.saveOrder(category);
+      }
+    },
+
+    handleDragEnd() {
+      this.draggedItemIndex = null;
+    },
+
+    async saveOrder(category) {
+      const updatedOrder = category.softwares
+      console.log("Updota", updatedOrder)
+    },
   },
+
   mounted() {
     this.fetchCategories();
   },
