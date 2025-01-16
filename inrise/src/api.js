@@ -88,6 +88,14 @@ export async function fetchAllSoftwareGroup() {
 
 }
 
+export function fetchSoftwareGroupById(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Category/${id}`, { headers })
+}
+
 export async function registerImage(category, id, imageFile) {
   const token = getToken();
 
@@ -112,6 +120,14 @@ export async function registerImage(category, id, imageFile) {
   }
 }
 
+export async function deleteImage(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete(`/Image/${id}`, { headers });
+}
 
 export async function fetchAllSoftware() {
   const token = getToken();

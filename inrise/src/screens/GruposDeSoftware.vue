@@ -2,6 +2,8 @@
   <div class="grupos-de-software">
     <h1 class="text-4xl font-bold my-8">Grupos de Software</h1>
 
+
+
     <div v-for="(category, categoryId) in categories" :key="categoryId" class="mb-5">
       <div class="flex justify-between items-center bg-blue-500 text-white py-2 px-4 rounded-md">
         <button @click="toggleCategory(categoryId)" class="text-left flex-1">
@@ -50,8 +52,10 @@
 </template>
 
 <script>
-import { fetchAllSoftwareGroup, fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup, //updateSoftwareOrder 
- } from '@/api';
+import {
+  fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup, //updateSoftwareOrder 
+} from '@/api';
+import { loadCategories } from '@/utils/productUtils';
 
 export default {
   name: 'GruposDeSoftware',
@@ -85,7 +89,6 @@ export default {
 
     async toggleCategory(categoryId) {
       const category = this.categories[categoryId];
-
       if (!category.softwares && !category.isLoading) {
         category.isLoading = true;
         try {
@@ -107,9 +110,7 @@ export default {
 
     async fetchCategories() {
       try {
-        const categoriesRes = await fetchAllSoftwareGroup();
-        this.categories = categoriesRes.data.items;
-        console.log(this.categories)
+        this.categories = await loadCategories();
       } catch (error) {
         console.error('Erro ao carregar categorias de software', error);
       }
@@ -136,7 +137,7 @@ export default {
     },
 
     handleDragOver(event) {
-      event.preventDefault(); 
+      event.preventDefault();
     },
 
     handleDrop(index, category, event) {
