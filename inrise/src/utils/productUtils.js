@@ -59,14 +59,13 @@ import {
           throw new Error('Tipo de produto não suportado');
       }
   
-      // Fetch all products and their details
       const products = response.data.items;
       for (let product of products) {
         const productDetails = await fetchDetails(product.id);
-  
         if (productDetails && productDetails.data) {
           product.name = productDetails.data.data.name;
           product.price = productDetails.data.data.price;
+          product.images = productDetails.data.data.images;
         } else {
           product.price = null;
         }
