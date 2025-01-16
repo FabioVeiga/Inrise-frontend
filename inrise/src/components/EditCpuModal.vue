@@ -10,10 +10,7 @@
 
             <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-4">
                 <!-- Componente InfoGeral -->
-                <InfoGeral 
-                :form-data="editedProduct" 
-                @update-form-data="updateFormData" 
-                productType="processor" />
+                <InfoGeral :form-data="editedProduct" @update-form-data="updateFormData" productType="processor" />
 
                 <!-- Informações Específicas do Processador -->
                 <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -96,7 +93,7 @@
 </template>
 
 <script>
-import { editCpu } from '@/api'; // Certifique-se de ter essa função na sua API
+import { editCpu, registerImage } from '@/api'; // Certifique-se de ter essa função na sua API
 import InfoGeral from './admin/cadastro/InfoGeral.vue';
 import InfoPreco from './admin/cadastro/InfoPreco.vue';
 
@@ -138,6 +135,12 @@ export default {
             try {
                 const updatedCpu = await editCpu(this.editedProduct.id, this.editedProduct);
                 console.log('Processador editado com sucesso!', updatedCpu);
+                const prodId = this.editedProduct.id;
+                if (this.editedProduct.images[0]) {
+                    console.log('Img antes da request:', this.editedProduct.image);
+                    const imageResponse = await registerImage('processor', prodId, this.editedProduct.image);
+                    console.log('Imagem cadastrada com sucesso!', imageResponse);
+                }
                 alert('Processador editado com sucesso!');
                 this.$emit('save', updatedCpu);
                 this.closeModal();

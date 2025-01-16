@@ -19,7 +19,7 @@
         </div>
 
         <!-- Capacidade -->
-        <div class="form-group">
+        <div class="form-group col-span-2">
           <label for="capacity" class="block mb-1 font-semibold">Capacidade (GB)</label>
           <input type="number" v-model="formData.capacity" id="capacity" required class="w-full border p-2" />
         </div>
@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     updateFormData({ key, value }) {
-      console.log('Image file before uploading:', this.formData.image);
       const keys = key.split('.');
       if (keys.length === 2) {
         this.formData[keys[0]][keys[1]] = value;
@@ -90,7 +89,7 @@ export default {
         const ramId = response.data.data.id;
         console.log("Resp", response)
         if (this.formData.image) {
-          console.log('Image file before requesting:', this.formData.image);
+          console.log('Img antes da request:', this.formData.image);
           const imageResponse = await registerImage('memoryRam', ramId, this.formData.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }

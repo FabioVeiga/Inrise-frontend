@@ -9,11 +9,7 @@
 
       <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-4">
         <!-- Componente InfoGeral -->
-        <InfoGeral
-          :form-data="editedProduct"
-          @update-form-data="updateFormData"
-          :product-type="'memoryRom'"
-        />
+        <InfoGeral :form-data="editedProduct" @update-form-data="updateFormData" :product-type="'memoryRom'" />
 
         <!-- Informações Específicas do Disco -->
         <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -28,13 +24,15 @@
           <!-- Velocidade de Leitura -->
           <div class="form-group">
             <label for="velocityRead" class="block mb-1 font-semibold">Velocidade de Leitura (MB/s)</label>
-            <input type="number" v-model="editedProduct.velocityRead" id="velocityRead" required class="w-full border p-2" />
+            <input type="number" v-model="editedProduct.velocityRead" id="velocityRead" required
+              class="w-full border p-2" />
           </div>
 
           <!-- Velocidade de Escrita -->
           <div class="form-group">
             <label for="velocityWrite" class="block mb-1 font-semibold">Velocidade de Escrita (MB/s)</label>
-            <input type="number" v-model="editedProduct.velocityWrite" id="velocityWrite" required class="w-full border p-2" />
+            <input type="number" v-model="editedProduct.velocityWrite" id="velocityWrite" required
+              class="w-full border p-2" />
           </div>
 
           <!-- Capacidade -->
@@ -70,24 +68,15 @@
         </div>
 
         <!-- Componente InfoPreco -->
-        <InfoPreco
-          :form-data="editedProduct"
-          @update-form-data="updateFormData"
-        />
+        <InfoPreco :form-data="editedProduct" @update-form-data="updateFormData" />
 
         <!-- Botões -->
         <div class="form-group my-4 col-span-2 flex flex-col justify-between">
-          <button
-            type="button"
-            @click="closeModal"
-            class="w-full my-4 md:w-auto bg-gray-300 text-black py-2 rounded-md hover:bg-gray-400"
-          >
+          <button type="button" @click="closeModal"
+            class="w-full my-4 md:w-auto bg-gray-300 text-black py-2 rounded-md hover:bg-gray-400">
             Cancelar
           </button>
-          <button
-            type="submit"
-            class="w-full md:w-auto bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-          >
+          <button type="submit" class="w-full md:w-auto bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
             Salvar Disco
           </button>
         </div>
@@ -97,7 +86,7 @@
 </template>
 
 <script>
-import { editRom } from '@/api';
+import { editRom, registerImage } from '@/api';
 //@TODO: Adicionar o alerta ao fazer a req com sucesso
 import InfoGeral from './admin/cadastro/InfoGeral.vue';
 import InfoPreco from './admin/cadastro/InfoPreco.vue';
@@ -143,6 +132,12 @@ export default {
       try {
         const updatedRom = await editRom(this.editedProduct.id, this.editedProduct);
         console.log('Disco editado com sucesso!', updatedRom);
+        const prodId = this.editedProduct.id;
+        if (this.editedProduct.images[0]) {
+          console.log('Img antes da request:', this.editedProduct.image);
+          const imageResponse = await registerImage('memoryRom', prodId, this.editedProduct.image);
+          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        }
         alert('Disco editado com sucesso!');
         this.$emit('save', updatedRom);
         this.closeModal();
