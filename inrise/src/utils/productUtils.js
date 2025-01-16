@@ -5,26 +5,7 @@ import {
   fetchGpuById, fetchPsuById, fetchCoolerById, fetchMonitorById, fetchPCById,
 } from '@/api'
 
-import {
-  fetchAllSoftwareGroup, fetchSoftwareGroupById
-} from '@/api';
 
-export async function loadCategories() {
-  try {
-    const response = await fetchAllSoftwareGroup();
-    const categories = response.data.items;
-    for (let category of categories) {
-      const categoryDetails = await fetchSoftwareGroupById(category.id);
-      if (categoryDetails && categoryDetails.data) {
-        category.images = categoryDetails.data.data.images;
-      }
-    }
-    return categories;
-  } catch (error) {
-    console.error('Erro ao carregar os grupos de software:', error);
-    return [];
-  }
-}
 
 
 export async function loadProducts(productType) {

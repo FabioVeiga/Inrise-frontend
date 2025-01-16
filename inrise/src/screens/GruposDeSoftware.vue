@@ -2,9 +2,8 @@
   <div class="grupos-de-software">
     <h1 class="text-4xl font-bold my-8">Grupos de Software</h1>
 
-
-
     <div v-for="(category, categoryId) in categories" :key="categoryId" class="mb-5">
+      <!-- Category Header Section -->
       <div class="flex justify-between items-center bg-blue-500 text-white py-2 px-4 rounded-md">
         <button @click="toggleCategory(categoryId)" class="text-left flex-1">
           {{ category.name }}
@@ -14,6 +13,19 @@
         </button>
       </div>
 
+      <!-- Image Display Section -->
+      <div v-if="category.isOpen && (category.images || category.imagePreview)"
+        class="col-span-2 image-upload-card border-dashed border-2 border-gray-300 rounded-lg flex justify-center items-center p-4 cursor-pointer hover:bg-gray-100 transition relative mt-4">
+
+        <!-- Show image if available -->
+        <img v-if="category.images[0]?.url" :src="category.images[0]?.url" alt="Imagem do Grupo"
+          class="w-full h-full object-cover rounded-md" />
+
+        <img v-if="category.imagePreview && !category.images[0]?.url" :src="category.imagePreview"
+          alt="Pré-visualização da imagem" class="w-full h-full object-cover rounded-md" />
+      </div>
+
+      <!-- Software List and Table -->
       <div v-if="category.isLoading" class="mt-3 text-center">
         <span>Carregando...</span>
       </div>
@@ -52,10 +64,7 @@
 </template>
 
 <script>
-import {
-  fetchAllSoftware, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup, //updateSoftwareOrder 
-} from '@/api';
-import { loadCategories } from '@/utils/productUtils';
+import * as softwareUtils from '@/utils/softwareUtils';
 
 export default {
   name: 'GruposDeSoftware',
@@ -65,102 +74,35 @@ export default {
     };
   },
   methods: {
-    async fetchSoftwareDetails(software) {
-      try {
-        const [minCpu, maxCpu, minGpu, maxGpu, minRam, maxRam] = await Promise.all([
-          fetchCpuById(software.processadorMinId),
-          fetchCpuById(software.processadorIdealId),
-          fetchGpuById(software.videoBoardMinId),
-          fetchGpuById(software.videoBoardIdealId),
-          fetchRamById(software.memoryRamMinId),
-          fetchRamById(software.memoryRamIdealId),
-        ]);
-
-        software.processadorMin = minCpu.data;
-        software.processadorIdeal = maxCpu.data;
-        software.videoBoardMin = minGpu.data;
-        software.videoBoardIdeal = maxGpu.data;
-        software.memoryRamMin = minRam.data;
-        software.memoryRamIdeal = maxRam.data;
-      } catch (error) {
-        console.error('Erro ao carregar detalhes dos componentes para o software', software.id, error);
-      }
-    },
-
-    async toggleCategory(categoryId) {
-      const category = this.categories[categoryId];
-      if (!category.softwares && !category.isLoading) {
-        category.isLoading = true;
-        try {
-          const softwaresRes = await fetchAllSoftware(category.id);
-          category.softwares = softwaresRes.data.items.filter(software => software.categoryId === category.id);
-          for (let software of category.softwares) {
-            await this.fetchSoftwareDetails(software);
-          }
-          category.isOpen = true;
-        } catch (error) {
-          console.error('Erro ao carregar softwares da categoria', categoryId, error);
-        } finally {
-          category.isLoading = false;
-        }
-      } else if (category.softwares) {
-        category.isOpen = !category.isOpen;
-      }
-    },
-
     async fetchCategories() {
-      try {
-        this.categories = await loadCategories();
-      } catch (error) {
-        console.error('Erro ao carregar categorias de software', error);
-      }
+      this.categories = await softwareUtils.fetchCategories();
+    },
+
+    toggleCategory(categoryId) {
+      softwareUtils.toggleCategory(categoryId, this.categories);
     },
 
     async deleteCategory(categoryId) {
-      const category = this.categories[categoryId];
-      try {
-        await deleteSoftwareGroup(category.id);
-        //@TODO: Usar esse reload em outras paginas
-        alert('Grupo excluído com sucesso!');
-        setTimeout(() => {
-          location.reload();
-        }, 100);
-      } catch (error) {
-        console.error('Erro ao excluir o grupo de software', categoryId, error);
-        alert('Erro ao excluir o grupo.');
-      }
+      await softwareUtils.deleteCategory(categoryId, this.categories);
     },
 
     handleDragStart(index, categoryId, event) {
-      this.draggedItemIndex = index;
-      event.dataTransfer.effectAllowed = 'move';
+      softwareUtils.handleDragStart(index, categoryId, event);
     },
 
     handleDragOver(event) {
-      event.preventDefault();
+      softwareUtils.handleDragOver(event);
     },
 
     handleDrop(index, category, event) {
-      event.preventDefault();
-      if (this.draggedItemIndex !== index) {
-        const draggedItem = category.softwares[this.draggedItemIndex];
-        const targetItem = category.softwares[index];
-
-        category.softwares[this.draggedItemIndex] = targetItem;
-        category.softwares[index] = draggedItem;
-
-        this.saveOrder(category);
-      }
+      softwareUtils.handleDrop(index, category, event);
     },
 
     handleDragEnd() {
+      console.log("uepa")
       this.draggedItemIndex = null;
-    },
 
-    async saveOrder(category) {
-      const updatedOrder = category.softwares
-      console.log("Updota", updatedOrder)
-    },
+    }
   },
 
   mounted() {
