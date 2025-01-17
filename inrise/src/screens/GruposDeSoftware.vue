@@ -3,12 +3,13 @@
     <h1 class="text-4xl font-bold my-8">Grupos de Software</h1>
 
     <div v-for="(category, categoryId) in categories" :key="categoryId" class="mb-5">
-      <!-- Category Header Section -->
+      <!-- Category Header -->
       <div :class="{
         'flex justify-between items-center py-2 px-4 rounded-md bg-blue-500': true,
         ' text-white': !category.isEditing,
-        'text-black': category.isEditing  
-      }"> <button @click="toggleCategory(categoryId)" class="text-left flex-1" :disabled="category.isEditing">
+        'text-black': category.isEditing
+      }">
+        <button @click="toggleCategory(categoryId)" class="text-left flex-1" :disabled="category.isEditing">
           <span v-if="!category.isEditing">{{ category.name }}</span>
           <input v-else v-model="category.editName" type="text" class="border px-2 py-1 rounded-md" />
         </button>
@@ -30,10 +31,15 @@
         </button>
       </div>
 
-      <!-- Image Display Section -->
+      <!-- Image Display -->
       <div v-if="category.isOpen && (category.images || category.imagePreview)"
         class="col-span-2 image-upload-card border-dashed border-2 border-gray-300 rounded-lg flex justify-center items-center p-4 cursor-pointer hover:bg-gray-100 transition relative mt-4"
-        @dragover.prevent @drop="handleImageDrop($event, category)" @click="triggerFileInput(categoryId)">
+        @dragover.prevent @drop="handleImageDrop($event, category)"
+        @click="category.isEditing ? triggerFileInput(categoryId) : null" :class="{
+          'cursor-pointer hover:bg-gray-100': category.isEditing,
+          'cursor-default hover:bg-transparent': !category.isEditing
+        }">
+
 
         <img v-if="category.images[0]?.url" :src="category.images[0]?.url" alt="Imagem do Grupo"
           class="w-full h-full object-cover rounded-md" />
@@ -42,15 +48,22 @@
           alt="Pré-visualização da imagem" class="w-full h-full object-cover rounded-md" />
 
         <div v-if="!category.images[0]?.url" class="text-center text-gray-500">
-          <span>Arraste ou clique para carregar uma imagem</span>
+          <span>
+            {{ category.isEditing ?
+              'Arraste ou clique para carregar uma imagem' : 'Abra o modo de edição pra adicionar uma imagem'
+            }}
+          </span>
         </div>
 
-        <input type="file" :ref="'fileInput' + categoryId"
-          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" @change="handleImageUpload($event, category)"
-          accept="image/*" />
+        <!-- File Input -->
+        <input type="file" :ref="'fileInput' + categoryId" class="absolute inset-0 w-full h-full opacity-0"
+          @change="handleImageUpload($event, category)" accept="image/*" :disabled="!category.isEditing" :class="{
+            'cursor-pointer hover:bg-gray-100': category.isEditing,
+            'cursor-default hover:bg-transparent': !category.isEditing
+          }" />
       </div>
 
-      <!-- Software List and Table -->
+      <!-- Software Table -->
       <div v-if="category.isLoading" class="mt-3 text-center">
         <span>Carregando...</span>
       </div>
@@ -87,6 +100,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script>
