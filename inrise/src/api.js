@@ -65,6 +65,23 @@ export async function deleteSoftwareGroup(categoryId) {
   return apiClient.delete(`/Category/${categoryId}`, { headers });
 }
 
+export async function deleteSoftware(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  try {
+    const response = await apiClient.delete(`/Software/${id}`, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao deletar o software:', error);
+    throw new Error('Erro ao deletar o software');
+  }
+}
+
+
+
 export async function fetchAllSoftwareGroup() {
   const token = getToken();
   const headers = token ? {
@@ -113,7 +130,7 @@ export async function registerImage(category, id, imageFile) {
   try {
     const response = await apiClient.post(`/Image/upload/${category}/${id}`, formData, { headers });
 
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error('Error uploading the image:', error);
     throw new Error('Error uploading the image');
@@ -170,89 +187,99 @@ export async function registerRam(data) {
 }
 
 
-export async function deleteRam() {
+export async function deleteRam(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/MemoryRam', { headers });
+  return apiClient.delete(`/MemoryRam/${id}`, { headers });
+
 }
 
-export async function deletePSU() {
+export async function deletePSU(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/PowerSupply', { headers });
-}
-
-
-export async function deleteCooler() {
-  const token = getToken();
-  const headers = token ? {
-    'Authorization': `Bearer ${token}`
-  } : {};
-
-  return apiClient.delete('/Cooler', { headers });
+  return apiClient.delete(`/PowerSupply/${id}`, { headers });
 }
 
 
-export async function deleteMonitor() {
+export async function deleteCooler(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/MonitorScreen', { headers });
+  return apiClient.delete(`/Cooler/${id}`, { headers });
 }
 
 
-export async function deleteRom() {
+export async function deleteMonitor(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/MemoryRom', { headers });
+  return apiClient.delete(`/MonitorScreen/${id}`, { headers });
 }
 
 
-export async function deleteGPU() {
+export async function deleteRom(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/VideoBoard', { headers });
+  return apiClient.delete(`/MemoryRom/${id}`, { headers });
 }
 
-export async function deleteTower() {
+
+export async function deleteGPU(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/Tower', { headers });
+  return apiClient.delete(`/VideoBoard/${id}`, { headers });
 }
 
-export async function deleteCpu() {
+export async function deleteTower(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/Processor', { headers });
+  return apiClient.delete(`/Tower/${id}`, { headers });
 }
 
-export async function deleteMobo() {
+export async function deleteCpu(id) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.delete('/MotherBoard', { headers });
+  return apiClient.delete(`/Processor/${id}`, { headers });
+}
+
+export async function deleteMobo(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete(`/MotherBoard/${id}`, { headers });
+}
+
+export async function deletePC(id) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.delete(`/Computer/${id}`, { headers });
 }
 
 export async function registerRom(data) {
@@ -564,11 +591,10 @@ export async function fetchAllStorage() {
   }
 }
 
-
 export async function fetchAllPC() {
   const token = getToken();
   const headers = token ? {
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${token}`,
   } : {};
 
   try {
@@ -584,10 +610,11 @@ export async function fetchAllPC() {
 
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar os PCs:', error);
-    throw new Error('Erro ao buscar os PCs');
+    console.error('Error fetching PCs:', error);
+    throw new Error('Error fetching PCs');
   }
 }
+
 
 
 //Fetch by ID
