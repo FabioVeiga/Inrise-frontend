@@ -86,11 +86,11 @@ export default {
         const response = await registerRam(this.formData);
         console.log('Memória RAM cadastrada com sucesso!', response);
 
-        const ramId = response.data.data.id;
+        const productId = response.data.data.id;
         console.log("Resp", response)
         if (this.formData.image) {
           console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('memoryRam', ramId, this.formData.image);
+          const imageResponse = await registerImage('memoryRam', productId, this.formData.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
         alert('Produto cadastrado com sucesso!');

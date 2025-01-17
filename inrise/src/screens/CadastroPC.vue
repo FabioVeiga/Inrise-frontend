@@ -151,7 +151,7 @@
 </template>
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
-import { registerPC } from '@/api';
+import { registerPC, registerImage } from '@/api';
 import { loadProducts } from '@/utils/productUtils';
 export default {
   name: 'CadastroPC',
@@ -247,7 +247,7 @@ export default {
 
       selectedItems.forEach(({ id, list }) => {
         const item = list.find(item => item.id === id);
-        console.log("Item",item)
+        console.log("Item", item)
 
         if (item && item.price && item.price.finalPrice) {
           totalPrice += item.price.finalPrice;
@@ -260,7 +260,14 @@ export default {
 
     async submitForm() {
       try {
-        await registerPC(this.formData);
+        const response = await registerPC(this.formData);
+        console.log("Resp", response)
+        const productId = response.data.data.id;
+        if (this.formData.image) {
+          console.log('Img antes da request:', this.formData.image);
+          const imageResponse = await registerImage('computer', productId, this.formData.image);
+          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        }
         alert('Produto cadastrado com sucesso!');
       } catch (error) {
         console.error('Erro ao salvar PC:', error);

@@ -36,12 +36,7 @@
         <!-- Modularidade -->
         <div class="form-group">
           <label for="modular" class="block mb-1 font-semibold">Modular?</label>
-          <input 
-            type="checkbox" 
-            v-model="formData.modular" 
-            id="modular" 
-            class="w-full border p-2" 
-          />
+          <input type="checkbox" v-model="formData.modular" id="modular" class="w-full border p-2" />
         </div>
       </div>
 
@@ -61,7 +56,7 @@
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
 import InfoPreco from '@/components/admin/cadastro/InfoPreco.vue';
-import { registerPSU } from '@/api';
+import { registerPSU, registerImage } from '@/api';
 
 export default {
   name: 'CadastroFonte',
@@ -110,6 +105,13 @@ export default {
 
         const response = await registerPSU(formDataToSend);
         console.log('Fonte cadastrada com sucesso!', response);
+        const productId = response.data.data.id;
+        console.log("Resp", response)
+        if (this.formData.image) {
+          console.log('Img antes da request:', this.formData.image);
+          const imageResponse = await registerImage('powerSupply', productId, this.formData.image);
+          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        }
         alert('Produto cadastrado com sucesso!');
         this.resetForm();
       } catch (error) {
