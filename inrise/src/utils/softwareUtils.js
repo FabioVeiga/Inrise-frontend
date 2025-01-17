@@ -1,4 +1,4 @@
-import { fetchAllSoftware, fetchAllSoftwareGroup, editSoftwareGroup, fetchSoftwareGroupById, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup } from '@/api';
+import { fetchAllSoftware, fetchAllSoftwareGroup, editSoftwareGroup, fetchSoftwareGroupById, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup, registerImage } from '@/api';
 
 export async function fetchSoftwareDetails(software) {
     try {
@@ -132,6 +132,38 @@ export function handleImageUpload(event, category) {
         };
         reader.readAsDataURL(file);
     }
+}
+
+export function editCategory(categoryId, categories) {
+    const category = categories[categoryId];
+    category.isEditing = true;
+    category.editName = category.name;
+}
+
+export async function saveChanges(categoryId, categories) {
+    const category = categories[categoryId];
+    const updatedData = { name: category.editName };
+
+    try {
+        await editSoftwareGroup(category.id, updatedData);
+        category.name = category.editName;
+
+        if (category.images[0]) {
+            const imageResponse = await registerImage('category', category.id, category.images[0]);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+        }
+        category.isEditing = false;
+
+        alert('Grupo atualizado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao editar grupo de software:', error);
+        alert('Erro ao salvar as alterações.');
+    }
+}
+
+export function cancelChanges(categoryId, categories) {
+    const category = categories[categoryId];
+    category.isEditing = false;
 }
 
 

@@ -91,8 +91,6 @@
 
 <script>
 import * as softwareUtils from '@/utils/softwareUtils';
-import { editSoftwareGroup, registerImage 
- } from '@/api';
 
 export default {
   name: 'GruposDeSoftware',
@@ -137,7 +135,7 @@ export default {
 
     handleImageUpload(event, category) {
       softwareUtils.handleImageUpload(event, category);
-      console.log("Uploadedimg",category.images[0])
+      console.log("Uploadedimg", category.images[0]);
     },
 
     handleImageDrop(event, category) {
@@ -145,39 +143,15 @@ export default {
     },
 
     editCategory(categoryId) {
-      const category = this.categories[categoryId];
-      category.isEditing = true;
-      category.editName = category.name;
+      softwareUtils.editCategory(categoryId, this.categories);
     },
 
     async saveChanges(categoryId) {
-      const category = this.categories[categoryId];
-      const updatedData = { name: category.editName };
-
-      try {
-        await editSoftwareGroup(category.id, updatedData);
-        console.log("Catnoedit",category)
-        console.log("cat0",category.images[0])
-
-        category.name = category.editName;
-        
-        if (category.images[0]) {
-          console.log('Img antes da request:', category.images[0]);
-          const imageResponse = await registerImage('category', category.id, category.images[0]);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
-        }
-        category.isEditing = false;
-
-        alert('Grupo atualizado com sucesso!');
-      } catch (error) {
-        console.error('Erro ao editar grupo de software:', error);
-        alert('Erro ao salvar as alterações.');
-      }
+      await softwareUtils.saveChanges(categoryId, this.categories);
     },
 
     cancelChanges(categoryId) {
-      const category = this.categories[categoryId];
-      category.isEditing = false;
+      softwareUtils.cancelChanges(categoryId, this.categories);
     },
   },
 
@@ -185,5 +159,4 @@ export default {
     this.fetchCategories();
   },
 };
-
 </script>
