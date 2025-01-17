@@ -689,6 +689,23 @@ export async function editRam(id, data) {
   }
 }
 
+export async function editSoftwareGroup(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Category/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o grupo de software:', error);
+    throw new Error('Erro ao editar o grupo de software');
+  }
+}
+
+
 export async function editGpu(id, data) {
   const token = getToken();
   const headers = token ? {

@@ -1,4 +1,4 @@
-import { fetchAllSoftware, fetchAllSoftwareGroup, fetchSoftwareGroupById, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup } from '@/api';
+import { fetchAllSoftware, fetchAllSoftwareGroup, editSoftwareGroup, fetchSoftwareGroupById, fetchCpuById, fetchGpuById, fetchRamById, deleteSoftwareGroup } from '@/api';
 
 export async function fetchSoftwareDetails(software) {
     try {
@@ -83,6 +83,21 @@ export async function deleteCategory(categoryId, categories) {
     }
 }
 
+export async function updateCategory(categoryId, categories) {
+    const category = categories[categoryId];
+    try {
+        const response = await editSoftwareGroup(category.id, category);
+        console.log(response)
+        alert('Grupo atualizado com sucesso!');
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    } catch (error) {
+        console.error('Erro ao atualizar o grupo de software', categoryId, error);
+        alert('Erro ao atualizar o grupo.');
+    }
+}
+
 export function handleDragStart(index, categoryId, event) {
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.setData('index', index);
@@ -110,46 +125,36 @@ export function handleDrop(index, category, event) {
 export function handleImageUpload(event, category) {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        category.imagePreview = e.target.result;
-  
-        const imageObject = {
-          file: file,
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            category.imagePreview = e.target.result;
+            category.images[0] = file;
         };
-  
-        // Assuming category.images is an array, updating it with the new image object
-        category.images[0] = imageObject;
-      };
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
     }
-  }
-  
-  export function handleImageDrop(event, category) {
+}
+
+
+export function handleImageDrop(event, category) {
     const file = event.dataTransfer.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        category.imagePreview = e.target.result;
-  
-        const imageObject = {
-          file: file,
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            category.imagePreview = e.target.result;
+            category.images[0] = file;
         };
-  
-        // Assuming category.images is an array, updating it with the new image object
-        category.images[0] = imageObject;
-      };
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
     }
-  }
-  
-  export function triggerFileInput(categoryId, refs) {
-    refs['fileInput' + categoryId][0].click();
-  }
+}
 
-  
+
+export function triggerFileInput(categoryId, refs) {
+    refs['fileInput' + categoryId][0].click();
+}
+
+
 export function handleDragEnd(event) {
-    event.dataTransfer.setData('index', null); 
+    event.dataTransfer.setData('index', null);
 }
 export function saveOrder(category) {
     const updatedOrder = category.softwares;
