@@ -40,18 +40,16 @@
           'cursor-default hover:bg-transparent': !category.isEditing
         }">
 
-
+        <!-- Image Preview -->
         <img v-if="category.images[0]?.url" :src="category.images[0]?.url" alt="Imagem do Grupo"
-          class="w-full h-full object-cover rounded-md" />
+          class="w-full object-cover max-w-64 max-h-64 rounded-md" />
 
         <img v-if="category.imagePreview && !category.images[0]?.url" :src="category.imagePreview"
-          alt="Pré-visualização da imagem" class="w-full h-full object-cover rounded-md" />
+          alt="Pré-visualização da imagem" class="w-full object-cover max-h-28 rounded-md" />
 
-        <div v-if="!category.images[0]?.url" class="text-center text-gray-500">
+        <div v-if="!category.images[0]?.url && !category.imagePreview" class="text-center text-gray-500">
           <span>
-            {{ category.isEditing ?
-              'Arraste ou clique para carregar uma imagem' : 'Abra o modo de edição pra adicionar uma imagem'
-            }}
+            {{ category.isEditing ? 'Arraste ou clique para carregar uma imagem' : 'Abra o modo de edição pra adicionar uma imagem' }}
           </span>
         </div>
 

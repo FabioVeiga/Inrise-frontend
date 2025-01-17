@@ -5,15 +5,21 @@
     <div
       class="col-span-2 image-upload-card border-dashed border-2 border-gray-300 rounded-lg flex justify-center items-center p-4 cursor-pointer hover:bg-gray-100 transition relative"
       @click="triggerFileInput" @dragover.prevent="handleDragOver" @drop.prevent="handleDrop">
+
       <input type="file" ref="fileInput" @change="handleImageUpload" accept="image/*" class="hidden" />
-      <div class="text-center" v-if="!formData.imagePreview">
+
+      <div class="text-center" v-if="!formData.images?.[0]?.url && !formData.imagePreview">
         <p class="text-gray-500">Clique ou arraste uma imagem aqui</p>
         <p class="text-sm text-gray-400">(Apenas arquivos .jpg, .png, .jpeg)</p>
       </div>
-      <img v-if="formData.imagePreview" :src="formData.imagePreview" alt="Pré-visualização da imagem"
-        class="w-full h-full object-cover rounded-md" />
-    </div>
 
+      <!-- Image Preview -->
+      <img v-if="formData.images?.[0]?.url" :src="formData.images[0].url" alt="A imagem não pôde ser exibida."
+        class="max-w-28 max-h-28 object-cover rounded-md" />
+
+      <img v-if="formData.imagePreview && !formData.images[0].url" :src="formData.imagePreview"
+        alt="Pré-visualização da imagem" class="max-w-64 max-h-64 object-cover rounded-md" />
+    </div>
     <!-- Nome do Produto -->
     <div class="form-group">
       <label for="productName" class="block mb-1 font-semibold">Nome do Produto</label>
@@ -42,14 +48,15 @@ export default {
       type: Object,
       required: true,
     },
-    //@TODO: Usar esse productType pro upload de imagem.
     productType: {
       type: String,
       required: true
     }
   },
   mounted() {
-    console.log("Produto no InfoGeral:", this.productType);
+    console.log("Produto no InfoGeral:", this.formData);
+    console.log("refs", this.$refs)
+
   },
   methods: {
     handleImageUpload(event) {
@@ -76,6 +83,7 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.$emit("update-form-data", { key: "imagePreview", value: e.target.result });
+        this.$emit("update-form-data", { key: "images", value: [{ url: e.target.result }] });
       };
       reader.readAsDataURL(file);
     }
@@ -111,7 +119,7 @@ export default {
 
 <style scoped>
 .image-upload-card {
-  height: 200px;
+  max-height: 400px;
   width: 100%;
   position: relative;
 }
