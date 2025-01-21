@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     isActiveStep(stepNumber) {
-      const stepNames = ['ClientActivity', 'ClientSoftware', 'ClientBuyPc'];
+      const stepNames = ['ClientActivity', 'ClientSoftware', 'ClientPCPartPicker'];
       return this.currentRouteName === stepNames[stepNumber - 1];
     }
   }

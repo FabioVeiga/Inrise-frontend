@@ -14,7 +14,8 @@
 </template>
 
 <script>
-//TODO: Puxar esses programaticamente da API 
+//@TODO: Puxar esses programaticamente da API 
+//@TODO: Alerta caso nenhum cookie tenha sido escolhido, e pular pra pcs prontos caso só casual tenha sido escolhido.
 import Cookies from 'js-cookie';
 import ActivityBox from './ActivityBox.vue';
 export default {
