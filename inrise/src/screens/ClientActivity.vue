@@ -3,7 +3,6 @@
         <HomeContentView>
             <HomeMenu></HomeMenu>
 
-
             <HeaderRectanglesLarge>
                 <p class="whitespace-nowrap">ESCOLHA A ATIVIDADE <br> DO SEU COMPUTADOR</p>
             </HeaderRectanglesLarge>
@@ -12,16 +11,22 @@
                 Selecione as atividades de atuação do seu computador. <br> Você poderá escolher até três.
             </p>
 
-            <ActivityTypes></ActivityTypes>
+            <ActivityTypes @type-selected="handleSelection" />
             <div class="flex justify-between w-full max-w-[1366px]">
-                <ActionButton :to="{ name: 'ClientComputers' }" :isNext="false">
+                <ActionButton 
+                    :to="{ name: 'ClientComputers' }" 
+                    :isNext="false"
+                >
                     Página Anterior
                 </ActionButton>
-                <ActionButton :to="{ name: 'ClientSoftware' }" :isNext="true">
+                <ActionButton 
+                    :to="{ name: 'ClientSoftware' }" 
+                    :isNext="true"
+                    :canNavigate="!isNextButtonDisabled"
+                >
                     Próxima Página
                 </ActionButton>
             </div>
-
         </HomeContentView>
     </div>
 </template>
@@ -43,6 +48,21 @@ export default {
         AppBreadcrumbs,
         ActivityTypes,
         ActionButton
+    },
+    data() {
+        return {
+            selectedTypes: []
+        };
+    },
+    computed: {
+        isNextButtonDisabled() {
+            return this.selectedTypes.length === 0; // Disable the button if no activities are selected
+        }
+    },
+    methods: {
+        handleSelection(selectedTypes) {
+            this.selectedTypes = selectedTypes;
+        }
     }
 };
 </script>

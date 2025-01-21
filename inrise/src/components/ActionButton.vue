@@ -20,11 +20,15 @@ export default {
         },
         isNext: {
             type: Boolean,
-            default: true, // Default to Next button
+            default: true,
         },
         isFinish: {
             type: Boolean,
             default: false,
+        },
+        canNavigate: {
+            type: Boolean,
+            default: true,
         },
     },
     data() {
@@ -34,8 +38,11 @@ export default {
     },
     methods: {
         goToActivity() {
-            // Navigate using the 'to' prop for routing
-            this.$router.push(this.to);
+            if (this.canNavigate) { 
+                this.$router.push(this.to);
+            } else {
+                alert('Por favor, selecione pelo menos uma atividade.');
+            }
         },
     },
 };

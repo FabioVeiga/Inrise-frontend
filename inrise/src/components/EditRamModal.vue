@@ -86,8 +86,6 @@ export default {
           iva: 0,
           finalPrice: 0,
         },
-        image: null,
-        images: []
       },
     };
   },
