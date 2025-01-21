@@ -1,7 +1,6 @@
 <template>
     <div class="square p-8 w-[32%] flex flex-col justify-start items-center cursor-pointer" @click="toggleCheckbox">
         <div class="w-[196px] h-[96px] flex items-center justify-center overflow-hidden">
-            <!-- Use the first image from the images array -->
             <img :src="images[0]?.url" :alt="name" class="object-contain w-full h-auto">
         </div>
 
@@ -44,9 +43,6 @@ export default {
             required: true
         }
     },
-    mounted(){
-        console.log(`Images for ${this.name}:`, this.images);
-    },
     computed: {
         isSelected() {
             return this.selectedParts.some(part => part.value === this.value);
@@ -80,39 +76,12 @@ export default {
         select() {
             const newSelectedParts = this.selectedParts.filter(part => part.partType !== this.partType);
             newSelectedParts.push({ value: this.value, partType: this.partType });
-
             this.$emit('update:selectedParts', newSelectedParts);
-
-            this.saveToCookies(newSelectedParts);
         },
         deselect() {
             const newSelectedParts = this.selectedParts.filter(part => part.value !== this.value);
-
             this.$emit('update:selectedParts', newSelectedParts);
-
-            this.saveToCookies(newSelectedParts);
-        },
-        saveToCookies(selectedParts) {
-            this.$cookies.set('selectedPcParts', selectedParts, { path: '/' });
         }
     }
 };
 </script>
-
-<style scoped>
-.square {
-    transition: transform 0.3s ease;
-}
-
-.square:hover {
-    transform: scale(1.05);
-}
-
-input[type="checkbox"] {
-    transition: transform 0.2s ease;
-}
-
-input[type="checkbox"]:checked {
-    transform: scale(1.2);
-}
-</style>

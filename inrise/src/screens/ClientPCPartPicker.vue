@@ -98,7 +98,10 @@ export default {
       }
     },
     selectPart(partType, updatedParts) {
+      //bem aqui preciso pegar o id das partes
       console.log(`Selected ${partType}:`, updatedParts);
+      console.log(`ALL SELECTED: ${partType}:`, this.selectedParts)
+
       this.selectedParts[partType] = updatedParts;
       //this.calculateFinalPrice();
     },
