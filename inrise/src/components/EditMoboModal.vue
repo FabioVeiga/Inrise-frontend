@@ -119,7 +119,7 @@ export default {
         const updatedMobo = await editMobo(this.editedProduct.id, this.editedProduct);
         console.log('Placa Mãe editada com sucesso!', updatedMobo);
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0]) {
+        if (this.editedProduct.images[0] && this.editedProduct.image) {
           console.log('Img antes da request:', this.editedProduct.image);
           const imageResponse = await registerImage('motherBoard', prodId, this.editedProduct.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);

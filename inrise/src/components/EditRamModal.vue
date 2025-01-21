@@ -97,7 +97,7 @@ export default {
         const updatedRam = await editRam(this.editedProduct.id, this.editedProduct);
         console.log('Memória RAM editada com sucesso!', updatedRam);
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0]) {
+        if (this.editedProduct.images[0] && this.editedProduct.image) {
           console.log('Img antes da request:', this.editedProduct.image);
           const imageResponse = await registerImage('memoryRam', prodId, this.editedProduct.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);

@@ -136,7 +136,7 @@ export default {
                 const updatedCpu = await editCpu(this.editedProduct.id, this.editedProduct);
                 console.log('Processador editado com sucesso!', updatedCpu);
                 const prodId = this.editedProduct.id;
-                if (this.editedProduct.images[0]) {
+                if (this.editedProduct.images[0] && this.editedProduct.image) {
                     console.log('Img antes da request:', this.editedProduct.image);
                     const imageResponse = await registerImage('processor', prodId, this.editedProduct.image);
                     console.log('Imagem cadastrada com sucesso!', imageResponse);

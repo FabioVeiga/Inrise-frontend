@@ -120,7 +120,7 @@ export default {
         const updatedCooler = await editCooler(this.editedProduct.id, this.editedProduct);
         console.log('Cooler editado com sucesso!', updatedCooler);
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0]) {
+        if (this.editedProduct.images[0] && this.editedProduct.image) {
           console.log('Img antes da request:', this.editedProduct.image);
           const imageResponse = await registerImage('cooler', prodId, this.editedProduct.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);
