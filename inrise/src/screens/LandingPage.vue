@@ -75,8 +75,8 @@
         class="flex flex-1 justify-between items-center min-w-[350px] lg:max-w-[1240px] h-auto rounded-[45px] w-[100%]  bg-[#191A23] py-8">
 
 
-        <div class="hidden lg:flex flex-1 max-w-[500px] max-h-[500px] mx-4 mb-6 lg:mb-0 items-center justify-center">
-          <img src="@/assets/placeholder1.png" alt="Image" class="w-full h-full object-cover rounded-xl">
+        <div class="hidden lg:flex flex-1 max-w-[500px] max-h-[500px] ml-16 mx-4 mb-6 lg:mb-0 items-center justify-center">
+          <img src="@/assets/betaInrise.svg" alt="Image" class="w-full h-full object-cover rounded-xl">
         </div>
 
 
@@ -170,9 +170,8 @@
               potencial do mundo digital com um computador feito à medida para ti.
             </span>
           </div>
-          <div
-            class="hidden lg:flex flex-1 flex-col justify-center items-center max-w-[500px] max-h-[500px] bg-red-500 mx-4">
-            <img src="@/assets/homeScreenPic.jpg" alt="Image" class="w-full h-full object-cover">
+          <div class="hidden lg:flex flex-1 flex-col justify-center items-center max-w-[500px] max-h-[500px] mx-4">
+            <img src="@/assets/quemSomos.svg" alt="Image" class="w-full h-full object-fit">
           </div>
         </div>
       </div>
@@ -182,7 +181,7 @@
       <div class="flex flex-1 flex-col justify-between items-center min-w-[350px] max-w-[1240px]">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#F3F3F3] p-7 hover:bg-purple-4000">
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#F3F3F3] p-7  hover:bg-[#BB59F9] ">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 1</span>
@@ -200,12 +199,12 @@
               </div>
             </div>
             <div class="flex self-center h-52 ml-4 w-[40%]">
-              <img src="@/assets/passo1.png" alt="Logo" class="object-scale-down">
+              <img src="@/assets/passo1.svg" alt="Logo" class="object-scale-down">
             </div>
           </div>
 
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 2</span>
@@ -225,12 +224,12 @@
               </div>
             </div>
             <div class="flex self-center h-52 ml-4 w-[40%]">
-              <img src="@/assets/passo2.png" alt="Logo" class="object-scale-down">
+              <img src="@/assets/passo2.svg" alt="Logo" class="object-scale-down">
             </div>
           </div>
 
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
 
             <div class="flex flex-col justify-between w-3/5">
               <div>
@@ -251,12 +250,12 @@
               </div>
             </div>
             <div class="flex self-center h-52 ml-4 w-[40%]">
-              <img src="@/assets/passo3.png" alt="Logo" class="object-scale-down">
+              <img src="@/assets/passo3.svg" alt="Logo" class="object-scale-down">
             </div>
           </div>
 
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7 hover:bg-purple-4000">
+            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 4</span>
@@ -278,7 +277,7 @@
               </div>
             </div>
             <div class="flex self-center h-auto ml-4 w-[40%]">
-              <img src="@/assets/passo4.png" alt="Logo" class="object-scale-down">
+              <img src="@/assets/passo4.svg" alt="Logo" class="object-scale-down">
             </div>
           </div>
 
@@ -346,8 +345,9 @@
 
         </div>
         <div class="hidden lg:flex">
-          <div class="hidden lg:flex self-center">
-            <img src="@/assets/placeholder2.png" alt="Logo" class="object-scale-down">
+          <div class="hidden lg:flex flex-1 flex-col justify-center items-center max-w-[500px] max-h-[500px] mx-4">
+
+            <img src="@/assets/inscreva.svg" alt="Logo" class="object-fit">
           </div>
         </div>
 
