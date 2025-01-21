@@ -1,12 +1,12 @@
 <template>
     <button @click="goToActivity" :class="[
-        'w-[160px] h-[38px] cursor-pointer rounded-lg flex px-2 items-center justify-between text-[15px] font-semibold',
+        isFinish ? 'w-[200px] h-[50px]' : 'w-[160px] h-[38px]',
+        'cursor-pointer rounded-lg flex px-2 items-center justify-between text-[15px] font-semibold',
         isNext ? 'text-white bg-gradient-to-b from-[#60B5EF] to-[#DB3AFD]' : 'text-black bg-white border-2 border-black'
     ]" @mouseover="hover = true" @mouseleave="hover = false">
         <i :class="isNext ? 'hidden' : 'fa-solid fa-arrow-left'"></i>
         <slot></slot>
         <i :class="isNext ? 'fa-solid fa-arrow-right' : 'hidden'"></i>
-
     </button>
 </template>
 
@@ -21,6 +21,10 @@ export default {
         isNext: {
             type: Boolean,
             default: true, // Default to Next button
+        },
+        isFinish: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
