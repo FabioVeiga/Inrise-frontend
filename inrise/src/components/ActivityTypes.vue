@@ -29,19 +29,19 @@ export default {
       activityItems: [
         {
           label: 'Jogos',
-          image: 'client/act1.png',
+          image: 'https://inrisecomputadoresdev.blob.core.windows.net/imagens/category/44/act1.png',
           description: 'Jogos da última geração e competitivos',
           value: 'Games'
         },
         {
           label: 'Trabalho',
-          image: 'client/act2.png',
+          image: 'https://inrisecomputadoresdev.blob.core.windows.net/imagens/category/45/act2.png',
           description: 'Designers gráficos, engenheiros, artistas 3D, streamers, etc.',
           value: 'Work'
         },
         {
           label: 'Casual',
-          image: 'client/act3.png',
+          image: 'https://inrisecomputadoresdev.blob.core.windows.net/imagens/category/46/act3.png',
           description: 'Redes sociais, séries e filmes, trabalhos de escola/faculdade, etc.',
           value: 'Casual'
         }
