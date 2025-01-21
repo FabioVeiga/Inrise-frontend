@@ -2,7 +2,7 @@
     <div class="flex flex-wrap justify-start gap-4">
         <!-- Loop through a slice of the parts array to render a maximum of 3 objects -->
         <PcPart v-for="(part, index) in parts.slice(0, 3)" :key="index" :name="part.name" :images="part.images"
-            :value="part.valueClassification" :price="part.price" :selectedPart="localSelectedPart" :partType="partType"
+            :value="part.valueClassification" :price="part.price" :id="part.id" :selectedPart="localSelectedPart" :partType="partType"
             @update:selectedPart="updateSelectedPart" />
     </div>
 </template>
