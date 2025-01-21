@@ -31,7 +31,11 @@ export default {
             required: true
         },
         price: {
-            type: String,
+            type: Number,
+            required: true
+        },
+        id: {
+            type: Number,
             required: true
         },
         selectedPart: {
@@ -45,7 +49,7 @@ export default {
     },
     computed: {
         isSelected() {
-            return this.selectedPart?.value === this.value;
+            return this.selectedPart?.id === this.id;
         }
     },
     methods: {
@@ -64,8 +68,7 @@ export default {
                 console.log(`${this.name} is not selected. Selecting...`);
                 this.select();
             }
-        }
-        ,
+        },
         handleCheckboxChange(event) {
             const isChecked = event.target.checked;
             if (isChecked) {
@@ -78,7 +81,7 @@ export default {
             event.stopPropagation();
         },
         select() {
-            const selectedPart = { value: this.value, partType: this.partType };
+            const selectedPart = { id: this.id, value: this.value, partType: this.partType }; 
             this.$emit('update:selectedPart', selectedPart);
         },
         deselect() {
