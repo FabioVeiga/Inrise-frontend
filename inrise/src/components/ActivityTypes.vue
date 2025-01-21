@@ -14,6 +14,7 @@
 </template>
 
 <script>
+//TODO: Puxar esses programaticamente da API 
 import Cookies from 'js-cookie';
 import ActivityBox from './ActivityBox.vue';
 export default {
@@ -27,19 +28,19 @@ export default {
       activityItems: [
         {
           label: 'Jogos',
-          image: 'act1.png',
+          image: 'client/act1.png',
           description: 'Jogos da última geração e competitivos',
           value: 'Games'
         },
         {
           label: 'Trabalho',
-          image: 'act2.png',
+          image: 'client/act2.png',
           description: 'Designers gráficos, engenheiros, artistas 3D, streamers, etc.',
           value: 'Work'
         },
         {
           label: 'Casual',
-          image: 'act3.png',
+          image: 'client/act3.png',
           description: 'Redes sociais, séries e filmes, trabalhos de escola/faculdade, etc.',
           value: 'Casual'
         }
@@ -56,9 +57,9 @@ export default {
   methods: {
     updateSelection(newSelection) {
       this.selectedTypes = newSelection;
-      this.$emit('software-selected', this.selectedTypes);
+      this.$emit('type-selected', this.selectedTypes);
       Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
-      console.log("Updated Cookies:", Cookies.get('selectedActivities'));
+      console.log("Updated Cookies for selected activities:", Cookies.get('selectedActivities'));
     }
   }
 };
