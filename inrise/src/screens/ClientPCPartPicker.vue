@@ -1,5 +1,4 @@
 <template>
-
   <HomeContentView>
     <HomeMenu></HomeMenu>
 
@@ -18,16 +17,15 @@
         <p style="white-space: nowrap" class="text-xl font-semibold">
           Processadores
         </p>
-        <PcPartRow partType="CPU" :parts="processadores" :selectedParts="selectedParts.processador"
+        <PcPartRow partType="CPU" :parts="processadores" :selectedParts="[selectedParts.processador]"
           @update:selectedParts="selectPart('processador', $event)" />
 
         <!-- RAM -->
         <p style="white-space: nowrap" class="text-xl font-semibold">
           Memórias RAM
         </p>
-        <PcPartRow partType="RAM" :parts="memoriasRam" :selectedParts="selectedParts.memoryRam"
+        <PcPartRow partType="RAM" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
           @update:selectedParts="selectPart('memoryRam', $event)" />
-
 
         <!-- Preço Final  -->
         <div class="text-lg font-semibold">
@@ -48,7 +46,6 @@
       </ActionButton>
     </div>
   </HomeContentView>
-
 </template>
 
 <script>
@@ -59,6 +56,7 @@ import HomeMenu from '../components/HomeMenu.vue';
 import HeaderRectanglesLarge from '../components/HeaderRectanglesLarge.vue';
 import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue';
 import ActionButton from '@/components/ActionButton.vue';
+import Cookies from 'js-cookie';
 
 export default {
   name: 'ClientPcPartPicker',
@@ -69,8 +67,8 @@ export default {
     return {
       loading: false,
       selectedParts: {
-        processador: [],
-        memoryRam: [],
+        processador: null,
+        memoryRam: null,
       },
       processadores: [],
       memoriasRam: [],
@@ -86,9 +84,6 @@ export default {
           loadProducts('ram'),
         ]);
 
-        console.log('Fetched Processadores:', processadores);
-        console.log('Fetched Memorias RAM:', memoriasRam);
-
         this.processadores = processadores;
         this.memoriasRam = memoriasRam;
         this.loading = false;
@@ -97,25 +92,23 @@ export default {
         this.loading = false;
       }
     },
-    selectPart(partType, updatedParts) {
-      //bem aqui preciso pegar o id das partes
-      console.log(`Selected ${partType}:`, updatedParts);
-      console.log(`ALL SELECTED: ${partType}:`, this.selectedParts)
+    selectPart(partType, updatedPart) {
+      console.log(`Selected part in ${partType}:`, updatedPart); 
 
-      this.selectedParts[partType] = updatedParts;
+      this.selectedParts[partType] = updatedPart;
+      console.log('Updated selectedParts:', this.selectedParts); 
+
       //this.calculateFinalPrice();
+      Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
     },
     calculateFinalPrice() {
       let totalPrice = 0;
-      Object.values(this.selectedParts).forEach(parts => {
-        parts.forEach(part => {
-          console.log(part)
+      Object.values(this.selectedParts).forEach(part => {
+        if (part) {
           const partPrice = parseFloat(part.price.finalPrice.replace('$', ''));
-          console.log(`Adding ${part.title}: $${partPrice}`);
           totalPrice += partPrice;
-        });
+        }
       });
-      console.log('Total Price Calculated:', totalPrice);
       this.finalPrice = totalPrice;
     },
     async submitForm() {
@@ -125,7 +118,6 @@ export default {
     }
   },
   mounted() {
-    console.log('Fetching data for PC parts...');
     this.fetchData();
   }
 };

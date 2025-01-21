@@ -4,11 +4,11 @@
             <img :src="images[0]?.url" :alt="name" class="object-contain w-full h-auto">
         </div>
 
-        <!-- Checkbox for selecting parts -->
+        <!-- Checkbox -->
         <input type="checkbox" :id="value" :checked="isSelected" @click.stop="handleCheckboxClick"
             @change="handleCheckboxChange" class="mt-2 w-6 h-6">
 
-        <!-- Display part name and price -->
+        <!-- Name and price -->
         <p class="text-2xl font-bold my-2">{{ name.toUpperCase() }}</p>
         <p class="text-lg font-semibold">{{ formatCurrency(price.finalPrice) }}</p>
     </div>
@@ -34,8 +34,8 @@ export default {
             type: String,
             required: true
         },
-        selectedParts: {
-            type: Array,
+        selectedPart: {
+            type: Object,
             required: true
         },
         partType: {
@@ -45,7 +45,7 @@ export default {
     },
     computed: {
         isSelected() {
-            return this.selectedParts.some(part => part.value === this.value);
+            return this.selectedPart?.value === this.value;
         }
     },
     methods: {
@@ -56,12 +56,16 @@ export default {
             }) : 'Preço não disponível';
         },
         toggleCheckbox() {
+            console.log(`Toggling checkbox for part: ${this.name}`); 
             if (this.isSelected) {
+                console.log(`${this.name} is already selected. Deselecting...`);
                 this.deselect();
             } else {
+                console.log(`${this.name} is not selected. Selecting...`);
                 this.select();
             }
-        },
+        }
+        ,
         handleCheckboxChange(event) {
             const isChecked = event.target.checked;
             if (isChecked) {
@@ -74,13 +78,11 @@ export default {
             event.stopPropagation();
         },
         select() {
-            const newSelectedParts = this.selectedParts.filter(part => part.partType !== this.partType);
-            newSelectedParts.push({ value: this.value, partType: this.partType });
-            this.$emit('update:selectedParts', newSelectedParts);
+            const selectedPart = { value: this.value, partType: this.partType };
+            this.$emit('update:selectedPart', selectedPart);
         },
         deselect() {
-            const newSelectedParts = this.selectedParts.filter(part => part.value !== this.value);
-            this.$emit('update:selectedParts', newSelectedParts);
+            this.$emit('update:selectedPart', null);
         }
     }
 };
