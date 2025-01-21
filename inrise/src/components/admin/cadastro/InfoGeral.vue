@@ -14,8 +14,8 @@
       </div>
 
       <!-- Image Preview -->
-      <img v-if="formData.images?.[0]?.url" :src="formData.images[0].url" alt="A imagem não pôde ser exibida."
-        class="max-w-28 max-h-28 object-cover rounded-md" />
+      <img v-if="formData.images?.[0]?.url" :src="formData.images[formData.images.length - 1].url"
+        alt="A imagem não pôde ser exibida." class="max-w-28 max-h-28 object-cover rounded-md" />
 
       <img v-if="formData.imagePreview && !formData.images[0].url" :src="formData.imagePreview"
         alt="Pré-visualização da imagem" class="max-w-64 max-h-64 object-cover rounded-md" />
