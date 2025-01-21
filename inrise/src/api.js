@@ -15,6 +15,7 @@ export function registerUser(data) {
   return apiClient.post('/register', data);
 }
 //@TODO: Organizar esse arquivo pra ficar bonitinho, os fetch by id, grupo, etc juntos
+//@TODO: Talvez os getById, getAll, etc, de peças pelo menos, possam ser mudados pra serem programaticamente callable.
 export async function registerSoftware(data) {
   const token = getToken();
   const headers = token ? {

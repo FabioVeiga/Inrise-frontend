@@ -49,7 +49,7 @@
 
         <div v-if="!category.images[0]?.url && !category.imagePreview" class="text-center text-gray-500">
           <span>
-            {{ category.isEditing ? 'Arraste ou clique para carregar uma imagem' : 'Abra o modo de edição pra adicionar uma imagem' }}
+            {{ category.isEditing ? 'Arraste ou clique para carregar uma imagem (.JPG ou .PNG)' : 'Abra o modo de edição pra adicionar uma imagem (.JPG ou .PNG)' }}
           </span>
         </div>
 
