@@ -139,7 +139,6 @@ export function editCategory(categoryId, categories) {
     category.isEditing = true;
     category.editName = category.name;
 }
-
 export async function saveChanges(categoryId, categories) {
     const category = categories[categoryId];
     const updatedData = { name: category.editName };
@@ -147,8 +146,7 @@ export async function saveChanges(categoryId, categories) {
     try {
         await editSoftwareGroup(category.id, updatedData);
         category.name = category.editName;
-
-        if (category.images[0]) {
+        if (category.imagePreview && category.imagePreview !== category.images[0]?.url) {
             const imageResponse = await registerImage('category', category.id, category.images[0]);
             console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
