@@ -1,12 +1,12 @@
 import {
   fetchAllCpu, fetchAllMobo, fetchAllTower, fetchAllRam, fetchAllStorage,
   fetchAllGpu, fetchAllPsu, fetchAllCooler, fetchAllMonitor, fetchAllPC,
-  fetchCpuById, fetchMoboById, fetchTowerById, fetchRamById, fetchStorageById,
-  fetchGpuById, fetchPsuById, fetchCoolerById, fetchMonitorById, fetchPCById,
+  //fetchCpuById, fetchMoboById, fetchTowerById, fetchRamById, fetchStorageById,
+  //fetchGpuById, fetchPsuById, fetchCoolerById, fetchMonitorById, fetchPCById,
 } from '@/api'
 
 
-
+//@TODO: Cleanup disso depois de confirmar a operação
 
 export async function loadProducts(productType) {
   if (productType === 'select') {
@@ -14,56 +14,57 @@ export async function loadProducts(productType) {
   }
 
   let response;
-  let fetchDetails;
+  //let fetchDetails;
 
   try {
     switch (productType) {
       case 'ram':
         response = await fetchAllRam();
-        fetchDetails = fetchRamById;
+        //fetchDetails = fetchRamById;
         break;
       case 'psu':
         response = await fetchAllPsu();
-        fetchDetails = fetchPsuById;
+        //fetchDetails = fetchPsuById;
         break;
       case 'monitor':
         response = await fetchAllMonitor();
-        fetchDetails = fetchMonitorById;
+        //fetchDetails = fetchMonitorById;
         break;
       case 'placaDeVideo':
         response = await fetchAllGpu();
-        fetchDetails = fetchGpuById;
+        //fetchDetails = fetchGpuById;
         break;
       case 'processador':
         response = await fetchAllCpu();
-        fetchDetails = fetchCpuById;
+        //fetchDetails = fetchCpuById;
         break;
       case 'gabinete':
         response = await fetchAllTower();
-        fetchDetails = fetchTowerById;
+        //fetchDetails = fetchTowerById;
         break;
       case 'cooler':
         response = await fetchAllCooler();
-        fetchDetails = fetchCoolerById;
+        //fetchDetails = fetchCoolerById;
         break;
       case 'disco':
         response = await fetchAllStorage();
-        fetchDetails = fetchStorageById;
+        //fetchDetails = fetchStorageById;
         break;
       case 'computador':
         response = await fetchAllPC();
-        fetchDetails = fetchPCById;
+        //fetchDetails = fetchPCById;
         break;
       case 'placaMae':
         response = await fetchAllMobo();
-        fetchDetails = fetchMoboById;
+        //fetchDetails = fetchMoboById;
         break;
       default:
         throw new Error('Tipo de produto não suportado');
     }
 
     const products = response.data.items;
-    for (let product of products) {
+    return products
+    /*for (let product of products) {
       const productDetails = await fetchDetails(product.id);
       if (productDetails && productDetails.data) {
         product.name = productDetails.data.data.name;
@@ -73,8 +74,7 @@ export async function loadProducts(productType) {
         product.price = null;
       }
     }
-
-    return products;
+    return products;*/
   } catch (error) {
     console.error('Erro ao carregar os produtos:', error);
     return [];
