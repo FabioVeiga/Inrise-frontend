@@ -24,20 +24,23 @@
 
 
             <!-- Mobo -->
-            <p style="white-space: nowrap" class="text-xl font-semibold">
-              Placas Mãe
-            </p>
-            <PcPartRow partType="MOBO" :parts="placasMae" :selectedParts="[selectedParts.mobo]"
-              @update:selectedParts="selectPart('mobo', $event)" />
+            <div v-if="selectedParts.processador && placasMaeFilter.length">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Placas Mãe
+              </p>
+              <PcPartRow partType="MOBO" :parts="placasMaeFilter" :selectedParts="[selectedParts.mobo]"
+                @update:selectedParts="selectPart('mobo', $event)" />
+            </div>
 
 
             <!-- RAM -->
-            <p style="white-space: nowrap" class="text-xl font-semibold">
-              Memórias RAM
-            </p>
-            <PcPartRow partType="RAM" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
-              @update:selectedParts="selectPart('memoryRam', $event)" />
-
+            <div v-if="selectedParts.mobo && memoriasRamFilter.length">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Memórias RAM
+              </p>
+              <PcPartRow partType="RAM" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
+                @update:selectedParts="selectPart('memoryRam', $event)" />
+            </div>
 
           </form>
         </div>
@@ -97,8 +100,10 @@ export default {
         mobo: null,
 
       },
+      cpuSocket: null,
       processadores: [],
       placasMae: [],
+      placasMaeFilter: [],
       gabinetes: [],
       memoriasRam: [],
       discos: [],
@@ -134,21 +139,81 @@ export default {
         this.fontesAlimentacao = fontesAlimentacao;
         this.coolers = coolers;
         this.monitores = monitores;
-        console.log("Thispla", this.placasMae)
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
       }
 
     },
-    selectPart(partType, updatedPart) {
+    async selectPart(partType, updatedPart) {
       console.log(`Selected part in ${partType}:`, updatedPart);
 
       this.selectedParts[partType] = updatedPart;
-      console.log('Updated selectedParts:', this.selectedParts);
 
-      //this.calculateFinalPrice();
+      if (partType === 'processador') {
+        console.log("Updated part ID:", updatedPart);
+
+        const selectedCpu = this.processadores.find(
+          (processador) => processador.id === updatedPart.id
+        );
+
+        if (selectedCpu) {
+          this.selectedSocket = selectedCpu.socket;
+          console.log("Selected processador socket:", this.selectedSocket);
+
+          this.filterMotherboardsBySocket();
+        } else {
+          console.warn("Processador with the given ID not found.");
+          this.selectedSocket = null;
+
+          this.filterMotherboardsBySocket();
+        }
+      }
+
+
+      if (partType === 'mobo') {
+        console.log("Updated motherboard ID:", updatedPart);
+
+        const selectedMobo = this.placasMae.find(
+          (mobo) => mobo.id === updatedPart.id
+        );
+
+        if (selectedMobo) {
+          this.selectedSocketMemory = selectedMobo.socketMemory;
+          console.log("Selected motherboard memory socket:", this.selectedSocketMemory);
+
+          this.filterRamBySocketMemory();
+
+        } else {
+          console.warn("Motherboard with the given ID not found.");
+          this.selectedSocketMemory = null;
+          this.filterRamBySocketMemory();
+        }
+      }
+
       Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
     },
+    filterMotherboardsBySocket() {
+      if (this.selectedSocket) {
+        this.placasMaeFilter = this.placasMae.filter(
+          (mobo) => mobo.socket === this.selectedSocket
+        );
+        console.log("Filtered motherboards:", this.placasMaeFilter);
+      } else {
+        this.placasMaeFilter = this.placasMae;
+      }
+    },
+
+    filterRamBySocketMemory() {
+      if (this.selectedSocketMemory) {
+        this.memoriasRamFilter = this.memoriasRam.filter(
+          (ram) => ram.socket === this.selectedSocketMemory
+        );
+        console.log("Filtered RAM:", this.memoriasRamFilter);
+      } else {
+        this.memoriasRamFilter = this.memoriasRam;
+      }
+    },
+
     calculateFinalPrice() {
       let totalPrice = 0;
       Object.values(this.selectedParts).forEach(part => {
