@@ -13,17 +13,10 @@
 
             <ActivityTypes @type-selected="handleSelection" />
             <div class="flex justify-between w-full max-w-[1366px]">
-                <ActionButton 
-                    :to="{ name: 'ClientComputers' }" 
-                    :isNext="false"
-                >
+                <ActionButton :to="{ name: 'ClientComputers' }" :isNext="false">
                     Página Anterior
                 </ActionButton>
-                <ActionButton 
-                    :to="{ name: 'ClientSoftware' }" 
-                    :isNext="true"
-                    :canNavigate="!isNextButtonDisabled"
-                >
+                <ActionButton :to="{ name: 'ClientSoftware' }" :isNext="true" :canNavigate="!isNextButtonDisabled">
                     Próxima Página
                 </ActionButton>
             </div>
@@ -38,6 +31,7 @@ import HeaderRectanglesLarge from '../components/HeaderRectanglesLarge.vue';
 import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue';
 import ActivityTypes from '@/components/ActivityTypes.vue';
 import ActionButton from '@/components/ActionButton.vue';
+import Cookies from 'js-cookie';
 
 export default {
     name: 'ClientActivity',
@@ -56,7 +50,8 @@ export default {
     },
     computed: {
         isNextButtonDisabled() {
-            return this.selectedTypes.length === 0; // Disable the button if no activities are selected
+            const savedTypes = Cookies.get('selectedActivities');
+            return !savedTypes || JSON.parse(savedTypes).length === 0; // Disable button if no types are selected in the cookies
         }
     },
     methods: {

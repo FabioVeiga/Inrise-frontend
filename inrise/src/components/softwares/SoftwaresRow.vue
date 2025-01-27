@@ -1,15 +1,18 @@
 <template>
   <div class="flex justify-center flex-wrap gap-8">
+    <div v-if="loading" class="text-center text-xl text-gray-500">
+      <p>Carregando Softwares...</p>
+    </div>
     <ActivityBox 
       v-for="(item, index) in softwareItems" 
-      :key="index"
+      :key="index" 
       :label="item.name" 
-      :image="item.image" 
-      :description="item.description"
-      :value="item.value"
+      :image="item.image"
+      :description="item.description" 
+      :value="item.value" 
       :selectedTypes="selectedTypes"
-      @update:selectedTypes="updateSelection"
-      class="flex-item"
+      @update:selectedTypes="updateSelection" 
+      class="flex-item" 
     />
   </div>
 </template>
@@ -33,24 +36,31 @@ export default {
   data() {
     return {
       selectedTypes: [],
-      softwareItems: [] 
+      softwareItems: [],
+      loading: true // Initially set loading to true
     };
   },
   async created() {
-    const categories = await softwareUtils.fetchCategories();
+    try {
+      const categories = await softwareUtils.fetchCategories();
 
-    this.softwareItems = categories
-      .filter(category => this.categoryIds.includes(category.id))
-      .map(category => ({
-        name: category.name,     
-        image: category.images[0]?.url || 'default-image.jpg',
-        description: category.description || '',
-        value: category.id        
-      }));
+      this.softwareItems = categories
+        .filter(category => this.categoryIds.includes(category.id))
+        .map(category => ({
+          name: category.name,
+          image: category.images[0]?.url || 'default-image.jpg',
+          description: category.description || '',
+          value: category.id
+        }));
 
-    const savedTypes = Cookies.get('selectedSoftwares');
-    if (savedTypes) {
-      this.selectedTypes = JSON.parse(savedTypes);
+      const savedTypes = Cookies.get('selectedSoftwares');
+      if (savedTypes) {
+        this.selectedTypes = JSON.parse(savedTypes);
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    } finally {
+      this.loading = false; // Set loading to false once the API request completes
     }
   },
   methods: {
@@ -72,7 +82,7 @@ export default {
 }
 
 .flex-item {
-  flex: 1 1 calc(25% - 2rem); 
+  flex: 1 1 calc(25% - 2rem);
   max-width: calc(25% - 2rem);
 }
 
@@ -85,7 +95,7 @@ export default {
 
 @media (max-width: 640px) {
   .flex-item {
-    flex: 1 1 calc(100% - 2rem); 
+    flex: 1 1 calc(100% - 2rem);
     max-width: calc(100% - 2rem);
   }
 }
