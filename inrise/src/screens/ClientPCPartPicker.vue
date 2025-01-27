@@ -77,8 +77,8 @@
                 @update:selectedParts="selectPart('cooler', $event)" />
             </div>
 
-             <!-- Gabinete -->
-             <div v-if="selectedParts.memoryRam">
+            <!-- Gabinete -->
+            <div v-if="selectedParts.memoryRam">
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Gabinete
               </p>
@@ -262,15 +262,52 @@ export default {
 
     calculateFinalPrice() {
       let totalPrice = 0;
-      Object.values(this.selectedParts).forEach(part => {
-        if (part) {
 
-          console.log("Calc",this.selectedParts,part)
-          //const partPrice = parseFloat(part.price.finalPrice.replace('$', ''));
-          //totalPrice += partPrice;
+      // Loop through selectedParts and find each part in the corresponding list based on id
+      Object.entries(this.selectedParts).forEach(([partType, selectedPart]) => {
+        if (selectedPart) {
+          let partList;
+
+          switch (partType) {
+            case 'processor':
+              partList = this.processadores;
+              break;
+            case 'motherBoard':
+              partList = this.placasMae;
+              break;
+            case 'memoryRam':
+              partList = this.memoriasRam;
+              break;
+            case 'videoBoard':
+              partList = this.placasVideo;
+              break;
+            case 'memoryRom':
+              partList = this.discos;
+              break;
+            case 'powerSupply':
+              partList = this.fontesAlimentacao;
+              break;
+            case 'cooler':
+              partList = this.coolers;
+              break;
+            case 'tower':
+              partList = this.gabinetes;
+              break;
+            default:
+              partList = [];
+          }
+
+          const part = partList.find(p => p.id === selectedPart.id);
+
+          if (part && part.price) {
+            console.log("Upd",part)
+            totalPrice += part.price.finalPrice;
+          }
         }
       });
+
       this.finalPrice = totalPrice;
+      console.log("Calculated Final Price:", this.finalPrice);
     },
     async submitForm() {
       console.log('Form Submitted!');
