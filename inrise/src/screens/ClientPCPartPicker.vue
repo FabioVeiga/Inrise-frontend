@@ -17,44 +17,88 @@
           <form @submit.prevent="submitForm" class="space-y-6">
             <!-- CPU -->
             <p style="white-space: nowrap" class="text-xl font-semibold">
-              Processadores
+              Processador
             </p>
-            <PcPartRow partType="CPU" :parts="processadores" :selectedParts="[selectedParts.processador]"
-              @update:selectedParts="selectPart('processador', $event)" />
-
+            <PcPartRow partType="processor" :parts="processadores" :selectedParts="[selectedParts.processor]"
+              @update:selectedParts="selectPart('processor', $event)" />
 
             <!-- Mobo -->
-            <div v-if="selectedParts.processador && placasMaeFilter.length">
+            <div v-if="selectedParts.processor && placasMaeFilter.length">
               <p style="white-space: nowrap" class="text-xl font-semibold">
-                Placas Mãe
+                Placa Mãe
               </p>
-              <PcPartRow partType="MOBO" :parts="placasMaeFilter" :selectedParts="[selectedParts.mobo]"
-                @update:selectedParts="selectPart('mobo', $event)" />
+              <PcPartRow partType="motherBoard" :parts="placasMaeFilter" :selectedParts="[selectedParts.motherBoard]"
+                @update:selectedParts="selectPart('motherBoard', $event)" />
             </div>
-
 
             <!-- RAM -->
-            <div v-if="selectedParts.mobo && memoriasRamFilter.length">
+            <div v-if="selectedParts.motherBoard && memoriasRamFilter.length">
               <p style="white-space: nowrap" class="text-xl font-semibold">
-                Memórias RAM
+                Memória RAM
               </p>
-              <PcPartRow partType="RAM" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
+              <PcPartRow partType="memoryRam" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
                 @update:selectedParts="selectPart('memoryRam', $event)" />
             </div>
+
+            <!-- GPU -->
+            <div v-if="selectedParts.memoryRam">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Placa de Vídeo
+              </p>
+              <PcPartRow partType="videoBoard" :parts="placasVideo" :selectedParts="[selectedParts.videoBoard]"
+                @update:selectedParts="selectPart('videoBoard', $event)" />
+            </div>
+
+            <!-- Disco -->
+            <div v-if="selectedParts.memoryRam">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Disco
+              </p>
+              <PcPartRow partType="memoryRom" :parts="discos" :selectedParts="[selectedParts.memoryRom]"
+                @update:selectedParts="selectPart('memoryRom', $event)" />
+            </div>
+
+
+            <!-- PSU -->
+            <div v-if="selectedParts.memoryRam">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Fonte
+              </p>
+              <PcPartRow partType="powerSupply" :parts="fontesAlimentacao" :selectedParts="[selectedParts.powerSupply]"
+                @update:selectedParts="selectPart('powerSupply', $event)" />
+            </div>
+
+            <!-- Coolers -->
+            <div v-if="selectedParts.memoryRam">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Cooler
+              </p>
+              <PcPartRow partType="cooler" :parts="coolers" :selectedParts="[selectedParts.cooler]"
+                @update:selectedParts="selectPart('cooler', $event)" />
+            </div>
+
+             <!-- Gabinete -->
+             <div v-if="selectedParts.memoryRam">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Gabinete
+              </p>
+              <PcPartRow partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
+                @update:selectedParts="selectPart('tower', $event)" />
+            </div>
+
+
 
           </form>
         </div>
 
-
       </div>
 
-      <!--  Modal -->
+      <!-- Modal -->
       <div class="modal flex flex-col justify-between">
         <div class="h-3/4">
           <p>Modal com as peças.</p>
         </div>
-        <!-- Preço Final  -->
-
+        <!-- Preço Final -->
         <div class="h-1/4 flex w-full flex-row justify-between">
           <div class="text-lg font-semibold">
             <p>Preço Final: {{ finalPrice }}</p>
@@ -75,7 +119,6 @@
   </HomeContentView>
 </template>
 
-
 <script>
 import PcPartRow from '@/components/PcPartRow.vue';
 import { loadProducts } from '@/utils/productUtils';
@@ -95,10 +138,15 @@ export default {
     return {
       loading: false,
       selectedParts: {
-        processador: null,
+        cooler: null,
         memoryRam: null,
-        mobo: null,
-
+        memoryRom: null,
+        monitorScreen: null,
+        motherBoard: null,
+        powerSupply: null,
+        processor: null,
+        tower: null,
+        videoBoard: null,
       },
       cpuSocket: null,
       processadores: [],
@@ -142,14 +190,13 @@ export default {
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
       }
-
     },
     async selectPart(partType, updatedPart) {
       console.log(`Selected part in ${partType}:`, updatedPart);
 
       this.selectedParts[partType] = updatedPart;
 
-      if (partType === 'processador') {
+      if (partType === 'processor') {
         console.log("Updated part ID:", updatedPart);
 
         const selectedCpu = this.processadores.find(
@@ -158,19 +205,18 @@ export default {
 
         if (selectedCpu) {
           this.selectedSocket = selectedCpu.socket;
-          console.log("Selected processador socket:", this.selectedSocket);
+          console.log("Selected processor socket:", this.selectedSocket);
 
           this.filterMotherboardsBySocket();
         } else {
-          console.warn("Processador with the given ID not found.");
+          console.warn("Processor with the given ID not found.");
           this.selectedSocket = null;
 
           this.filterMotherboardsBySocket();
         }
       }
 
-
-      if (partType === 'mobo') {
+      if (partType === 'motherBoard') {
         console.log("Updated motherboard ID:", updatedPart);
 
         const selectedMobo = this.placasMae.find(
@@ -189,7 +235,7 @@ export default {
           this.filterRamBySocketMemory();
         }
       }
-
+      this.calculateFinalPrice();
       Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
     },
     filterMotherboardsBySocket() {
@@ -218,8 +264,10 @@ export default {
       let totalPrice = 0;
       Object.values(this.selectedParts).forEach(part => {
         if (part) {
-          const partPrice = parseFloat(part.price.finalPrice.replace('$', ''));
-          totalPrice += partPrice;
+
+          console.log("Calc",this.selectedParts,part)
+          //const partPrice = parseFloat(part.price.finalPrice.replace('$', ''));
+          //totalPrice += partPrice;
         }
       });
       this.finalPrice = totalPrice;
