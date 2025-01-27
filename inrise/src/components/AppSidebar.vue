@@ -1,12 +1,23 @@
 <template>
   <div class="sidebar">
     <img src="@/assets/InRise logo.png" alt="Logo" class="logo">
+    <UserAuthButton @open-user-auth-modal="openUserAuthModal" />
   </div>
 </template>
 
 <script>
+import UserAuthButton from './UserAuthButton.vue';
+
 export default {
-  name: 'AppSidebar'
+  name: 'AppSidebar',
+  components: {
+    UserAuthButton
+  },
+  methods: {
+    openUserAuthModal() {
+      this.$emit('open-user-auth-modal');
+    }
+  }
 };
 </script>
 
