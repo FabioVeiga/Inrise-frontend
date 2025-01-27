@@ -263,46 +263,9 @@ export default {
     calculateFinalPrice() {
       let totalPrice = 0;
 
-      // Loop through selectedParts and find each part in the corresponding list based on id
-      Object.entries(this.selectedParts).forEach(([partType, selectedPart]) => {
-        if (selectedPart) {
-          let partList;
-
-          switch (partType) {
-            case 'processor':
-              partList = this.processadores;
-              break;
-            case 'motherBoard':
-              partList = this.placasMae;
-              break;
-            case 'memoryRam':
-              partList = this.memoriasRam;
-              break;
-            case 'videoBoard':
-              partList = this.placasVideo;
-              break;
-            case 'memoryRom':
-              partList = this.discos;
-              break;
-            case 'powerSupply':
-              partList = this.fontesAlimentacao;
-              break;
-            case 'cooler':
-              partList = this.coolers;
-              break;
-            case 'tower':
-              partList = this.gabinetes;
-              break;
-            default:
-              partList = [];
-          }
-
-          const part = partList.find(p => p.id === selectedPart.id);
-
-          if (part && part.price) {
-            console.log("Upd",part)
-            totalPrice += part.price.finalPrice;
-          }
+      Object.values(this.selectedParts).forEach(selectedPart => {
+        if (selectedPart && selectedPart.finalPrice) {
+          totalPrice += selectedPart.finalPrice;
         }
       });
 

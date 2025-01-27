@@ -31,7 +31,7 @@ export default {
             required: true
         },
         price: {
-            type: Number,
+            type: Object,
             required: true
         },
         id: {
@@ -44,6 +44,10 @@ export default {
         },
         partType: {
             type: String,
+            required: true
+        },
+        valueClassification: {
+            type: Number,
             required: true
         }
     },
@@ -60,7 +64,7 @@ export default {
             }) : 'Preço não disponível';
         },
         toggleCheckbox() {
-            console.log(`Toggling checkbox for part: ${this.name}`); 
+            console.log(`Toggling checkbox for part: ${this.name}`);
             if (this.isSelected) {
                 console.log(`${this.name} is already selected. Deselecting...`);
                 this.deselect();
@@ -81,7 +85,13 @@ export default {
             event.stopPropagation();
         },
         select() {
-            const selectedPart = { id: this.id, value: this.value, partType: this.partType }; 
+            const selectedPart = {
+                id: this.id,
+                value: this.value,
+                partType: this.partType,
+                name: this.name,
+                finalPrice: this.price.finalPrice,
+            };
             this.$emit('update:selectedPart', selectedPart);
         },
         deselect() {
