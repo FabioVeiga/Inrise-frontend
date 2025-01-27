@@ -58,7 +58,6 @@
                 @update:selectedParts="selectPart('memoryRom', $event)" />
             </div>
 
-
             <!-- PSU -->
             <div v-if="selectedParts.memoryRam">
               <p style="white-space: nowrap" class="text-xl font-semibold">
@@ -85,18 +84,21 @@
               <PcPartRow partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
                 @update:selectedParts="selectPart('tower', $event)" />
             </div>
-
-
-
           </form>
         </div>
-
       </div>
+      <!-- Modal de Partes  -->
 
-      <!-- Modal -->
       <div class="modal flex flex-col justify-between">
         <div class="h-3/4">
-          <p>Modal com as peças.</p>
+          <div>
+            <h2 class="text-lg font-semibold">Partes Selecionadas:</h2>
+            <ul>
+              <li  class="my-8" v-for="(partName, index) in selectedPartsList" :key="index">
+                <span>{{ partName }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
         <!-- Preço Final -->
         <div class="h-1/4 flex w-full flex-row justify-between">
@@ -134,19 +136,23 @@ export default {
   components: {
     PcPartRow, HomeContentView, HomeMenu, HeaderRectanglesLarge, AppBreadcrumbs, ActionButton
   },
+  computed: {
+    selectedPartsList() {
+      return Object.values(this.selectedParts).filter(part => part).map(part => part.name);
+    }
+  },
   data() {
     return {
       loading: false,
       selectedParts: {
-        cooler: null,
-        memoryRam: null,
-        memoryRom: null,
-        monitorScreen: null,
-        motherBoard: null,
-        powerSupply: null,
         processor: null,
-        tower: null,
+        motherBoard: null,
+        memoryRam: null,
         videoBoard: null,
+        memoryRom: null,
+        powerSupply: null,
+        cooler: null,
+        tower: null,
       },
       cpuSocket: null,
       processadores: [],
@@ -269,7 +275,7 @@ export default {
         }
       });
 
-      this.finalPrice = totalPrice;
+      this.finalPrice = totalPrice.toFixed(2);
       console.log("Calculated Final Price:", this.finalPrice);
     },
     async submitForm() {
