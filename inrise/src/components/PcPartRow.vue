@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         updateSelectedPart(updatedPart) {
-            console.log('Part selected in PcPartRow:', updatedPart);  
+            //console.log('Part selected in PcPartRow:', updatedPart);  
             this.localSelectedPart = updatedPart;
             this.$emit('update:selectedParts', updatedPart);
 

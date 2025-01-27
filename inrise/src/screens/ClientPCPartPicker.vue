@@ -94,7 +94,7 @@
           <div>
             <h2 class="text-lg font-semibold">Partes Selecionadas:</h2>
             <ul>
-              <li  class="my-8" v-for="(partName, index) in selectedPartsList" :key="index">
+              <li class="my-8" v-for="(partName, index) in selectedPartsList" :key="index">
                 <span>{{ partName }}</span>
               </li>
             </ul>
@@ -107,9 +107,11 @@
           </div>
 
           <!-- Submit -->
-          <ActionButton :to="{ name: 'ClientPCPartPicker' }" :isNext="true" :isFinish="true">
+          <ActionButton :to="{ name: 'ClientPCPartPicker' }" :isNext="true" :isFinish="true"
+            @click="validateAndSubmitForm">
             Finalizar Pagamento
           </ActionButton>
+
         </div>
       </div>
     </div>
@@ -129,6 +131,7 @@ import HomeMenu from '../components/HomeMenu.vue';
 import HeaderRectanglesLarge from '../components/HeaderRectanglesLarge.vue';
 import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue';
 import ActionButton from '@/components/ActionButton.vue';
+import { submitOrder } from '@/api';
 import Cookies from 'js-cookie';
 
 export default {
@@ -202,8 +205,12 @@ export default {
 
       this.selectedParts[partType] = updatedPart;
 
+      //TODO: Logging cookies, preciso fazer ele usar os cookies do carrinho como usa os softwares na pg anterior.
+      Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
+      console.log("Updated cookies:", Cookies.get('selectedPcParts'));
+
       if (partType === 'processor') {
-        console.log("Updated part ID:", updatedPart);
+        //console.log("Updated part ID:", updatedPart);
 
         const selectedCpu = this.processadores.find(
           (processador) => processador.id === updatedPart.id
@@ -211,7 +218,7 @@ export default {
 
         if (selectedCpu) {
           this.selectedSocket = selectedCpu.socket;
-          console.log("Selected processor socket:", this.selectedSocket);
+          //console.log("Selected processor socket:", this.selectedSocket);
 
           this.filterMotherboardsBySocket();
         } else {
@@ -223,7 +230,7 @@ export default {
       }
 
       if (partType === 'motherBoard') {
-        console.log("Updated motherboard ID:", updatedPart);
+        //console.log("Updated motherboard ID:", updatedPart);
 
         const selectedMobo = this.placasMae.find(
           (mobo) => mobo.id === updatedPart.id
@@ -231,7 +238,7 @@ export default {
 
         if (selectedMobo) {
           this.selectedSocketMemory = selectedMobo.socketMemory;
-          console.log("Selected motherboard memory socket:", this.selectedSocketMemory);
+          //console.log("Selected motherboard memory socket:", this.selectedSocketMemory);
 
           this.filterRamBySocketMemory();
 
@@ -244,12 +251,22 @@ export default {
       this.calculateFinalPrice();
       Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
     },
+    validateAndSubmitForm() {
+      const missingParts = Object.keys(this.selectedParts).filter(partType => !this.selectedParts[partType]);
+
+      if (missingParts.length > 0) {
+        alert(`Please select a ${missingParts.join(', ')}`);
+        return;
+      }
+
+      this.submitForm();
+    },
     filterMotherboardsBySocket() {
       if (this.selectedSocket) {
         this.placasMaeFilter = this.placasMae.filter(
           (mobo) => mobo.socket === this.selectedSocket
         );
-        console.log("Filtered motherboards:", this.placasMaeFilter);
+        //console.log("Filtered motherboards:", this.placasMaeFilter);
       } else {
         this.placasMaeFilter = this.placasMae;
       }
@@ -260,7 +277,7 @@ export default {
         this.memoriasRamFilter = this.memoriasRam.filter(
           (ram) => ram.socket === this.selectedSocketMemory
         );
-        console.log("Filtered RAM:", this.memoriasRamFilter);
+        //console.log("Filtered RAM:", this.memoriasRamFilter);
       } else {
         this.memoriasRamFilter = this.memoriasRam;
       }
@@ -276,12 +293,35 @@ export default {
       });
 
       this.finalPrice = totalPrice.toFixed(2);
-      console.log("Calculated Final Price:", this.finalPrice);
+      console.log("Calculated Final Price:", this.finalPrice, this.selectedParts);
     },
     async submitForm() {
       console.log('Form Submitted!');
       console.log('Selected parts:', this.selectedParts);
       console.log('Final price:', this.finalPrice);
+
+      const orderData = {
+        //UserID fixo pra placeholding
+        userid: 3,
+        productDtoRequests: Object.keys(this.selectedParts).map(partType => {
+          const part = this.selectedParts[partType];
+          if (part) {
+            return {
+              typeCategory: part.typeCategory,
+              productId: part.id,
+              price: part.finalPrice,
+            };
+          }
+        }).filter(Boolean), 
+        totalPrice: this.finalPrice,
+      };
+
+      try {
+        const response = await submitOrder(orderData);
+        console.log('Order response:', response.data);
+      } catch (error) {
+        console.error('Error submitting order:', error);
+      }
     }
   },
   mounted() {

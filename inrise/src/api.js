@@ -367,6 +367,16 @@ export async function registerPC(data) {
   return apiClient.post('/Computer', data, { headers });
 }
 
+export async function submitOrder(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Order/', data, { headers });
+}
+
+
 //Fetch All
 export async function fetchAllRam() {
   const token = getToken();
