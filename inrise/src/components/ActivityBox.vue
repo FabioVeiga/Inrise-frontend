@@ -16,8 +16,6 @@
     </div>
 </template>
 
-
-
 <script>
 export default {
     name: 'ActivityBox',
@@ -75,64 +73,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-.square {
-    transition: transform 0.3s ease;
-}
-
-.square:hover {
-    transform: scale(1.05)
-}
-
-input[type="checkbox"] {
-    transition: transform 0.2s ease;
-}
-
-input[type="checkbox"]:checked {
-    transform: scale(1.2);
-}
-
-.square {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.square:hover {
-    transform: scale(1.05);
-}
-
-.image-container {
-    flex-shrink: 0;
-}
-
-.content-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    margin-top: 0.5rem;
-    padding: 0 0.5rem;
-}
-
-.label {
-    text-overflow: ellipsis;
-    white-space: normal;
-    overflow: hidden;
-    line-height: 1.2em;
-    max-height: 2.4em;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-}
-
-.description {
-    line-height: 1.5;
-    max-width: 200px;
-    text-align: center;
-}
-</style>

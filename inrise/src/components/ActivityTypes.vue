@@ -18,6 +18,7 @@
 //@TODO: Alerta caso nenhum cookie tenha sido escolhido, e pular pra pcs prontos caso só casual tenha sido escolhido.
 import Cookies from 'js-cookie';
 import ActivityBox from './ActivityBox.vue';
+
 export default {
   name: 'ActivityTypes',
   components: {
@@ -50,7 +51,6 @@ export default {
   },
   created() {
     const savedTypes = Cookies.get('selectedActivities');
-    console.log("Saved Types from Cookie:", savedTypes);
     if (savedTypes) {
       this.selectedTypes = JSON.parse(savedTypes);
     }
@@ -58,9 +58,8 @@ export default {
   methods: {
     updateSelection(newSelection) {
       this.selectedTypes = newSelection;
-      this.$emit('type-selected', this.selectedTypes);
       Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
-      console.log("Updated Cookies for selected activities:", Cookies.get('selectedActivities'));
+      this.$emit('type-selected', newSelection);
     }
   }
 };

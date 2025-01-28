@@ -45,18 +45,22 @@ export default {
     },
     data() {
         return {
-            selectedTypes: []
+            selectedTypes: [],
+            isNextButtonDisabled: true
         };
-    },
-    computed: {
-        isNextButtonDisabled() {
-            const savedTypes = Cookies.get('selectedActivities');
-            return !savedTypes || JSON.parse(savedTypes).length === 0; // Disable button if no types are selected in the cookies
-        }
     },
     methods: {
         handleSelection(selectedTypes) {
             this.selectedTypes = selectedTypes;
+            Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
+            this.isNextButtonDisabled = !selectedTypes || selectedTypes.length === 0;
+        }
+    },
+    created() {
+        const savedTypes = Cookies.get('selectedActivities');
+        if (savedTypes) {
+            this.selectedTypes = JSON.parse(savedTypes);
+            this.isNextButtonDisabled = this.selectedTypes.length === 0;
         }
     }
 };
