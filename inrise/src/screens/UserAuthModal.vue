@@ -87,6 +87,7 @@
 </template>
 
 <script>
+
 /*
 Rota aqui, o profile não é 1, acho que 2 é user.
 
@@ -95,6 +96,10 @@ const response = await authenticateUser({
     password: this.admin.password,
     profile: 2
   });*/
+
+import Cookies from 'js-cookie';
+import { authenticateUser, registerUser } from '@/api';
+
 export default {
     name: 'UserAuthModal',
     data() {
@@ -124,15 +129,28 @@ export default {
 
         async loginUser() {
             try {
+                const response = await authenticateUser({
+                    email: this.user.email,
+                    password: this.user.password,
+                    profile: 2,
+                });
+
+                const token = response.data.data.acessToken.token;
+                const expiresIn = 10800;
+                const expiryTime = Date.now() + expiresIn * 1000;
+
+                Cookies.set('authToken', token, { expires: expiresIn / 86400 });
+                Cookies.set('tokenExpiry', expiryTime, { expires: expiresIn / 86400 });
+
                 this.$emit('close');
             } catch (error) {
-                console.error('Login error:', error);
+                console.error('Erro ao realizar login:', error);
             }
         },
 
         async registerUser() {
             if (!this.user.term) {
-                alert('Tens de aceitar os termos e condições.');
+                alert('Você precisa aceitar os termos e condições.');
                 return;
             }
 
@@ -147,12 +165,19 @@ export default {
                     marketing: this.user.marketing,
                     term: this.user.term,
                 };
-                console.log('Cadastrando, dados:', registrationData);
+
+                await registerUser(registrationData);
+                alert('Ocorreu um erro ao cadastrar. Tente novamente!');
+
                 this.$emit('close');
             } catch (error) {
                 console.error('Erro no cadastro:', error);
-            }
 
+                const firstError = error.response?.data?.errors
+                    ? Object.values(error.response.data.errors)[0][0]
+                    : 'Erro ao cadastrar. Tente novamente!';
+                alert(firstError); // Display the first error message
+            }
         },
 
         async submitForm() {
@@ -165,7 +190,13 @@ export default {
 
         closeModal() {
             this.$emit('close');
-        }
+        },
+
+        logout() {
+            Cookies.remove('authToken');
+            Cookies.remove('tokenExpiry');
+            console.log('Logout successful');
+        },
     },
 };
 </script>
