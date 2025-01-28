@@ -50,6 +50,8 @@ export default {
         };
     },
     methods: {
+        //TODO: Melhorar essa lógica e limpar
+
         handleSelection(selectedTypes) {
             this.selectedTypes = selectedTypes;
             Cookies.set('selectedActivities', JSON.stringify(this.selectedTypes));
