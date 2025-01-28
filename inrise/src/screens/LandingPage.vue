@@ -75,7 +75,8 @@
         class="flex flex-1 justify-between items-center min-w-[350px] lg:max-w-[1240px] h-auto rounded-[45px] w-[100%]  bg-[#191A23] py-8">
 
 
-        <div class="hidden lg:flex flex-1 max-w-[500px] max-h-[500px] ml-16 mx-4 mb-6 lg:mb-0 items-center justify-center">
+        <div
+          class="hidden lg:flex flex-1 max-w-[500px] max-h-[500px] ml-16 mx-4 mb-6 lg:mb-0 items-center justify-center">
           <img src="@/assets/betaInrise.svg" alt="Image" class="w-full h-full object-cover rounded-xl">
         </div>
 
@@ -181,7 +182,7 @@
       <div class="flex flex-1 flex-col justify-between items-center min-w-[350px] max-w-[1240px]">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#F3F3F3] p-7  hover:bg-[#BB59F9] ">
+            class="flex items-center justify-between w-[350px] lg:w-[550px] 2xl:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#F3F3F3] p-7  hover:bg-[#BB59F9] ">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 1</span>
@@ -204,7 +205,7 @@
           </div>
 
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
+            class="flex items-center justify-between w-[350px] lg:w-[550px] 2xl:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 2</span>
@@ -229,7 +230,7 @@
           </div>
 
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
+            class="flex items-center justify-between w-[350px] lg:w-[550px] 2xl:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
 
             <div class="flex flex-col justify-between w-3/5">
               <div>
@@ -255,7 +256,7 @@
           </div>
 
           <div
-            class="flex items-center justify-between w-[350px] lg:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
+            class="flex items-center justify-between w-[350px] lg:w-[550px] 2xl:w-[600px] h-auto lg:h-[450px] rounded-[45px] bg-[#B9FF66] p-7  hover:bg-[#BB59F9] ">
             <div class="flex flex-col justify-between w-3/5">
               <div>
                 <span class="font-medium text-2xl lg:text-3xl bg-[#FFFFFF] p-1 rounded-[7px]">Passo 4</span>
