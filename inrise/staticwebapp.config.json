@@ -1,0 +1,24 @@
+{
+  "routes": [
+    {
+      "route": "/client/*",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/adminLogin/*",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/landingPage/*",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/userCadastro",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/*",
+      "rewrite": "/index.html"
+    }
+  ]
+}
