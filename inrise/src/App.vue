@@ -1,13 +1,5 @@
 <template>
-  <div id="app" class="app p-0 m-0">
-    <!-- <nav>
-      <router-link to="/client" class="nav-button">Client Home</router-link>
-      <router-link to="/admin" class="nav-button">Admin Home</router-link>
-      <router-link to="/userCadastro" class="nav-button">Cadastro User</router-link>
-      
-    </nav>-->
-    <router-view></router-view>
-  </div>
+  <router-view />
 </template>
 
 <script>
