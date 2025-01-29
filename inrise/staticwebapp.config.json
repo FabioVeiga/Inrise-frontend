@@ -1,0 +1,76 @@
+{
+  "routes": [
+    {
+      "route": "/client",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/client/activity",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/client/software",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/client/pcpartpicker",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/adminLogin",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/landingPage",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/userCadastro",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/meusProdutos",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/cadastrarProdutos",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/computadoresProntos",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/cadastrarSoftwares",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/gruposDeSoftware",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/cadastroDeCategorias",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/usuarios",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/todosOsPedidos",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/admin/analiseFinanceira",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/*",
+      "rewrite": "/index.html"
+    }
+  ]
+}
