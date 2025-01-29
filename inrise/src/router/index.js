@@ -126,7 +126,7 @@ const routes = [
   },
   {
     path: '/:catchAll(.*)', // This catches any unrecognized URL
-    redirect: '/adminLogin'  // Redirect to login
+    redirect: '/client'  // Redirect to login
   }
 ];
 
