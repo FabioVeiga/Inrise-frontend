@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "route": "/css/*",
+      "headers": {
+        "Cache-Control": "max-age=31536000"
+      }
+    },
+    {
+      "route": "/js/*",
+      "headers": {
+        "Cache-Control": "max-age=31536000"
+      }
+    },
+    {
+      "route": "/client",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/adminLogin",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/landingPage",
+      "rewrite": "/index.html"
+    }
+  ]
+}
