@@ -253,9 +253,9 @@ export default {
     },
     validateAndSubmitForm() {
       const missingParts = Object.keys(this.selectedParts).filter(partType => !this.selectedParts[partType]);
-
+      //TODO: Dicionario pras peças aqui, memoryram pra RAM, etc
       if (missingParts.length > 0) {
-        alert(`Please select a ${missingParts.join(', ')}`);
+        alert(`Por favor selecione as peças ${missingParts.join(', ')}`);
         return;
       }
 
