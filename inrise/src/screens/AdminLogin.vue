@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="max-w-md w-full bg-white p-8 border border-gray-300 rounded-lg shadow-md">
       <h1 class="text-2xl font-semibold mb-6">Login de Admin</h1>
-      <form @submit.prevent="loginAdmin">
+      <form @submit.prevent="handleLoginAdmin">
         <!-- Email -->
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { authenticateUser } from '@/api'; 
+import { loginAdmin } from '@/utils/auth';
 
 export default {
   data() {
@@ -52,25 +52,12 @@ export default {
     };
   },
   methods: {
-    async loginAdmin() {
-      try {
-        const response = await authenticateUser({
-          email: this.admin.email,
-          password: this.admin.password,
-          profile: 1 
-        });
-        console.log('Login realizado com sucesso:', response.data);
-
-        const token = response.data.data.acessToken.token;
-        const expiresIn = 10800
-        console.log("Login token:", token)
-        console.log("Expiration:",expiresIn)     
-        localStorage.setItem('authToken', token);
-        localStorage.setItem('tokenExpiry', new Date(expiresIn).getTime());
+    async handleLoginAdmin() {
+      const { success } = await loginAdmin(this.admin);
+      
+      if (success) {
         this.$router.push('/admin');
-      } catch (error) {
-        console.error('Erro ao realizar login:', error);
-      }
+      } 
     },
   },
 };

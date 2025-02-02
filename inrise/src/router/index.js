@@ -1,23 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { isAuthenticated } from '@/utils/auth';
+import { isAuthenticatedAdmin } from '@/utils/auth'; 
 import ClientHome from '../screens/ClientHome.vue';
 import ClientComputers from '@/screens/ClientComputers.vue';
-import AdminHome from '../screens/AdminHome.vue';
+import AdminHome from '@/screens/AdminHome.vue';
 import MeusProdutos from '../screens/MeusProdutos.vue';
 import CadastrarProdutos from '../screens/CadastrarProdutos.vue';
-import ComputadoresProntos from '../screens/ComputadoresProntos.vue';
-import CadastrarSoftwares from '../screens/CadastrarSoftwares.vue';
-import GruposDeSoftware from '../screens/GruposDeSoftware.vue';
-import CadastroDeCategorias from '../screens/CadastroDeCategorias.vue';
-import UsuariosLista from '../screens/UsuariosLista.vue';
-import TodosOsPedidos from '../screens/TodosOsPedidos.vue';
-import AnaliseFinanceira from '../screens/AnaliseFinanceira.vue';
+import ComputadoresProntos from '@/screens/ComputadoresProntos.vue';
+import CadastrarSoftwares from '@/screens/CadastrarSoftwares.vue';
+import GruposDeSoftware from '@/screens/GruposDeSoftware.vue';
+import CadastroDeCategorias from '@/screens/CadastroDeCategorias.vue';
+import UsuariosLista from '@/screens/UsuariosLista.vue';
+import TodosOsPedidos from '@/screens/TodosOsPedidos.vue';
+import AnaliseFinanceira from '@/screens/AnaliseFinanceira.vue';
 import CadastroUser from '@/screens/CadastroUser.vue';
 import LandingPage from '@/screens/LandingPage.vue';
 import AdminLogin from '@/screens/AdminLogin.vue';
 import ClientActivity from '@/screens/ClientActivity.vue';
 import ClientSoftware from '@/screens/ClientSoftware.vue';
 import ClientPCPartPicker from '@/screens/ClientPCPartPicker.vue';
+
 const routes = [
   {
     path: '/client',
@@ -65,10 +66,10 @@ const routes = [
     path: '/admin',
     component: AdminHome, 
     beforeEnter: (to, from, next) => {
-      if (isAuthenticated()) {
+      if (isAuthenticatedAdmin()) {  // Check using the new isAuthenticatedAdmin function
         next(); 
       } else {
-        next('/adminLogin');
+        next('/adminLogin');  // Redirect to the login page if not authenticated
       }
     },
     children: [
