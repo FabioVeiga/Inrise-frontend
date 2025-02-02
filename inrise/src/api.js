@@ -1,6 +1,10 @@
 import axios from 'axios';
+
+import Cookies from 'js-cookie';
+
 const getToken = () => {
-  return localStorage.getItem('authToken');
+  const token = Cookies.get('adminAuthToken') || Cookies.get('userAuthToken');
+  return token;
 };
 
 const apiClient = axios.create({
