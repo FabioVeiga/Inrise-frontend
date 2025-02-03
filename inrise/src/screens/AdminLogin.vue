@@ -53,11 +53,12 @@ export default {
   },
   methods: {
     async handleLoginAdmin() {
-      const { success } = await loginAdmin(this.admin);
-      
+      const { success, error } = await loginAdmin(this.admin);
       if (success) {
         this.$router.push('/admin');
-      } 
+      } else{ 
+        alert("Erro:", error)
+      }
     },
   },
 };

@@ -11,20 +11,21 @@ export async function loginAdmin(admin) {
 
     if (response && response.data.data && response.data.data.acessToken) {
       const token = response.data.data.acessToken.token;
-      const expiresIn = response.data.data.acessToken.expiredIn; 
+      const expiresIn = response.data.data.acessToken.expiredIn;
       console.log("Admin login.")
       console.log("Bearer", token)
       const expiryDate = new Date(expiresIn);
 
       Cookies.set('adminAuthToken', token, { expires: expiryDate });
-      Cookies.set('adminTokenExpiry', expiryDate.toISOString()); 
+      Cookies.set('adminTokenExpiry', expiryDate.toISOString());
 
       return { success: true, token };
     } else {
-      return { success: false, error: 'Invalid response structure from the server' };
+      return { success: false, error: 'Estrutura de resposta do servidor inválida.' };
     }
   } catch (error) {
     console.error('Admin login error:', error);
+    //@TODO: As vezes dá um undefined se eu mudar esse throw pra um alert.
     throw new Error('Login sem sucesso. Por favor cheque suas credenciais.');
   }
 }
@@ -38,26 +39,34 @@ export const isAdminTokenValid = () => {
   return false;
 };
 
-export const loginUser = async (email, password) => {
+
+export const loginUser = async ({ email, password }) => {
   try {
     const response = await authenticateUser({
-      email: email,
-      password: password,
+      email,
+      password,
       profile: 2,
     });
 
-    const userAuthToken = response.data.data.acessToken.token;
-    const userTokenExpiry = new Date(response.data.data.acessToken.expiredIn);
+    const userData = response.data.data;
+    const userAuthToken = userData.acessToken.token;
+    const userTokenExpiry = new Date(userData.acessToken.expiredIn);
+    const userId = userData.id;
+    const userName = userData.name;
+    const userLastName = userData.lastname;
 
     Cookies.set('userAuthToken', userAuthToken, { expires: userTokenExpiry });
+    Cookies.set('userId', userId);
+    Cookies.set('userName', userName);
+    Cookies.set('userLastName', userLastName);
     Cookies.set('userTokenExpiry', userTokenExpiry.toISOString());
 
-    return { token: userAuthToken, expiry: userTokenExpiry };
+    return { success: true };
   } catch (error) {
     console.error('User login error:', error);
-    throw new Error('Login sem sucesso. Por favor cheque suas credenciais.');
+    return { success: false, error: 'Login failed. Please check your credentials.' };
   }
-};
+}
 
 export const isAuthenticatedUser = () => {
   const token = Cookies.get('userAuthToken');
@@ -94,6 +103,10 @@ export const isAuthenticatedAdmin = () => {
 export const logoutUser = () => {
   Cookies.remove('userAuthToken');
   Cookies.remove('userTokenExpiry');
+  Cookies.remove('userId')
+  Cookies.remove('userName')
+  Cookies.remove('userLastName')
+
   location.reload();
 };
 
@@ -105,6 +118,7 @@ export const logoutAdmin = () => {
 };
 
 export const isUserTokenValid = () => {
+  console.log("User token expiry:", Cookies.get('userTokenExpiry'))
   const tokenExpiry = Cookies.get('userTokenExpiry');
   if (tokenExpiry) {
     const expiryDate = new Date(tokenExpiry);

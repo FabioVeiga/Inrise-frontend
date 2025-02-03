@@ -253,9 +253,9 @@ export default {
     },
     validateAndSubmitForm() {
       const missingParts = Object.keys(this.selectedParts).filter(partType => !this.selectedParts[partType]);
-      //TODO: Dicionario pras peças aqui, memoryram pra RAM, etc
+      //@TODO: Dicionario pras peças aqui, memoryram pra RAM, etc
       if (missingParts.length > 0) {
-        alert(`Por favor selecione as peças ${missingParts.join(', ')}`);
+        alert(`Por favor selecione as peças faltantes: ${missingParts.join(', ')}`);
         return;
       }
 
@@ -266,7 +266,6 @@ export default {
         this.placasMaeFilter = this.placasMae.filter(
           (mobo) => mobo.socket === this.selectedSocket
         );
-        //console.log("Filtered motherboards:", this.placasMaeFilter);
       } else {
         this.placasMaeFilter = this.placasMae;
       }

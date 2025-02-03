@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <img src="@/assets/InRise logo.png" alt="Logo" class="logo">
-    <UserAuthButton @open-user-auth-modal="openUserAuthModal" />
+    <UserAuthButton :isLoggedIn="isLoggedIn" @open-user-auth-modal="openUserAuthModal" @auth-changed="handleAuthChanged" />
   </div>
 </template>
 
@@ -13,9 +13,19 @@ export default {
   components: {
     UserAuthButton
   },
+  props: {
+    isLoggedIn: {
+      type: Boolean,
+      required: true
+    }
+  },
   methods: {
     openUserAuthModal() {
       this.$emit('open-user-auth-modal');
+    },
+    handleAuthChanged(isLoggedIn) {
+      console.log("Logged out in sidebar", isLoggedIn)
+      this.$emit('auth-changed', isLoggedIn);
     }
   }
 };

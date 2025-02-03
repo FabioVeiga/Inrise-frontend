@@ -87,18 +87,8 @@
 </template>
 
 <script>
-
-/*
-Rota aqui, o profile não é 1, acho que 2 é user.
-
-const response = await authenticateUser({
-    email: this.admin.email,
-    password: this.admin.password,
-    profile: 2
-  });*/
-
-import Cookies from 'js-cookie';
-import { authenticateUser, registerUser } from '@/api';
+import { loginUser } from '@/utils/auth';
+import { registerUser } from '@/api';
 
 export default {
     name: 'UserAuthModal',
@@ -127,27 +117,21 @@ export default {
             this.isRegister = !this.isRegister;
         },
 
-        async loginUser() {
-            try {
-                const response = await authenticateUser({
-                    email: this.user.email,
-                    password: this.user.password,
-                    profile: 2,
-                });
+        async loginUserMethod() {
+            const { success, error } = await loginUser({
+                email: this.user.email,
+                password: this.user.password,
+            });
 
-                const token = response.data.data.acessToken.token;
-                const expiresIn = 10800;
-                const expiryTime = Date.now() + expiresIn * 1000;
-
-                Cookies.set('authToken', token, { expires: expiresIn / 86400 });
-                Cookies.set('tokenExpiry', expiryTime, { expires: expiresIn / 86400 });
-
+            if (success) {
                 this.$emit('close');
-            } catch (error) {
-                console.error('Erro ao realizar login:', error);
+                this.$emit('auth-changed', true);
+            } else {
+                alert(error || 'An error occurred during login');
             }
         },
 
+        //@TODO: modular o register e o validate também
         async registerUser() {
             if (!this.user.term) {
                 alert('Você precisa aceitar os termos e condições.');
@@ -172,11 +156,10 @@ export default {
                 this.$emit('close');
             } catch (error) {
                 console.error('Erro no cadastro:', error);
-
                 const firstError = error.response?.data?.errors
                     ? Object.values(error.response.data.errors)[0][0]
                     : 'Erro ao cadastrar. Tente novamente!';
-                alert(firstError); // Display the first error message
+                alert(firstError);
             }
         },
 
@@ -184,21 +167,14 @@ export default {
             if (this.isRegister) {
                 await this.registerUser();
             } else {
-                await this.loginUser();
+                await this.loginUserMethod();
             }
         },
 
         closeModal() {
             this.$emit('close');
         },
-
-        logout() {
-            Cookies.remove('authToken');
-            Cookies.remove('tokenExpiry');
-            console.log('Logout successful');
-        },
     },
 };
 </script>
 
-<style scoped></style>
