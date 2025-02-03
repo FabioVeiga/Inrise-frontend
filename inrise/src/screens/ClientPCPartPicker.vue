@@ -131,7 +131,7 @@ import HomeMenu from '../components/HomeMenu.vue';
 import HeaderRectanglesLarge from '../components/HeaderRectanglesLarge.vue';
 import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue';
 import ActionButton from '@/components/ActionButton.vue';
-import { submitOrder } from '@/api';
+import { createOrder } from '@/api';
 import Cookies from 'js-cookie';
 
 export default {
@@ -200,57 +200,46 @@ export default {
         console.error('Erro ao carregar dados:', error);
       }
     },
+    getCategoryName(partType) {
+      const categories = {
+        processor: 7,
+        motherBoard: 5,
+        memoryRam: 2,
+        videoBoard: 9,
+        memoryRom: 3,
+        powerSupply: 6,
+        cooler: 1,
+        tower: 10,
+      };
+      return categories[partType] || null;
+    },
     async selectPart(partType, updatedPart) {
       console.log(`Selected part in ${partType}:`, updatedPart);
 
       this.selectedParts[partType] = updatedPart;
 
-      //TODO: Logging cookies, preciso fazer ele usar os cookies do carrinho como usa os softwares na pg anterior.
       Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
       console.log("Updated cookies:", Cookies.get('selectedPcParts'));
 
       if (partType === 'processor') {
-        //console.log("Updated part ID:", updatedPart);
-
         const selectedCpu = this.processadores.find(
           (processador) => processador.id === updatedPart.id
         );
-
-        if (selectedCpu) {
-          this.selectedSocket = selectedCpu.socket;
-          //console.log("Selected processor socket:", this.selectedSocket);
-
-          this.filterMotherboardsBySocket();
-        } else {
-          console.warn("Processor with the given ID not found.");
-          this.selectedSocket = null;
-
-          this.filterMotherboardsBySocket();
-        }
+        this.selectedSocket = selectedCpu ? selectedCpu.socket : null;
+        this.filterMotherboardsBySocket();
       }
 
       if (partType === 'motherBoard') {
-        //console.log("Updated motherboard ID:", updatedPart);
-
         const selectedMobo = this.placasMae.find(
           (mobo) => mobo.id === updatedPart.id
         );
-
-        if (selectedMobo) {
-          this.selectedSocketMemory = selectedMobo.socketMemory;
-          //console.log("Selected motherboard memory socket:", this.selectedSocketMemory);
-
-          this.filterRamBySocketMemory();
-
-        } else {
-          console.warn("Motherboard with the given ID not found.");
-          this.selectedSocketMemory = null;
-          this.filterRamBySocketMemory();
-        }
+        this.selectedSocketMemory = selectedMobo ? selectedMobo.socketMemory : null;
+        this.filterRamBySocketMemory();
       }
+
       this.calculateFinalPrice();
-      Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
     },
+
     validateAndSubmitForm() {
       const missingParts = Object.keys(this.selectedParts).filter(partType => !this.selectedParts[partType]);
       //@TODO: Dicionario pras peças aqui, memoryram pra RAM, etc
@@ -299,29 +288,32 @@ export default {
       console.log('Selected parts:', this.selectedParts);
       console.log('Final price:', this.finalPrice);
 
+      const selectedPartsFromCookie = JSON.parse(Cookies.get('selectedPcParts') || '{}');
+
       const orderData = {
-        //UserID fixo pra placeholding
-        userid: 3,
-        productDtoRequests: Object.keys(this.selectedParts).map(partType => {
-          const part = this.selectedParts[partType];
+        userid: Cookies.get('userId'),
+        productDtoRequests: Object.keys(selectedPartsFromCookie).map(partType => {
+          const part = selectedPartsFromCookie[partType];
           if (part) {
+            console.log("Order part", part)
             return {
-              typeCategory: part.typeCategory,
+              typeCategory: this.getCategoryName(part.partType),
               productId: part.id,
               price: part.finalPrice,
             };
           }
-        }).filter(Boolean), 
+        }).filter(Boolean),
         totalPrice: this.finalPrice,
       };
 
       try {
-        const response = await submitOrder(orderData);
+        const response = await createOrder(orderData);
         console.log('Order response:', response.data);
       } catch (error) {
         console.error('Error submitting order:', error);
       }
     }
+
   },
   mounted() {
     this.fetchData();

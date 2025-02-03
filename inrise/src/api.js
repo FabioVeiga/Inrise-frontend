@@ -7,6 +7,11 @@ const getToken = () => {
   return token;
 };
 
+const getUserToken = () => {
+  const token = Cookies.get('userAuthToken');
+  return token;
+};
+
 const apiClient = axios.create({
   baseURL: 'https://apiinriseservice.azurewebsites.net/',
   headers: {
@@ -19,6 +24,39 @@ export function registerUser(data) {
   return apiClient.post('/User', data);
 }
 
+
+export async function stripePayment(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+  try {
+    const response = await apiClient.post('/Payment', data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao processar pagamento:', error);
+    throw new Error('Erro ao processar pagamento');
+  }
+}
+
+
+export async function createOrder(data) {
+  const token = getUserToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+  console.log("Order Data:", data)
+
+  try {
+    const response = await apiClient.post('/Order', data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao criar pedido:', error);
+    throw new Error('Erro ao criar pedido.');
+  }
+}
 
 //@TODO: Organizar esse arquivo pra ficar bonitinho, os fetch by id, grupo, etc juntos
 //@TODO: Talvez os getById, getAll, etc, de peças pelo menos, possam ser mudados pra serem programaticamente callable.
@@ -372,16 +410,6 @@ export async function registerPC(data) {
 
   return apiClient.post('/Computer', data, { headers });
 }
-
-export async function submitOrder(data) {
-  const token = getToken();
-  const headers = token ? {
-    'Authorization': `Bearer ${token}`
-  } : {};
-
-  return apiClient.post('/Order/', data, { headers });
-}
-
 
 //Fetch All
 export async function fetchAllRam() {
