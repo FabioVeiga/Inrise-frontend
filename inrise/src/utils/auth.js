@@ -64,7 +64,7 @@ export const loginUser = async ({ email, password }) => {
     return { success: true };
   } catch (error) {
     console.error('User login error:', error);
-    return { success: false, error: 'Login failed. Please check your credentials.' };
+    return { success: false, error: 'Erro no login. Por favor, cheque suas credenciais.' };
   }
 }
 

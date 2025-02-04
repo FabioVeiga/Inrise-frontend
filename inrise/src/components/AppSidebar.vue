@@ -1,17 +1,25 @@
 <template>
   <div class="sidebar">
     <img src="@/assets/InRise logo.png" alt="Logo" class="logo">
-    <UserAuthButton :isLoggedIn="isLoggedIn" @open-user-auth-modal="openUserAuthModal" @auth-changed="handleAuthChanged" />
+    <UserAuthButton :isLoggedIn="isLoggedIn" @open-user-auth-modal="openUserAuthModal"
+      @auth-changed="handleAuthChanged" />
+
+    <UserButton label="Home" icon="fas fa-home" targetRoute="/client" />
+
+    <UserButton v-if="isLoggedIn" label="Pedidos" icon="fas fa-box" targetRoute="/client/orders" />
+
   </div>
 </template>
 
 <script>
 import UserAuthButton from './UserAuthButton.vue';
+import UserButton from './UserButton.vue';
 
 export default {
   name: 'AppSidebar',
   components: {
-    UserAuthButton
+    UserAuthButton,
+    UserButton
   },
   props: {
     isLoggedIn: {
@@ -24,7 +32,7 @@ export default {
       this.$emit('open-user-auth-modal');
     },
     handleAuthChanged(isLoggedIn) {
-      console.log("Logged out in sidebar", isLoggedIn)
+      console.log("Logged out in sidebar", isLoggedIn);
       this.$emit('auth-changed', isLoggedIn);
     }
   }

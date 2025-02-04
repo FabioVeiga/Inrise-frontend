@@ -1,5 +1,5 @@
 <template>
-  <div id="client-home" class="flex flex-col h-auto p-0 m-0">
+  <div id="client-home" class="flex flex-row h-auto p-0 m-0">
     <AppSidebar :isLoggedIn="isLoggedIn" @auth-changed="handleAuthChanged" />
     <div class="main-content flex-1 overflow-visible p-0 m-0">
       <router-view />

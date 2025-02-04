@@ -664,6 +664,23 @@ export async function fetchAllPC() {
 
 //Fetch by ID
 
+export function fetchOrderById(id) {
+  const token = getUserToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Order/${id}`, { headers })
+}
+
+
+export function fetchOrdersByUserId(userId) {
+  const token = getUserToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  return apiClient.get(`/Order/user/${userId}`, { headers })
+}
+
 export function fetchRamById(id) {
   const token = getToken();
   const headers = token ? {

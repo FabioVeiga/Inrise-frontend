@@ -18,6 +18,7 @@ import AdminLogin from '@/screens/AdminLogin.vue';
 import ClientActivity from '@/screens/ClientActivity.vue';
 import ClientSoftware from '@/screens/ClientSoftware.vue';
 import ClientPCPartPicker from '@/screens/ClientPCPartPicker.vue';
+import ClientOrders from '@/screens/ClientOrders.vue';
 
 const routes = [
   {
@@ -44,6 +45,11 @@ const routes = [
         path: 'pcpartpicker', 
         name: 'ClientPCPartPicker',
         component: ClientPCPartPicker
+      },
+      {
+        path: 'orders', 
+        name: 'ClientOrders',
+        component: ClientOrders
       },
     ]
   },
