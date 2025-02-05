@@ -646,7 +646,7 @@ export async function fetchAllPC() {
     const response = await apiClient.get('/Computer', {
       headers,
       params: {
-        "IsDeleted": false,
+        //"IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
 
@@ -661,7 +661,29 @@ export async function fetchAllPC() {
 }
 
 
+export function getCodeEmail(data) {
+  const headers = {
+    'Content-Type': 'application/json'
+  };
 
+  // Assuming 'data' contains the email address.
+  const url = `/ValidationCode/generate-by-email?email=${data.email}`;
+
+  return apiClient.post(url, null, { headers });
+}
+
+export function validateEmail(email, code) {
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+
+  const data = {
+    email: email,
+    code: code
+  };
+
+  return apiClient.post(`/ValidationCode/validate-by-email/`, data, { headers });
+}
 //Fetch by ID
 
 export function fetchOrderById(id) {

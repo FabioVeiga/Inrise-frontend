@@ -9,7 +9,9 @@
                 </svg>
             </button>
 
-            <h1 class="text-2xl font-semibold mb-6">{{ isRegister ? 'Cadastrar' : 'Login' }}</h1>
+            <h1 class="text-2xl font-semibold mb-6">
+                {{ currentMode === 'login' ? (isRegister ? 'Cadastrar' : 'Login') : 'Validação de E-mail' }}
+            </h1>
 
             <form @submit.prevent="submitForm">
                 <div v-if="isRegister" class="mb-4">
@@ -35,7 +37,6 @@
                     <input type="tel" id="phoneNumber" v-model="user.phoneNumber" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
                 </div>
-
                 <div class="mb-6">
                     <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
                     <input type="password" id="password" v-model="user.password" required
@@ -66,9 +67,17 @@
                     </label>
                 </div>
 
+
+                <div v-if="currentMode === 'validation'" class="mb-4">
+                    <label for="validationCode" class="block text-sm font-medium text-gray-700">Código de
+                        Validação:</label>
+                    <input type="text" id="validationCode" v-model="validationCode" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                </div>
+
                 <button type="submit"
                     class="w-full bg-blue-500 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    {{ isRegister ? 'Register' : 'Login' }}
+                    {{ currentMode === 'validation' ? 'Validar E-mail' : (isRegister ? 'Registrar' : 'Login') }}
                 </button>
             </form>
 
@@ -88,13 +97,14 @@
 
 <script>
 import { loginUser } from '@/utils/auth';
-import { registerUser } from '@/api';
+import { registerUser, validateEmail, getCodeEmail } from '@/api';
 
 export default {
     name: 'UserAuthModal',
     data() {
         return {
             isRegister: false,
+            currentMode: 'login',
             user: {
                 name: '',
                 lastname: '',
@@ -105,6 +115,7 @@ export default {
                 marketing: false,
                 term: false,
             },
+            validationCode: '',
         };
     },
     computed: {
@@ -117,7 +128,7 @@ export default {
             this.isRegister = !this.isRegister;
         },
 
-        async loginUserMethod() {
+        async handleLoginAfterValidation() {
             const { success, error } = await loginUser({
                 email: this.user.email,
                 password: this.user.password,
@@ -131,7 +142,77 @@ export default {
             }
         },
 
-        //@TODO: modular o register e o validate também
+        async validateEmailAndLogin() {
+            try {
+                console.log("Bateu")
+
+                const { success, error } = await validateEmail(this.user.email, this.validationCode);
+                console.log("Bateu")
+                if (success) {
+                    await this.handleLoginAfterValidation();
+                } else {
+                    alert(error || 'Erro ao validar o e-mail');
+                }
+            } catch (error) {
+                console.error('Email validation failed:', error);
+                alert('Erro ao validar o e-mail. Tente novamente.');
+            }
+        },
+
+        async submitForm() {
+            if (this.currentMode === 'validation') {
+                await this.validateEmailAndLogin();
+            } else {
+                if (this.isRegister) {
+                    await this.registerUser();
+                } else {
+                    await this.loginUserMethod();
+                }
+            }
+        },
+
+        async loginUserMethod() {
+            const { success, error } = await loginUser({
+                email: this.user.email,
+                password: this.user.password,
+            });
+
+            if (success) {
+                this.$emit('close');
+                this.$emit('auth-changed', true);
+            } else {
+                console.log(error);
+                if (error && error === 'Este e-mail não foi validado!') {
+                    await this.requestValidationCode(this.user.email);
+                    this.currentMode = 'validation';
+                } else {
+                    alert(error || 'Erro durante login');
+                }
+            }
+        },
+
+        async requestValidationCode(email) {
+            try {
+
+                const response = await getCodeEmail({ email });
+                console.log("Resp", response)
+                if (response) {
+                    console.log('Código de validação enviado pro email:', email);
+                }
+            } catch (error) {
+                console.log("Logerro", error.response.data.data)
+                if (error.response.data.data == "O código de validação ainda está válido. E reenviado código por email!") {
+                    alert(error.response.data.data);
+                }
+                else {
+                    console.error('Error sending validation code:', error);
+                    alert('Erro ao enviar código de validação. Tente novamente.');
+                }
+
+            }
+        },
+
+
         async registerUser() {
             if (!this.user.term) {
                 alert('Você precisa aceitar os termos e condições.');
@@ -151,7 +232,7 @@ export default {
                 };
 
                 await registerUser(registrationData);
-                alert('Ocorreu um erro ao cadastrar. Tente novamente!');
+                alert('Cadastro realizado com sucesso!');
 
                 this.$emit('close');
             } catch (error) {
@@ -163,18 +244,9 @@ export default {
             }
         },
 
-        async submitForm() {
-            if (this.isRegister) {
-                await this.registerUser();
-            } else {
-                await this.loginUserMethod();
-            }
-        },
-
         closeModal() {
             this.$emit('close');
         },
     },
 };
 </script>
-

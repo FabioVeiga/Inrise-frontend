@@ -39,7 +39,6 @@ export const isAdminTokenValid = () => {
   return false;
 };
 
-
 export const loginUser = async ({ email, password }) => {
   try {
     const response = await authenticateUser({
@@ -64,9 +63,22 @@ export const loginUser = async ({ email, password }) => {
     return { success: true };
   } catch (error) {
     console.error('User login error:', error);
-    return { success: false, error: 'Erro no login. Por favor, cheque suas credenciais.' };
+
+    if (error.response && error.response.data && error.response.data.errors) {
+      const errorMessages = Object.values(error.response.data.errors).flat();
+      return {
+        success: false,
+        error: errorMessages.join(' ') || 'Um erro desconhecido ocorreu.',
+      };
+    }
+
+    return {
+      success: false,
+      error: error.response?.data?.message || error.message || 'Um erro desconhecido ocorreu.',
+    };
   }
-}
+};
+
 
 export const isAuthenticatedUser = () => {
   const token = Cookies.get('userAuthToken');
