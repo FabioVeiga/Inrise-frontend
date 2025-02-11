@@ -97,15 +97,15 @@ export default {
                 }
             } catch (err) {
                 console.error('Error validating email:', err);
-                alert('Erro ao validar o e-mail');
+                alert(err || 'Erro ao validar o e-mail');
             }
-        }
-        ,
+        },
         async handleLoginAfterValidation() {
             const { success, error } = await loginUser({
                 email: this.user.email,
                 password: this.user.password,
             });
+            console.log("suc",success,"er",error)
             if (success) {
                 this.$emit('close');
                 this.$emit('auth-changed', true);
@@ -133,19 +133,11 @@ export default {
         async requestValidationCode(email) {
             try {
                 const response = await getCodeEmail({ email });
-                if (response) {
+                if (response && response.status === 200) {
                     console.log('Código de validação enviado pro email:', email);
                 }
             } catch (error) {
-                console.log("Logerro", error.response.data.data)
-                if (error.response.data.data == "O código de validação ainda está válido. E reenviado código por email!") {
-                    alert(error.response.data.data);
-                }
-                else {
-                    console.error('Error sending validation code:', error);
-                    alert('Erro ao enviar código de validação. Tente novamente.');
-                }
-
+                alert(error.response.data.data || 'Erro ao enviar código de validação. Tente novamente.');
             }
         },
         async registerUser() {
@@ -164,9 +156,12 @@ export default {
                 term: this.user.term,
             };
             try {
-                await registerUser(registrationData);
-                alert('Cadastro realizado com sucesso!');
-                this.$emit('close');
+                const response = await registerUser(registrationData);
+
+                if (response && response.status === 200) {
+                    alert('Cadastro realizado com sucesso!');
+                    this.setMode('validation'); 
+                }
             } catch (error) {
                 console.error('Erro no cadastro:', error);
                 const firstError = error.response?.data?.errors
