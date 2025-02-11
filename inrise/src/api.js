@@ -327,6 +327,109 @@ export async function deletePC(id) {
   return apiClient.delete(`/Computer/${id}`, { headers });
 }
 
+export async function controlRam(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/MemoryRam/${action}/${id}`, {}, { headers });
+}
+
+export async function controlPSU(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/PowerSupply/${action}/${id}`, {}, { headers });
+}
+
+export async function controlCooler(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/Cooler/${action}/${id}`, {}, { headers });
+}
+
+export async function controlMonitor(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/MonitorScreen/${action}/${id}`, {}, { headers });
+}
+
+export async function controlRom(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/MemoryRom/${action}/${id}`, {}, { headers });
+}
+
+export async function controlGPU(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/VideoBoard/${action}/${id}`, {}, { headers });
+}
+
+export async function controlTower(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/Tower/${action}/${id}`, {}, { headers });
+}
+
+export async function controlCpu(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/Processor/${action}/${id}`, {}, { headers });
+}
+
+export async function controlMobo(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/MotherBoard/${action}/${id}`, {}, { headers });
+}
+
+export async function controlPC(id, active) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  const action = active ? 'Deactivate' : 'Activate';
+
+  return apiClient.put(`/Computer/${action}/${id}`, {}, { headers });
+}
+
+
+
 export async function registerRom(data) {
   const token = getToken();
   const headers = token ? {
