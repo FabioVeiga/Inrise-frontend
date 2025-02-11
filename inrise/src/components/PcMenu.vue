@@ -1,11 +1,9 @@
 <template>
     <div class="flex flex-col items-start">
-        <label :for="partType" class="text-lg font-semibold mb-2">{{ partType.toUpperCase() }}</label>
-
         <select v-model="localSelectedPart" @change="handleSelectionChange" class="w-full p-2 border rounded">
             <option disabled value="">Escolha uma peça...</option>
             <option v-for="part in parts" :key="part.id" :value="part">
-                {{ part.name }} - {{ formatCurrency(part.price.finalPrice) }}
+                {{ part.name }}
             </option>
         </select>
     </div>
