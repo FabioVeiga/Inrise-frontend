@@ -293,8 +293,20 @@ export default {
 
       const selectedPartsFromCookie = JSON.parse(Cookies.get('selectedPcParts') || '{}');
 
+      let userId;
+      try {
+        userId = Cookies.get('userId');
+        if (!userId) {
+          throw new Error("Erro: ID de usuário não presente nos cookies.");
+        }
+      } catch (error) {
+        alert("Por favor, faça login pra terminar seu pedido!");
+        return;
+      }
+
+
       const orderData = {
-        userid: Cookies.get('userId'),
+        userid: userId,
         productDtoRequests: Object.keys(selectedPartsFromCookie).map(partType => {
           const part = selectedPartsFromCookie[partType];
           if (part) {
@@ -314,6 +326,7 @@ export default {
         console.log('Order response:', response.data);
         alert("Pedido criado com sucesso!");
       } catch (error) {
+
         alert(error || "Erro imprevisto ao fazer pedido.");
       }
     }
