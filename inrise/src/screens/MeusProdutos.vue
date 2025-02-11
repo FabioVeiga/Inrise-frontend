@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { loadProducts } from '@/utils/productUtils.js';
+import { loadProducts } from '@/utils/productUtils'
 import RamCard from '@/components/productCards/RamCard.vue';
 import PsuCard from '@/components/productCards/PsuCard.vue';
 import GpuCard from '@/components/productCards/GpuCard.vue';

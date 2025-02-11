@@ -180,15 +180,15 @@ export default {
       this.loading = true;
       try {
         const [processadores, placasMae, gabinetes, memoriasRam, discos, placasVideo, fontesAlimentacao, coolers, monitores] = await Promise.all([
-          loadProducts('processador'),
-          loadProducts('placaMae'),
-          loadProducts('gabinete'),
-          loadProducts('ram'),
-          loadProducts('disco'),
-          loadProducts('placaDeVideo'),
-          loadProducts('psu'),
-          loadProducts('cooler'),
-          loadProducts('monitor'),
+          loadProducts('processador', true),
+          loadProducts('placaMae', true),
+          loadProducts('gabinete', true),
+          loadProducts('ram'), true,
+          loadProducts('disco', true),
+          loadProducts('placaDeVideo', true),
+          loadProducts('psu', true),
+          loadProducts('cooler', true),
+          loadProducts('monitor', true),
         ]);
         this.loading = false;
         this.processadores = processadores;

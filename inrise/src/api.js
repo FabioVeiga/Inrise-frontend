@@ -423,7 +423,6 @@ export async function controlPC(id, active) {
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
-  console.log("Active product?",active)
   const action = active ? 'Deactivate' : 'Activate';
 
   return apiClient.put(`/Computer/${action}/${id}`, {}, { headers });
@@ -516,7 +515,7 @@ export async function registerPC(data) {
 }
 
 //Fetch All
-export async function fetchAllRam() {
+export async function fetchAllRam(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -529,7 +528,7 @@ export async function fetchAllRam() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -542,7 +541,7 @@ export async function fetchAllRam() {
 
 
 
-export async function fetchAllPsu() {
+export async function fetchAllPsu(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -555,7 +554,7 @@ export async function fetchAllPsu() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -567,7 +566,7 @@ export async function fetchAllPsu() {
 }
 
 
-export async function fetchAllMobo() {
+export async function fetchAllMobo(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -580,7 +579,7 @@ export async function fetchAllMobo() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -592,7 +591,7 @@ export async function fetchAllMobo() {
 }
 
 
-export async function fetchAllMonitor() {
+export async function fetchAllMonitor(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -605,7 +604,7 @@ export async function fetchAllMonitor() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -616,7 +615,7 @@ export async function fetchAllMonitor() {
   }
 }
 
-export async function fetchAllGpu() {
+export async function fetchAllGpu(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -629,7 +628,7 @@ export async function fetchAllGpu() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -641,10 +640,10 @@ export async function fetchAllGpu() {
 }
 
 
-export async function fetchAllCpu() {
+export async function fetchAllCpu(user) {
   const token = getToken();
   const headers = token ? {
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${token}`,
   } : {};
 
   try {
@@ -654,7 +653,7 @@ export async function fetchAllCpu() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -666,7 +665,7 @@ export async function fetchAllCpu() {
 }
 
 
-export async function fetchAllTower() {
+export async function fetchAllTower(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -679,7 +678,7 @@ export async function fetchAllTower() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -691,7 +690,7 @@ export async function fetchAllTower() {
 }
 
 
-export async function fetchAllCooler() {
+export async function fetchAllCooler(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -704,7 +703,7 @@ export async function fetchAllCooler() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -716,7 +715,7 @@ export async function fetchAllCooler() {
 }
 
 
-export async function fetchAllStorage() {
+export async function fetchAllStorage(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
@@ -729,7 +728,7 @@ export async function fetchAllStorage() {
         "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 
@@ -740,7 +739,7 @@ export async function fetchAllStorage() {
   }
 }
 
-export async function fetchAllPC() {
+export async function fetchAllPC(user) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
@@ -750,10 +749,10 @@ export async function fetchAllPC() {
     const response = await apiClient.get('/Computer', {
       headers,
       params: {
-        //"IsDeleted": false,
+        //@TODO: Ver se o fabinho corrigiu o isdeleted "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
-
+        "isActive": user ? true : ''
       }
     });
 

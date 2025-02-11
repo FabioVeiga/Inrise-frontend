@@ -1,62 +1,46 @@
 import {
   fetchAllCpu, fetchAllMobo, fetchAllTower, fetchAllRam, fetchAllStorage,
   fetchAllGpu, fetchAllPsu, fetchAllCooler, fetchAllMonitor, fetchAllPC,
-  //fetchCpuById, fetchMoboById, fetchTowerById, fetchRamById, fetchStorageById,
-  //fetchGpuById, fetchPsuById, fetchCoolerById, fetchMonitorById, fetchPCById,
-} from '@/api'
+} from '@/api';
 
-
-//@TODO: Cleanup disso depois de confirmar a operação
-
-export async function loadProducts(productType) {
+export async function loadProducts(productType, user = null) { 
   if (productType === 'select') {
     return [];
   }
 
   let response;
-  //let fetchDetails;
-
+  
   try {
     switch (productType) {
       case 'ram':
-        response = await fetchAllRam();
-        //fetchDetails = fetchRamById;
+        response = await fetchAllRam(user);
         break;
       case 'psu':
-        response = await fetchAllPsu();
-        //fetchDetails = fetchPsuById;
+        response = await fetchAllPsu(user);
         break;
       case 'monitor':
-        response = await fetchAllMonitor();
-        //fetchDetails = fetchMonitorById;
+        response = await fetchAllMonitor(user);
         break;
       case 'placaDeVideo':
-        response = await fetchAllGpu();
-        //fetchDetails = fetchGpuById;
+        response = await fetchAllGpu(user);
         break;
       case 'processador':
-        response = await fetchAllCpu();
-        //fetchDetails = fetchCpuById;
+        response = await fetchAllCpu(user);
         break;
       case 'gabinete':
-        response = await fetchAllTower();
-        //fetchDetails = fetchTowerById;
+        response = await fetchAllTower(user);
         break;
       case 'cooler':
-        response = await fetchAllCooler();
-        //fetchDetails = fetchCoolerById;
+        response = await fetchAllCooler(user);
         break;
       case 'disco':
-        response = await fetchAllStorage();
-        //fetchDetails = fetchStorageById;
+        response = await fetchAllStorage(user);
         break;
       case 'computador':
-        response = await fetchAllPC();
-        //fetchDetails = fetchPCById;
+        response = await fetchAllPC(user);
         break;
       case 'placaMae':
-        response = await fetchAllMobo();
-        //fetchDetails = fetchMoboById;
+        response = await fetchAllMobo(user);
         break;
       default:
         throw new Error('Tipo de produto não suportado');
@@ -64,20 +48,8 @@ export async function loadProducts(productType) {
 
     const products = response.data.items;
     return products
-    /*for (let product of products) {
-      const productDetails = await fetchDetails(product.id);
-      if (productDetails && productDetails.data) {
-        product.name = productDetails.data.data.name;
-        product.price = productDetails.data.data.price;
-        product.images = productDetails.data.data.images;
-      } else {
-        product.price = null;
-      }
-    }
-    return products;*/
   } catch (error) {
     console.error('Erro ao carregar os produtos:', error);
     return [];
   }
 }
-
