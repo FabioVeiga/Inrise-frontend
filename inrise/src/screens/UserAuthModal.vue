@@ -14,8 +14,7 @@
                 }}
             </h1>
 
-            <component :is="currentModeComponent" :user="user" :validationCode="validationCode"
-                @update-user="updateUser" @submit-form="submitForm" />
+            <component :is="currentModeComponent" :user="user" @update-user="updateUser" @submit-form="submitForm" />
 
             <div class="mt-4 text-center">
                 <span v-if="currentMode === 'register'">
@@ -56,8 +55,8 @@ export default {
                 passwordConfirmation: '',
                 marketing: false,
                 term: false,
+                validationCode: '', 
             },
-            validationCode: '',
         };
     },
     computed: {
@@ -86,13 +85,22 @@ export default {
             }
         },
         async validateEmailAndLogin() {
-            const { success, error } = await validateEmail(this.user.email, this.validationCode);
-            if (success) {
-                await this.handleLoginAfterValidation();
-            } else {
-                alert(error || 'Erro ao validar o e-mail');
+            try {
+                const response = await validateEmail(this.user.email, this.user.validationCode);
+
+                console.log(response); 
+
+                if (response && response.status === 200) {  
+                    await this.handleLoginAfterValidation();
+                } else {
+                    alert('Erro ao validar o e-mail');
+                }
+            } catch (err) {
+                console.error('Error validating email:', err);
+                alert('Erro ao validar o e-mail');
             }
-        },
+        }
+        ,
         async handleLoginAfterValidation() {
             const { success, error } = await loginUser({
                 email: this.user.email,
@@ -124,9 +132,7 @@ export default {
         },
         async requestValidationCode(email) {
             try {
-
                 const response = await getCodeEmail({ email });
-                console.log("Resp", response)
                 if (response) {
                     console.log('Código de validação enviado pro email:', email);
                 }
@@ -142,8 +148,6 @@ export default {
 
             }
         },
-
-
         async registerUser() {
             if (!this.user.term) {
                 alert('Você precisa aceitar os termos e condições.');

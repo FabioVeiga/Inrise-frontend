@@ -14,15 +14,15 @@
 
 <script>
 export default {
-    props: ['validationCode'],
+    props: ['user'],
     data() {
         return {
-            localValidationCode: this.validationCode  
+            localValidationCode: this.user.validationCode || '',
         };
     },
     methods: {
         submitForm(formType) {
-            this.$emit('update-user', { validationCode: this.localValidationCode });
+            this.$emit('update-user', { ...this.user, validationCode: this.localValidationCode });
             this.$emit('submit-form', formType);
         },
     },
