@@ -19,7 +19,7 @@
             <p style="white-space: nowrap" class="text-xl font-semibold">
               Processador
             </p>
-            <PcPartRow partType="processor" :parts="processadores" :selectedParts="[selectedParts.processor]"
+            <PcMenu partType="processor" :parts="processadores" :selectedParts="[selectedParts.processor]"
               @update:selectedParts="selectPart('processor', $event)" />
 
             <!-- Mobo -->
@@ -27,7 +27,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Placa Mãe
               </p>
-              <PcPartRow partType="motherBoard" :parts="placasMaeFilter" :selectedParts="[selectedParts.motherBoard]"
+              <PcMenu partType="motherBoard" :parts="placasMaeFilter" :selectedParts="[selectedParts.motherBoard]"
                 @update:selectedParts="selectPart('motherBoard', $event)" />
             </div>
 
@@ -36,7 +36,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Memória RAM
               </p>
-              <PcPartRow partType="memoryRam" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
+              <PcMenu partType="memoryRam" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
                 @update:selectedParts="selectPart('memoryRam', $event)" />
             </div>
 
@@ -45,7 +45,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Placa de Vídeo
               </p>
-              <PcPartRow partType="videoBoard" :parts="placasVideo" :selectedParts="[selectedParts.videoBoard]"
+              <PcMenu partType="videoBoard" :parts="placasVideo" :selectedParts="[selectedParts.videoBoard]"
                 @update:selectedParts="selectPart('videoBoard', $event)" />
             </div>
 
@@ -54,7 +54,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Disco
               </p>
-              <PcPartRow partType="memoryRom" :parts="discos" :selectedParts="[selectedParts.memoryRom]"
+              <PcMenu partType="memoryRom" :parts="discos" :selectedParts="[selectedParts.memoryRom]"
                 @update:selectedParts="selectPart('memoryRom', $event)" />
             </div>
 
@@ -63,7 +63,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Fonte
               </p>
-              <PcPartRow partType="powerSupply" :parts="fontesAlimentacao" :selectedParts="[selectedParts.powerSupply]"
+              <PcMenu partType="powerSupply" :parts="fontesAlimentacao" :selectedParts="[selectedParts.powerSupply]"
                 @update:selectedParts="selectPart('powerSupply', $event)" />
             </div>
 
@@ -72,7 +72,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Cooler
               </p>
-              <PcPartRow partType="cooler" :parts="coolers" :selectedParts="[selectedParts.cooler]"
+              <PcMenu partType="cooler" :parts="coolers" :selectedParts="[selectedParts.cooler]"
                 @update:selectedParts="selectPart('cooler', $event)" />
             </div>
 
@@ -81,7 +81,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Gabinete
               </p>
-              <PcPartRow partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
+              <PcMenu partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
                 @update:selectedParts="selectPart('tower', $event)" />
             </div>
           </form>
@@ -101,7 +101,7 @@
           </div>
         </div>
         <!-- Preço Final -->
-        <div class="h-1/4 flex w-full flex-row justify-between">
+        <div v-if="isAllPartsSelected" class=" h-1/4 flex w-full flex-row justify-between">
           <div class="text-lg font-semibold">
             <p>Preço Final: {{ finalPrice }}</p>
           </div>
@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import PcPartRow from '@/components/PcPartRow.vue';
+import PcMenu from '@/components/PcMenu.vue';
 import { loadProducts } from '@/utils/productUtils';
 import HomeContentView from '../components/HomeContentView.vue';
 import HomeMenu from '../components/HomeMenu.vue';
@@ -137,11 +137,15 @@ import Cookies from 'js-cookie';
 export default {
   name: 'ClientPcPartPicker',
   components: {
-    PcPartRow, HomeContentView, HomeMenu, HeaderRectanglesLarge, AppBreadcrumbs, ActionButton
+    PcMenu, HomeContentView, HomeMenu, HeaderRectanglesLarge, AppBreadcrumbs, ActionButton,
   },
   computed: {
     selectedPartsList() {
       return Object.values(this.selectedParts).filter(part => part).map(part => part.name);
+    },
+    isAllPartsSelected() {
+      const missingParts = Object.keys(this.selectedParts).filter(partType => !this.selectedParts[partType]);
+      return missingParts.length === 0;
     }
   },
   data() {
@@ -209,7 +213,7 @@ export default {
         memoryRom: 3,
         powerSupply: 6,
         cooler: 1,
-        tower: 10,
+        tower: 8,
       };
       return categories[partType] || null;
     },
@@ -219,7 +223,6 @@ export default {
       this.selectedParts[partType] = updatedPart;
 
       Cookies.set('selectedPcParts', JSON.stringify(this.selectedParts), { path: '/' });
-      console.log("Updated cookies:", Cookies.get('selectedPcParts'));
 
       if (partType === 'processor') {
         const selectedCpu = this.processadores.find(
@@ -309,8 +312,9 @@ export default {
       try {
         const response = await createOrder(orderData);
         console.log('Order response:', response.data);
+        alert("Pedido criado com sucesso!");
       } catch (error) {
-        console.error('Error submitting order:', error);
+        alert(error || "Erro imprevisto ao fazer pedido.");
       }
     }
 
