@@ -77,6 +77,8 @@
               <th class="border px-4 py-2">Req Max GPU</th>
               <th class="border px-4 py-2">Req Min RAM</th>
               <th class="border px-4 py-2">Req Max RAM</th>
+              <th v-if="category.isEditing" class="border px-4 py-2">Editar/Remover</th>
+
             </tr>
           </thead>
           <tbody>
@@ -91,6 +93,11 @@
               <td class="border px-4 py-2">{{ software.videoBoardIdeal.data.name }}</td>
               <td class="border px-4 py-2">{{ software.memoryRamMin.data.name }}</td>
               <td class="border px-4 py-2">{{ software.memoryRamIdeal.data.name }}</td>
+              <td class="border px-4 py-2 text-center">
+                <button v-if="category.isEditing" @click="deleteSoftware(software.id, categoryId)" class="bg-red-500 text-white px-4 py-2 rounded-md">
+                  Deletar Software
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -103,7 +110,7 @@
 
 <script>
 import * as softwareUtils from '@/utils/softwareUtils';
-
+import { deleteSoftware } from '@/api';
 export default {
   name: 'GruposDeSoftware',
   data() {
@@ -112,6 +119,15 @@ export default {
     };
   },
   methods: {
+    async deleteSoftware(softwareId, categoryId) {
+      try {
+        await deleteSoftware(softwareId);
+        const category = this.categories[categoryId];
+        category.softwares = category.softwares.filter(software => software.id !== softwareId);
+      } catch (error) {
+        console.error("Failed to delete software", error);
+      }
+    },
     async fetchCategories() {
       this.categories = await softwareUtils.fetchCategories();
     },
