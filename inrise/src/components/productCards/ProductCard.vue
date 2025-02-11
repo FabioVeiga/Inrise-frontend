@@ -10,8 +10,8 @@
     </div>
 
     <!-- Preço do Produto -->
-    <p v-if="product.price.finalPrice" class="mt-4 text-lg font-bold text-blue-600">Preço: {{
-      formatCurrency(product.price.finalPrice) }}</p>
+    <p v-if="product.price?.finalPrice" class="mt-4 text-lg font-bold text-blue-600">Preço: {{
+      formatCurrency(product.price?.finalPrice) }}</p>
     <p v-else class="mt-4 text-lg text-gray-500">Preço não disponível</p>
 
     <!-- Botão de Excluir -->

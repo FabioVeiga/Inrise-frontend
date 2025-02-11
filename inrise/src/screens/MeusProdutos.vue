@@ -133,7 +133,7 @@ export default {
         case 'disco':
           return 'StorageCard';
         case 'computador':
-          return 'PCCard';
+          return 'ComputerCard';
         case 'placaMae':
           return 'MoboCard';
         default:
