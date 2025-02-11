@@ -101,7 +101,7 @@ export default {
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
         alert('Memória RAM editada com sucesso!');
-        this.$emit('save', updatedRam);
+        this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
         console.error('Erro ao editar memória RAM:', error);

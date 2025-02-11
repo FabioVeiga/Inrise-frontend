@@ -13,7 +13,7 @@
   </ProductCard>
 
   <!-- Modal de Edição de Storage (ROM) -->
-  <EditRomModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+  <EditRomModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
+    handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
@@ -62,6 +62,7 @@ export default {
       try {
         await deleteRom(product.id);
         alert('Dispositivo de armazenamento excluído com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir o dispositivo de armazenamento');
         console.error(error);

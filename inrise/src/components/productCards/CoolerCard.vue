@@ -10,7 +10,7 @@
   </ProductCard>
 
   <!-- Modal de Edição para Cooler -->
-  <EditCoolerModal v-if="isEditModalOpen" :product="product" @close="closeCoolerModal" @save="saveProduct" />
+  <EditCoolerModal v-if="isEditModalOpen" :product="product" @close="closeCoolerModal" @save="handleSave" />
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
   name: 'CoolerCard',
   components: {
     ProductCard,
-    EditCoolerModal, // Importando o modal de cooler
+    EditCoolerModal,
   },
   props: {
     product: {
@@ -46,7 +46,7 @@ export default {
     closeCoolerModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
+    handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeCoolerModal();
     },
@@ -59,6 +59,7 @@ export default {
       try {
         await deleteCooler(product.id);
         alert('Cooler excluído com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir o cooler');
         console.error(error);

@@ -1,12 +1,11 @@
 <template>
   <div>
-    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteComputer"
+    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeletePC"
       @edit-product="openEditPcModal">
       <template #default="{ product }">
-        <p>Socket: {{ product.name || 'Socket não disponível' }}</p>
+        <p>Motherboard: {{ product.name || 'Mobo não disponível' }}</p>
         <p v-if="moboData === null">Carregando Motherboard...</p>
         <div v-else>
-          <p>Motherboard: {{ moboData?.name ? moboData.name : 'Motherboard não disponível' }}</p>
           <p>Socket CPU: {{ moboData?.socket ? moboData.socket : 'Socket não disponível' }}</p>
           <p>Socket RAM: {{ moboData?.socketMemory ? moboData.socketMemory : 'Socket não disponível' }}</p>
           <p>Socket Video: {{ moboData?.socketMemoryVideo ? moboData.socketMemoryVideo : 'Socket não disponível' }}</p>
@@ -26,7 +25,7 @@
 <script>
 import ProductCard from './ProductCard.vue';
 //import EditPcModal from '@/components/EditPcModal.vue'; // Assuming you have an EditPcModal component
-import { deleteComputer } from '@/api'; // Adjust this API call based on your back-end
+import { deletePC } from '@/api'; // Adjust this API call based on your back-end
 import { fetchMoboById } from '@/api'; // Import the fetchMoboById function
 
 export default {
@@ -64,15 +63,16 @@ export default {
     },
   },
   methods: {
-    async handleDeleteComputer(product) {
+    async handleDeletePC(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;
       }
 
       try {
-        await deleteComputer(product.id);
+        await deletePC(product.id);
         alert('Computador excluído com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir o computador');
         console.error(error);

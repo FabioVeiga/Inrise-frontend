@@ -126,7 +126,7 @@ export default {
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
         alert('Cooler editado com sucesso!');
-        this.$emit('save', updatedCooler);
+        this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
         console.error('Erro ao editar cooler:', error);

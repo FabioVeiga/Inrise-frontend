@@ -139,7 +139,7 @@ export default {
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
         alert('Disco editado com sucesso!');
-        this.$emit('save', updatedRom);
+        this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
         console.error('Erro ao editar disco:', error);

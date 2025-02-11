@@ -10,7 +10,7 @@
     </ProductCard>
 
     <!-- Modal de RAM -->
-    <EditRamModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+    <EditRamModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
   </div>
 </template>
 
@@ -41,7 +41,6 @@ export default {
     };
   },
   methods: {
-
     async handleDeleteRam(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
@@ -51,6 +50,7 @@ export default {
       try {
         await deleteRam(product.id);
         alert('Memória RAM excluída com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir a memória RAM');
         console.error(error);
@@ -62,7 +62,7 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
+    handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     }

@@ -142,7 +142,7 @@ export default {
                     console.log('Imagem cadastrada com sucesso!', imageResponse);
                 }
                 alert('Processador editado com sucesso!');
-                this.$emit('save', updatedCpu);
+                this.$emit('save', this.editedProduct);
                 this.closeModal();
             } catch (error) {
                 console.error('Erro ao editar o processador:', error);

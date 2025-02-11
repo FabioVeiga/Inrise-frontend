@@ -115,7 +115,7 @@ export default {
         }
         alert('Placa de vídeo editada com sucesso!');
 
-        this.$emit('save', updatedGpu);
+        this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
         console.error('Erro ao editar placa de vídeo:', error);

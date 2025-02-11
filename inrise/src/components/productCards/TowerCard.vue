@@ -12,12 +12,12 @@
   </ProductCard>
 
   <!-- Modal de Edição de Gabinete -->
-  <EditTowerModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+  <EditTowerModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
-import EditTowerModal from '../EditTowerModal.vue';  // Importando o modal de Gabinete (Tower)
+import EditTowerModal from '../EditTowerModal.vue';  
 import { deleteTower } from '@/api';
 
 export default {
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      isEditModalOpen: false,  // Controle para abrir o modal de Gabinete
+      isEditModalOpen: false,
     };
   },
   methods: {
@@ -48,8 +48,8 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct); // Emite o evento de atualização do produto
+    handleSave(updatedProduct) {
+      this.$emit('update-product', updatedProduct); 
       this.closeEditModal();
     },
     async handleDeleteTower(product) {
@@ -61,6 +61,7 @@ export default {
       try {
         await deleteTower(product.id);
         alert('Gabinete excluído com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir o gabinete');
         console.error(error);

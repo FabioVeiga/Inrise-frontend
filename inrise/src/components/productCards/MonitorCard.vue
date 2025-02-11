@@ -9,7 +9,7 @@
   </ProductCard>
 
   <!-- Modal de Edição de Monitor -->
-  <EditMonitorModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+  <EditMonitorModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
+    handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
@@ -58,6 +58,7 @@ export default {
       try {
         await deleteMonitor(product.id);
         alert('Monitor excluído com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir o monitor');
         console.error(error);

@@ -1,10 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteMobo"
-    @edit-product="openEditModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteMobo"
+    @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
       <p>Memória Suportada: {{ product.socketMemory || 'Informação não disponível' }}</p>
@@ -13,7 +9,7 @@
   </ProductCard>
 
   <!-- Modal de Edição de Placa-Mãe -->
-  <EditMoboModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+  <EditMoboModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
 </template>
 
 <script>
@@ -49,7 +45,7 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
+    handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
@@ -62,6 +58,7 @@ export default {
       try {
         await deleteMobo(product.id);
         alert('Placa-mãe excluída com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir a placa-mãe');
         console.error(error);

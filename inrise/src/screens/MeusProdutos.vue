@@ -25,21 +25,14 @@
       </select>
     </div>
 
-    <div 
-      v-if="products.length === 0 && !loading && productType !== 'select'" 
-      class="text-center text-xl text-gray-500"
-    >
+    <div v-if="products.length === 0 && !loading && productType !== 'select'" class="text-center text-xl text-gray-500">
       <p>Não há produtos cadastrados.</p>
     </div>
 
-    <div 
-      v-if="loading && productType !== 'select'" 
-      class="text-center text-xl text-gray-500"
-    >
+    <div v-if="loading && productType !== 'select'" class="text-center text-xl text-gray-500">
       <p>Carregando produtos...</p>
     </div>
 
-    <!-- Exibe os produtos -->
     <div v-else class="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       <component 
         v-for="product in products" 
@@ -47,14 +40,16 @@
         :is="getProductComponent()" 
         :product="product"
         :formatCurrency="formatCurrency"
+        @delete-product="handleDeleteProduct"
+        @update-product="handleUpdateProduct"
         @edit-product="openEditModal" 
       />
-    </div>    
+    </div>  
   </div>
 </template>
 
 <script>
-import { loadProducts } from '@/utils/productUtils.js'
+import { loadProducts } from '@/utils/productUtils.js';
 import RamCard from '@/components/productCards/RamCard.vue';
 import PsuCard from '@/components/productCards/PsuCard.vue';
 import GpuCard from '@/components/productCards/GpuCard.vue';
@@ -85,8 +80,6 @@ export default {
       products: [],
       loading: false,
       productType: 'select',
-      isEditModalOpen: false, 
-      editableProduct: {}
     };
   },
   methods: {
@@ -104,6 +97,16 @@ export default {
       } catch (error) {
         console.error('Erro ao carregar os produtos:', error);
         this.loading = false;
+      }
+    },
+    handleDeleteProduct(productId) {
+      this.products = this.products.filter(product => product.id !== productId);
+    },
+
+    handleUpdateProduct(updatedProduct) {
+      const index = this.products.findIndex(product => product.id === updatedProduct.id);
+      if (index !== -1) {
+        this.products[index] = updatedProduct;
       }
     },
 

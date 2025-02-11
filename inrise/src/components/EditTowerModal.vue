@@ -94,7 +94,7 @@ export default {
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
         alert('Disco editada com sucesso!');
-        this.$emit('save', updatedTower);
+        this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
         console.error('Erro ao editar gabinete:', error);

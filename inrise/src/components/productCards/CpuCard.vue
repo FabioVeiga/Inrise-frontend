@@ -14,7 +14,7 @@
   </ProductCard>
 
   <!-- Modal de Edição -->
-  <EditCpuModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+  <EditCpuModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
 </template>
 
 <script>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      isEditModalOpen: false,  // Controle para abrir o modal de CPU
+      isEditModalOpen: false, 
     };
   },
   methods: {
@@ -50,8 +50,8 @@ export default {
     closeEditModal() {
       this.isEditModalOpen = false;
     },
-    saveProduct(updatedProduct) {
-      this.$emit('update-product', updatedProduct); // Emite o evento de atualização do produto
+    handleSave(updatedProduct) {
+      this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
     async handleDeleteCpu(product) {
@@ -63,6 +63,7 @@ export default {
       try {
         await deleteCpu(product.id);
         alert('Processador excluído com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir o processador');
         console.error(error);

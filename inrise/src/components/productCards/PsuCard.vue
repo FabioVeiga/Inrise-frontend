@@ -11,7 +11,7 @@
     </ProductCard>
 
     <!-- Modal de PSU -->
-    <EditPsuModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
+    <EditPsuModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
   </div>
 </template>
 
@@ -57,6 +57,7 @@ export default {
       try {
         await deletePSU(product.id);
         alert('Fonte de alimentação excluída com sucesso!');
+        this.$emit('delete-product', product.id);
       } catch (error) {
         alert('Erro ao excluir a fonte de alimentação');
         console.error(error);
@@ -70,7 +71,7 @@ export default {
       //todo: o reload dá f5 na pagina e isso pode ser um metodo comum pra todos os edits i guess location.reload();
 
     },
-    saveProduct(updatedProduct) {
+    handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     }

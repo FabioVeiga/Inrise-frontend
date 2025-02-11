@@ -125,7 +125,7 @@ export default {
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
         alert('Placa mãe editada com sucesso!');
-        this.$emit('save', updatedMobo);
+        this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
         console.error('Erro ao editar placa mãe:', error);
