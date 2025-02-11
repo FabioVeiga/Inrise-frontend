@@ -1,6 +1,6 @@
 <template>
-  <ProductCard :product="product" :formatCurrency="formatCurrency" @update-product="updateProduct"
-    @delete-product="handleDeleteCooler" @edit-product="openCoolerModal">
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+  @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Ar: {{ product.air }}</p>
       <p>Refrigeração: {{ product.refrigeration }}</p>
@@ -10,12 +10,12 @@
   </ProductCard>
 
   <!-- Modal de Edição para Cooler -->
-  <EditCoolerModal v-if="isEditModalOpen" :product="product" @close="closeCoolerModal" @save="handleSave" />
+  <EditCoolerModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="handleSave" />
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
-import { deleteCooler } from '@/api';
+import { deleteCooler, controlCooler } from '@/api';
 import EditCoolerModal from '@/components/EditCoolerModal.vue';
 
 export default {
@@ -40,17 +40,22 @@ export default {
     };
   },
   methods: {
-    openCoolerModal() {
+    async handleControl(product) {
+      await controlCooler(product.id, product.active)
+      alert(product.active ? 'Cooler desativado com sucesso!' : 'Cooler ativado com sucesso!');
+      this.$emit('control-product', product);
+    },
+    openEditModal() {
       this.isEditModalOpen = true;
     },
-    closeCoolerModal() {
+    closeEditModal() {
       this.isEditModalOpen = false;
     },
     handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
-      this.closeCoolerModal();
+      this.closeEditModal();
     },
-    async handleDeleteCooler(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

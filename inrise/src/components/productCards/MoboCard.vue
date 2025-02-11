@@ -1,6 +1,6 @@
 <template>
-  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteMobo"
-    @edit-product="openEditModal">
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+    @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
       <p>Memória Suportada: {{ product.socketMemory || 'Informação não disponível' }}</p>
@@ -15,7 +15,7 @@
 <script>
 import ProductCard from './ProductCard.vue';
 import EditMoboModal from '../EditMoboModal.vue';
-import { deleteMobo } from '@/api';
+import { deleteMobo, controlMobo } from '@/api';
 
 export default {
   name: 'MoboCard',
@@ -39,6 +39,11 @@ export default {
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlMobo(product.id, product.active)
+      alert(product.active ? 'MOBO desativada com sucesso!' : 'MOBO ativada com sucesso!');
+      this.$emit('control-product', product);
+    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -49,7 +54,7 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    async handleDeleteMobo(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

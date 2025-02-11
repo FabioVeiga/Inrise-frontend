@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeletePC"
-      @edit-product="openEditPcModal">
+    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+      @control-product="handleControl" @edit-product="openEditModal">
       <template #default="{ product }">
         <p>Motherboard: {{ product.name || 'Mobo não disponível' }}</p>
         <p v-if="moboData === null">Carregando Motherboard...</p>
@@ -24,10 +24,9 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
-//import EditPcModal from '@/components/EditPcModal.vue'; // Assuming you have an EditPcModal component
-import { deletePC } from '@/api'; // Adjust this API call based on your back-end
-import { fetchMoboById } from '@/api'; // Import the fetchMoboById function
-
+//import EditPcModal from '@/components/EditPcModal.vue';
+import { deletePC, controlPC } from '@/api'; 
+import { fetchMoboById } from '@/api';
 export default {
   name: 'ComputerCard',
   components: {
@@ -47,23 +46,21 @@ export default {
   data() {
     return {
       isEditModalOpen: false,
-      moboData: null, // Initially null, updated after fetch
+      moboData: null,
     };
   },
   mounted() {
-    // Fetch motherboard data once the component is mounted and if the product has a motherboard ID
     if (this.product.motherBoardId) {
       this.fetchMoboData(this.product.motherBoardId);
     }
   },
   watch: {
-    // Watch for changes to moboData and log it whenever it updates
     moboData(newData) {
       console.log("moboData changed:", newData);
     },
   },
   methods: {
-    async handleDeletePC(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;
@@ -78,7 +75,12 @@ export default {
         console.error(error);
       }
     },
-    openEditPcModal() {
+    async handleControl(product) {
+      await controlPC(product.id, product.active)
+      alert(product.active ? 'Computador desativado com sucesso!' : 'Computador ativado com sucesso!');
+      this.$emit('control-product', product);
+    },
+    openEditModal() {
       this.isEditModalOpen = true;
     },
     closeEditModal() {
@@ -88,15 +90,14 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    // Method to fetch Motherboard data
     async fetchMoboData(moboId) {
       try {
         const response = await fetchMoboById(moboId);
-        this.moboData = response.data.data; // Update moboData once the fetch is done
+        this.moboData = response.data.data;
         console.log("Motherboard data:", this.moboData);
       } catch (error) {
         console.error('Error fetching Motherboard data:', error);
-        this.moboData = null; // Ensure it's still null if there's an error
+        this.moboData = null; 
       }
     },
   },

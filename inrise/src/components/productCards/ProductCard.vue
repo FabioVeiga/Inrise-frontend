@@ -19,6 +19,15 @@
       class="mt-4 w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
       Excluir
     </button>
+
+    <!-- Botão de Ativar/Desativar -->
+    <button @click.stop="controlProduct" :class="{
+      'mt-4 w-full py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50': true,
+      'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500': product.active,
+      'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500': !product.active
+    }">
+      {{ product.active ? 'Desativar' : 'Ativar' }}
+    </button>
   </div>
 </template>
 
@@ -29,7 +38,7 @@ export default {
     product: Object,
     formatCurrency: Function,
   },
-  emits: ['update-product', 'delete-product', 'edit-product'],
+  emits: ['update-product', 'delete-product', 'edit-product', 'control-product'],
   methods: {
     openEditModal() {
       this.$emit('edit-product');
@@ -44,7 +53,14 @@ export default {
     async deleteProduct(event) {
       event.preventDefault();
       this.$emit('delete-product', this.product);
+    },
+    controlProduct(event) {
+      console.log("Emission in productcard", this.product)
+      event.preventDefault();
+      this.$emit('control-product', {
+        ...this.product,
+      });
     }
-  },
+  }
 };
 </script>

@@ -1,10 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteGPU"
-    @edit-product="openEditModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+    @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
       <p>Bits: {{ product.bits || 'Bits não disponíveis' }}</p>
@@ -18,8 +14,8 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
-import EditGpuModal from '../EditGpuModal.vue'; 
-import { deleteGPU } from '@/api';
+import EditGpuModal from '../EditGpuModal.vue';
+import { deleteGPU, controlGPU } from '@/api';
 
 export default {
   name: 'GpuCard',
@@ -43,6 +39,11 @@ export default {
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlGPU(product.id, product.active)
+      alert(product.active ? 'GPU desativada com sucesso!' : 'GPU ativada com sucesso!');
+      this.$emit('control-product', product);
+    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -53,7 +54,7 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    async handleDeleteGPU(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

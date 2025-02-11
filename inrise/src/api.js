@@ -423,6 +423,7 @@ export async function controlPC(id, active) {
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
+  console.log("Active product?",active)
   const action = active ? 'Deactivate' : 'Activate';
 
   return apiClient.put(`/Computer/${action}/${id}`, {}, { headers });

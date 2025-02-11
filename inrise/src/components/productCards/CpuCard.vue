@@ -1,10 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteCpu"
-    @edit-product="openEditModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+  @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
       <p>Geração: {{ product.generation || 'Geração não disponível' }}</p>
@@ -20,7 +16,7 @@
 <script>
 import ProductCard from './ProductCard.vue';
 import EditCpuModal from '../EditCpuModal.vue';
-import { deleteCpu } from '@/api';
+import { deleteCpu, controlCpu } from '@/api';
 
 export default {
   name: 'CpuCard',
@@ -44,6 +40,11 @@ export default {
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlCpu(product.id, product.active)
+      alert(product.active ? 'CPU desativado com sucesso!' : 'CPU ativado com sucesso!');
+      this.$emit('control-product', product);
+    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -54,7 +55,7 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    async handleDeleteCpu(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

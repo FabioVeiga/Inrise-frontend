@@ -1,10 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteTower"
-    @edit-product="openEditModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+    @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Tamanho: {{ product.dimesion || 'Tamanho não disponível' }}</p>
       <p>Max Ventoinhas: {{ product.maxFans || 'Max. Ventoinhas não disponível' }}</p>
@@ -17,8 +13,8 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
-import EditTowerModal from '../EditTowerModal.vue';  
-import { deleteTower } from '@/api';
+import EditTowerModal from '../EditTowerModal.vue';
+import { deleteTower, controlTower } from '@/api';
 
 export default {
   name: 'TowerCard',
@@ -42,6 +38,11 @@ export default {
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlTower(product.id, product.active)
+      alert(product.active ? 'Gabinete desativado com sucesso!' : 'Gabinete ativado com sucesso!');
+      this.$emit('control-product', product);
+    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -49,10 +50,10 @@ export default {
       this.isEditModalOpen = false;
     },
     handleSave(updatedProduct) {
-      this.$emit('update-product', updatedProduct); 
+      this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    async handleDeleteTower(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

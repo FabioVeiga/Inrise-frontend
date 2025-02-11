@@ -1,10 +1,6 @@
 <template>
-  <ProductCard 
-    :product="product" 
-    :formatCurrency="formatCurrency"
-    @delete-product="handleDeleteStorage"
-    @edit-product="openEditModal"
-  >
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+    @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Vel. de Leitura: {{ product.velocityRead + 'MB/s' || 'Velocidade não disponível' }}</p>
       <p>Capacidade: {{ product.capacity ? product.capacity + ' GB' : 'Capacidade não disponível' }}</p>
@@ -19,7 +15,7 @@
 <script>
 import ProductCard from './ProductCard.vue';
 import EditRomModal from '../EditRomModal.vue';
-import { deleteRom } from '@/api';
+import { deleteRom, controlRom } from '@/api';
 
 export default {
   name: 'StorageCard',
@@ -39,10 +35,15 @@ export default {
   },
   data() {
     return {
-      isEditModalOpen: false, 
+      isEditModalOpen: false,
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlRom(product.id, product.active)
+      alert(product.active ? 'Disco desativado com sucesso!' : 'Disco ativado com sucesso!');
+      this.$emit('control-product', product);
+    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -53,7 +54,7 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    async handleDeleteStorage(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

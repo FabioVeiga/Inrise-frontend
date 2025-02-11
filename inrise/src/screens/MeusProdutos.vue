@@ -3,14 +3,8 @@
     <h1 class="text-4xl font-bold my-8">Meus Produtos</h1>
 
     <div class="form-group my-8">
-      <select 
-        class="px-4 w-52 h-12" 
-        v-model="productType" 
-        id="productType" 
-        @change="loadProducts" 
-        required
-        :disabled="loading"
-      >
+      <select class="px-4 w-52 h-12" v-model="productType" id="productType" @change="loadProducts" required
+        :disabled="loading">
         <option value="select">Selecione uma opção</option>
         <option value="ram">Memória RAM</option>
         <option value="psu">Fonte</option>
@@ -34,17 +28,10 @@
     </div>
 
     <div v-else class="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <component 
-        v-for="product in products" 
-        :key="product.id" 
-        :is="getProductComponent()" 
-        :product="product"
-        :formatCurrency="formatCurrency"
-        @delete-product="handleDeleteProduct"
-        @update-product="handleUpdateProduct"
-        @edit-product="openEditModal" 
-      />
-    </div>  
+      <component v-for="product in products" :key="product.id" :is="getProductComponent()" :product="product"
+        :formatCurrency="formatCurrency" @delete-product="handleDeleteProduct" @update-product="handleUpdateProduct"
+        @control-product="handleControlProduct" @edit-product="openEditModal" />
+    </div>
   </div>
 </template>
 
@@ -109,7 +96,12 @@ export default {
         this.products[index] = updatedProduct;
       }
     },
-
+    handleControlProduct(updatedProduct) {
+      const index = this.products.findIndex(product => product.id === updatedProduct.id);
+      if (index !== -1) {
+        this.products[index].active = !updatedProduct.active;
+      }
+    },
     formatCurrency(value) {
       return value ? value.toLocaleString('pt', {
         style: 'currency',
@@ -145,7 +137,7 @@ export default {
     },
 
     openEditModal(product) {
-      this.editableProduct = { ...product }; 
+      this.editableProduct = { ...product };
       this.isEditModalOpen = true;
     },
 
@@ -157,7 +149,7 @@ export default {
     saveProduct() {
       const index = this.products.findIndex(p => p.id === this.editableProduct.id);
       if (index !== -1) {
-        this.products[index] = this.editableProduct; 
+        this.products[index] = this.editableProduct;
       }
       this.closeEditModal();
       location.reload();

@@ -1,6 +1,6 @@
 <template>
-  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeleteMonitor"
-    @edit-product="openEditModal">
+  <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+    @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Dimensão: {{ product.dimesion ? product.dimesion + ' "' : 'Dimensão não disponível' }}</p>
       <p>Frequência: {{ product.updateVolume ? product.updateVolume + ' Hz' : 'Frequência não disponível' }}</p>
@@ -15,7 +15,7 @@
 <script>
 import ProductCard from './ProductCard.vue';
 import EditMonitorModal from '../EditMonitorModal.vue';
-import { deleteMonitor } from '@/api';
+import { deleteMonitor, controlMonitor } from '@/api';
 
 export default {
   name: 'MonitorCard',
@@ -39,6 +39,11 @@ export default {
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlMonitor(product.id, product.active)
+      alert(product.active ? 'Monitor desativado com sucesso!' : 'Monitor ativado com sucesso!');
+      this.$emit('control-product', product);
+    },
     openEditModal() {
       this.isEditModalOpen = true;
     },
@@ -49,7 +54,7 @@ export default {
       this.$emit('update-product', updatedProduct);
       this.closeEditModal();
     },
-    async handleDeleteMonitor(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;

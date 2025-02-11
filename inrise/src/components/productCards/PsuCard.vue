@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDeletePSU"
-      @edit-product="openEditPsuModal">
+    <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
+      @control-product="handleControl" @edit-product="openEditModal">
       <template #default="{ product }">
         <p>Potência: {{ product.potency || 'Potência não disponível' }}</p>
         <p>Potência Real: {{ product.potencyReal || 'Potência real não disponível' }}</p>
@@ -18,7 +18,7 @@
 <script>
 import ProductCard from './ProductCard.vue';
 import EditPsuModal from '@/components/EditPsuModal.vue';
-import { deletePSU } from '@/api';
+import { deletePSU, controlPSU } from '@/api';
 
 export default {
   name: 'PsuCard',
@@ -42,13 +42,18 @@ export default {
     };
   },
   methods: {
+    async handleControl(product) {
+      await controlPSU(product.id, product.active)
+      alert(product.active ? 'Fonte desativada com sucesso!' : 'Fonte ativada com sucesso!');
+      this.$emit('control-product', product);
+    },
     formatStamp(stamp) {
       return stamp ? stamp.charAt(0).toUpperCase() + stamp.slice(1) : 'Selo não disponível';
     },
     formatModular(modular) {
       return modular ? 'Sim' : 'Não';
     },
-    async handleDeletePSU(product) {
+    async handleDelete(product) {
       if (!product.id) {
         alert('Produto sem ID para exclusão');
         return;
@@ -63,13 +68,11 @@ export default {
         console.error(error);
       }
     },
-    openEditPsuModal() {
+    openEditModal() {
       this.isEditModalOpen = true;
     },
     closeEditModal() {
       this.isEditModalOpen = false;
-      //todo: o reload dá f5 na pagina e isso pode ser um metodo comum pra todos os edits i guess location.reload();
-
     },
     handleSave(updatedProduct) {
       this.$emit('update-product', updatedProduct);
