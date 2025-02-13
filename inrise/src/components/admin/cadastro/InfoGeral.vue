@@ -35,7 +35,7 @@
     <!-- Descrição -->
     <div class="form-group col-span-2">
       <label for="description" class="block mb-1 font-semibold">Descrição</label>
-      <textarea v-model="description" id="description" required class="resize-none w-full h-24 border p-2"></textarea>
+      <textarea v-model="description" id="description" class="resize-none w-full h-24 border p-2"></textarea>
     </div>
   </div>
 </template>

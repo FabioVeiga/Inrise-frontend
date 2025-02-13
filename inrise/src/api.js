@@ -1051,6 +1051,21 @@ export async function editCooler(id, data) {
   }
 }
 
+export async function editPC(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Computer/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar o computador:', error);
+    throw new Error('Erro ao editar o computador');
+  }
+}
 
 export function fetchLandingPage() {
   return apiClient.get('/LandingPage');

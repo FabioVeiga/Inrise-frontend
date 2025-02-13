@@ -16,22 +16,22 @@
         </div>
       </template>
     </ProductCard>
-    <!--
+    
     <EditPcModal v-if="isEditModalOpen" :product="product" @close="closeEditModal" @save="saveProduct" />
-    -->
+    
   </div>
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue';
-//import EditPcModal from '@/components/EditPcModal.vue';
+import EditPcModal from '@/components/EditPcModal.vue';
 import { deletePC, controlPC } from '@/api'; 
 import { fetchMoboById } from '@/api';
 export default {
   name: 'ComputerCard',
   components: {
     ProductCard,
-    //EditPcModal,
+    EditPcModal,
   },
   props: {
     product: {
