@@ -101,16 +101,18 @@
           </div>
         </div>
         <!-- Preço Final -->
-        <div v-if="isAllPartsSelected" class=" h-1/4 flex w-full flex-row justify-between">
-          <div class="text-lg font-semibold">
-            <p>Preço Final: {{ finalPrice }}</p>
-          </div>
-
+        <div class=" h-1/4 flex w-full flex-row justify-between">
           <!-- Submit -->
           <ActionButton :to="{ name: 'ClientPCPartPicker' }" :isNext="true" :isFinish="true"
             @click="validateAndSubmitForm">
             Finalizar Pagamento
           </ActionButton>
+
+          <div v-if="isAllPartsSelected" class="text-lg font-semibold">
+            <p>Preço Final: {{ finalPrice }}</p>
+          </div>
+
+
 
         </div>
       </div>
@@ -183,7 +185,7 @@ export default {
           loadProducts('processador', true),
           loadProducts('placaMae', true),
           loadProducts('gabinete', true),
-          loadProducts('ram'), true,
+          loadProducts('ram', true),
           loadProducts('disco', true),
           loadProducts('placaDeVideo', true),
           loadProducts('psu', true),
