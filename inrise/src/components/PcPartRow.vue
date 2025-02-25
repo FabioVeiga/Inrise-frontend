@@ -1,35 +1,20 @@
 <template>
-  <div>
-    <div class="flex flex-wrap justify-start gap-4">
-      <PcPart
-        v-for="(part, index) in currentParts"
-        :key="index"
-        :name="part.name"
-        :images="part.images"
-        :value="part.valueClassification"
-        :price="part.price"
-        :id="part.id"
-        :selectedPart="localSelectedPart"
-        :partType="partType"
-        @update:selectedPart="updateSelectedPart"
-      />
-    </div>
+    <div>
+        <div class="flex flex-wrap justify-start gap-4">
+            <PcPart v-for="(part, index) in currentParts" :key="index" :name="part.name" :images="part.images"
+                :value="part.valueClassification" :price="part.price" :id="part.id" :selectedPart="localSelectedPart"
+                :partType="partType" @update:selectedPart="updateSelectedPart" />
+        </div>
 
-    <div class="flex justify-between mt-4">
-      <button 
-        class="bg-blue-500 text-white px-4 py-2 rounded" 
-        @click="prevSlide"
-        :disabled="currentIndex === 0">
-        Previous
-      </button>
-      <button 
-        class="bg-blue-500 text-white px-4 py-2 rounded" 
-        @click="nextSlide"
-        :disabled="currentIndex + 3 >= parts.length">
-        Next
-      </button>
+        <div class="flex justify-between mt-4">
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="prevSlide">
+                Previous
+            </button>
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="nextSlide">
+                Next
+            </button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
