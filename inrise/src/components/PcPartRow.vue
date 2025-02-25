@@ -1,53 +1,97 @@
 <template>
+  <div>
     <div class="flex flex-wrap justify-start gap-4">
-        <!-- Loop through a slice of the parts array to render a maximum of 3 objects -->
-        <PcPart v-for="(part, index) in parts.slice(0, 3)" :key="index" :name="part.name" :images="part.images"
-            :value="part.valueClassification" :price="part.price" :id="part.id" :selectedPart="localSelectedPart" :partType="partType"
-            @update:selectedPart="updateSelectedPart" />
+      <PcPart
+        v-for="(part, index) in currentParts"
+        :key="index"
+        :name="part.name"
+        :images="part.images"
+        :value="part.valueClassification"
+        :price="part.price"
+        :id="part.id"
+        :selectedPart="localSelectedPart"
+        :partType="partType"
+        @update:selectedPart="updateSelectedPart"
+      />
     </div>
+
+    <div class="flex justify-between mt-4">
+      <button 
+        class="bg-blue-500 text-white px-4 py-2 rounded" 
+        @click="prevSlide"
+        :disabled="currentIndex === 0">
+        Previous
+      </button>
+      <button 
+        class="bg-blue-500 text-white px-4 py-2 rounded" 
+        @click="nextSlide"
+        :disabled="currentIndex + 3 >= parts.length">
+        Next
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
 import PcPart from './PcPart.vue';
 
 export default {
-    name: 'PcPartRow',
-    components: {
-        PcPart
+  name: 'PcPartRow',
+  components: {
+    PcPart,
+  },
+  props: {
+    partType: {
+      type: String,
+      required: true,
     },
-    props: {
-        partType: { 
-            type: String,
-            required: true
-        },
-        parts: { 
-            type: Array,
-            required: true
-        },
-        selectedParts: {  
-            type: Array,
-            required: true
-        }
+    parts: {
+      type: Array,
+      required: true,
     },
-    data() {
-        return {
-            localSelectedPart: this.selectedParts[0] || null,  
-        };
+    selectedParts: {
+      type: Array,
+      required: true,
     },
-    methods: {
-        updateSelectedPart(updatedPart) {
-            //console.log('Part selected in PcPartRow:', updatedPart);  
-            this.localSelectedPart = updatedPart;
-            this.$emit('update:selectedParts', updatedPart);
-
-            console.log('Updated localSelectedPart in PcPartRow:', this.localSelectedPart);
-        }
-
+  },
+  data() {
+    return {
+      localSelectedPart: this.selectedParts[0] || null,
+      currentIndex: 0, 
+    };
+  },
+  computed: {
+    currentParts() {
+      return this.parts.slice(this.currentIndex, this.currentIndex + 3);
     },
-    watch: {
-        selectedParts(newVal) {
-            this.localSelectedPart = newVal[0] || null;
-        }
-    }
+  },
+  methods: {
+    updateSelectedPart(updatedPart) {
+      this.localSelectedPart = updatedPart;
+      this.$emit('update:selectedParts', updatedPart);
+    },
+    prevSlide() {
+      if (this.currentIndex > 0) {
+        this.currentIndex -= 3; 
+      }
+    },
+    nextSlide() {
+      if (this.currentIndex + 3 < this.parts.length) {
+        this.currentIndex += 3; 
+      }
+    },
+  },
+  watch: {
+    selectedParts(newVal) {
+      this.localSelectedPart = newVal[0] || null;
+    },
+  },
 };
 </script>
+
+<style scoped>
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+</style>
