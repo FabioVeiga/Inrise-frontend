@@ -19,7 +19,7 @@
             <p style="white-space: nowrap" class="text-xl font-semibold">
               Processador
             </p>
-            <PcMenu partType="processor" :parts="processadores" :selectedParts="[selectedParts.processor]"
+            <PcPartRow partType="processor" :parts="processadores" :selectedParts="[selectedParts.processor]"
               @update:selectedParts="selectPart('processor', $event)" />
 
             <!-- Mobo -->
@@ -27,7 +27,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Placa Mãe
               </p>
-              <PcMenu partType="motherBoard" :parts="placasMaeFilter" :selectedParts="[selectedParts.motherBoard]"
+              <PcPartRow partType="motherBoard" :parts="placasMaeFilter" :selectedParts="[selectedParts.motherBoard]"
                 @update:selectedParts="selectPart('motherBoard', $event)" />
             </div>
 
@@ -36,7 +36,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Memória RAM
               </p>
-              <PcMenu partType="memoryRam" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
+              <PcPartRow partType="memoryRam" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
                 @update:selectedParts="selectPart('memoryRam', $event)" />
             </div>
 
@@ -45,7 +45,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Placa de Vídeo
               </p>
-              <PcMenu partType="videoBoard" :parts="placasVideo" :selectedParts="[selectedParts.videoBoard]"
+              <PcPartRow partType="videoBoard" :parts="placasVideo" :selectedParts="[selectedParts.videoBoard]"
                 @update:selectedParts="selectPart('videoBoard', $event)" />
             </div>
 
@@ -54,7 +54,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Disco
               </p>
-              <PcMenu partType="memoryRom" :parts="discos" :selectedParts="[selectedParts.memoryRom]"
+              <PcPartRow partType="memoryRom" :parts="discos" :selectedParts="[selectedParts.memoryRom]"
                 @update:selectedParts="selectPart('memoryRom', $event)" />
             </div>
 
@@ -63,7 +63,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Fonte
               </p>
-              <PcMenu partType="powerSupply" :parts="fontesAlimentacao" :selectedParts="[selectedParts.powerSupply]"
+              <PcPartRow partType="powerSupply" :parts="fontesAlimentacao" :selectedParts="[selectedParts.powerSupply]"
                 @update:selectedParts="selectPart('powerSupply', $event)" />
             </div>
 
@@ -72,7 +72,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Cooler
               </p>
-              <PcMenu partType="cooler" :parts="coolers" :selectedParts="[selectedParts.cooler]"
+              <PcPartRow partType="cooler" :parts="coolers" :selectedParts="[selectedParts.cooler]"
                 @update:selectedParts="selectPart('cooler', $event)" />
             </div>
 
@@ -81,7 +81,7 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Gabinete
               </p>
-              <PcMenu partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
+              <PcPartRow partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
                 @update:selectedParts="selectPart('tower', $event)" />
             </div>
           </form>
@@ -102,7 +102,9 @@
         </div>
         <!-- Preço Final -->
         <div class=" h-1/4 flex w-full flex-row justify-between">
-          <!-- Submit -->
+          <!-- Submit 
+           add aqui o isDisabled baseado no isAllPartsSelected
+          -->
           <ActionButton :to="{ name: 'ClientPCPartPicker' }" :isNext="true" :isFinish="true"
             @click="validateAndSubmitForm">
             Finalizar Pagamento
@@ -121,12 +123,14 @@
       <ActionButton :to="{ name: 'ClientSoftware' }" :isNext="false">
         Página Anterior
       </ActionButton>
+      
     </div>
   </HomeContentView>
 </template>
 
 <script>
-import PcMenu from '@/components/PcMenu.vue';
+//TODO: Ajeitar o actionbutton acima (pra transparencia) e a questão de responsividade
+//import PcMenu from '@/components/PcMenu.vue';
 import { loadProducts } from '@/utils/productUtils';
 import HomeContentView from '../components/HomeContentView.vue';
 import HomeMenu from '../components/HomeMenu.vue';
@@ -135,11 +139,11 @@ import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue';
 import ActionButton from '@/components/ActionButton.vue';
 import { createOrder } from '@/api';
 import Cookies from 'js-cookie';
-
+import PcPartRow from '@/components/PcPartRow.vue';
 export default {
   name: 'ClientPcPartPicker',
   components: {
-    PcMenu, HomeContentView, HomeMenu, HeaderRectanglesLarge, AppBreadcrumbs, ActionButton,
+    PcPartRow, HomeContentView, HomeMenu, HeaderRectanglesLarge, AppBreadcrumbs, ActionButton,
   },
   computed: {
     selectedPartsList() {
