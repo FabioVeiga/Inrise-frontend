@@ -19,6 +19,8 @@ import ClientActivity from '@/screens/ClientActivity.vue';
 import ClientSoftware from '@/screens/ClientSoftware.vue';
 import ClientPCPartPicker from '@/screens/ClientPCPartPicker.vue';
 import ClientOrders from '@/screens/ClientOrders.vue';
+import ClientPcPrebuilt from '@/screens/ClientPcPrebuilt.vue';
+import ClientPcPrebuiltPicker from '@/screens/ClientPcPrebuiltPicker.vue';
 
 const routes = [
   {
@@ -50,6 +52,16 @@ const routes = [
         path: 'orders', 
         name: 'ClientOrders',
         component: ClientOrders
+      },
+      {
+        path: 'picker', 
+        name: 'ClientPcPrebuiltPicker',
+        component: ClientPcPrebuiltPicker
+      },
+      {
+        path: 'prebuilts', 
+        name: 'ClientPcPrebuilt',
+        component: ClientPcPrebuilt
       },
     ]
   },
