@@ -105,7 +105,10 @@
           <!-- Submit 
            add aqui o isDisabled baseado no isAllPartsSelected
           -->
-          <ActionButton :to="{ name: 'ClientPCPartPicker' }" :isNext="true" :isFinish="true"
+          <ActionButton :to="{ name: 'ClientPCPartPicker' }" 
+            :isNext="true" 
+            :isFinish="true"
+            :isDisabled="!isAllPartsSelected"  
             @click="validateAndSubmitForm">
             Finalizar Pagamento
           </ActionButton>
@@ -130,7 +133,6 @@
 
 <script>
 //TODO: Ajeitar o actionbutton acima (pra transparencia) e a questão de responsividade
-//import PcMenu from '@/components/PcMenu.vue';
 import { loadProducts } from '@/utils/productUtils';
 import HomeContentView from '../components/HomeContentView.vue';
 import HomeMenu from '../components/HomeMenu.vue';
