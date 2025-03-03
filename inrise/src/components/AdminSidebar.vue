@@ -19,7 +19,7 @@
           <ul>
             <li><router-link to="/admin/cadastrarSoftwares" class="nav-button">Cadastrar softwares</router-link></li>
             <li><router-link to="/admin/gruposDeSoftware" class="nav-button">Grupos de software</router-link></li>
-            <li><router-link to="/admin/cadastroDeCategorias" class="nav-button">Cadastro de categorias</router-link></li>
+            <li><router-link to="/admin/cadastroDeCategorias" class="nav-button">Cadastro de grupos</router-link></li>
           </ul>
         </div>
         <!-- Pedidos Category
