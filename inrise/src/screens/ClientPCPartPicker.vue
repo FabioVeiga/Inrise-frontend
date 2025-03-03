@@ -353,17 +353,18 @@ export default {
 }
 
 .content {
-  width: 60%;
+  width: 70%;
   overflow-y: auto;
   padding: 20px;
 }
 
 .modal {
-  width: 40%;
+  width: 30%;
   background-color: black;
   color: white;
   position: sticky;
   top: 0;
+  right:0;
   height: 100vh;
   padding: 20px;
   display: flex;

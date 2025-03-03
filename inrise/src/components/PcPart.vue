@@ -10,7 +10,7 @@
 
         <!-- Name and price -->
         <p class="text-2xl font-bold my-2">{{ name.toUpperCase() }}</p>
-        <p class="text-lg font-semibold">{{ formatCurrency(price.finalPrice) }}</p>
+        <!--<p class="text-lg font-semibold">{{ formatCurrency(price.finalPrice) }}</p>-->
     </div>
 </template>
 

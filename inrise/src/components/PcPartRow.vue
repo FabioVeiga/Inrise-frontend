@@ -1,17 +1,23 @@
 <template>
-    <div>
-        <div class="flex flex-wrap justify-start gap-4">
-            <PcPart v-for="(part, index) in currentParts" :key="index" :name="part.name" :images="part.images"
-                :value="part.valueClassification" :price="part.price" :id="part.id" :selectedPart="localSelectedPart"
-                :partType="partType" @update:selectedPart="updateSelectedPart" />
-        </div>
-
-        <div class="flex justify-between mt-4">
-            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="prevSlide">
-                Anterior
+    <div class="relative">
+        <div class="flex">
+            <!-- Left Chevron Button (positioned absolutely at the left) -->
+            <button type="button"
+                class="absolute left-0 top-1/2 transform -translate-y-1/2 flex items-center justify-center text-gray-800 border-2 border-gray-800 rounded-full w-12 h-12 focus:outline-none bg-white hover:bg-gray-100"
+                @click="prevSlide">
+                <i class="fas fa-chevron-left"></i>
             </button>
-            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="nextSlide">
-                Próximo
+
+            <div class="flex flex-wrap justify-between w-[100%] px-20">
+                <PcPart v-for="(part, index) in currentParts" :key="index" :name="part.name" :images="part.images"
+                    :value="part.valueClassification" :price="part.price" :id="part.id"
+                    :selectedPart="localSelectedPart" :partType="partType" @update:selectedPart="updateSelectedPart" />
+            </div>
+
+            <button type="button"
+                class="absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center justify-center text-gray-800 border-2 border-gray-800 rounded-full w-12 h-12 focus:outline-none hover:bg-gray-100"
+                @click="nextSlide">
+                <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
@@ -88,10 +94,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-</style>
