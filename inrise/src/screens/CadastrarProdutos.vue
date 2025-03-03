@@ -6,7 +6,7 @@
       <select v-model="productType" id="productType" @change="resetForm" required>
         <option value="memoryRam">Memória RAM</option>
         <option value="powerSupply">Fonte</option>
-        <option value="monitorScreen">Monitor</option>
+        <option value="monitorScreen">Pre-Build</option>
         <option value="videoBoard">Placa de Vídeo</option>
         <option value="processor">Processador</option>
         <option value="tower">Gabinete</option>
