@@ -1,10 +1,10 @@
 <template>
   <div class="create-category-container flex flex-col justify-start items-center min-h-[400px]">
-    <h2 class="text-4xl font-bold my-8">Criar Categoria de Software</h2>
+    <h2 class="text-4xl font-bold my-8">Criar Grupo de Software</h2>
 
     <form @submit.prevent="submitCategory" class="space-y-4">
       <div class="form-group flex flex-col justify-between items-center">
-        <label for="categoryName" class="block mb-2 font-semibold">Nome da Categoria</label>
+        <label for="categoryName" class="block mb-2 font-semibold">Nome do Grupo</label>
         <input
           v-model="categoryName"
           id="categoryName"
@@ -17,7 +17,7 @@
 
       <div class="flex space-x-4 justify-center">
         <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
-          Criar Categoria
+          Criar Grupo
         </button>
       </div>
     </form>
