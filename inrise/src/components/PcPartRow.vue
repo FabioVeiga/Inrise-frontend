@@ -7,12 +7,10 @@
         </div>
 
         <div class="flex justify-between mt-4">
-            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="prevSlide"
-                >
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="prevSlide">
                 Anterior
             </button>
-            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="nextSlide"
-                >
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" @click="nextSlide">
                 Próximo
             </button>
         </div>
@@ -44,12 +42,23 @@ export default {
     data() {
         return {
             localSelectedPart: this.selectedParts[0] || null,
-            currentIndex: 0, 
+            currentIndex: 0,
         };
     },
     computed: {
         currentParts() {
             return this.parts.slice(this.currentIndex, this.currentIndex + 3);
+
+            /*@TODO: Tomando um undefined se vier a partir da pagina anterior com o codigo abaixo,
+            mas ele funciona normalmente se eu so der f5
+            currentParts() {
+            
+            return [
+                this.parts[this.currentIndex],
+                this.parts[(this.currentIndex + 1) % this.parts.length],
+                this.parts[(this.currentIndex + 2) % this.parts.length]
+            ];
+        }, */
         },
     },
     methods: {
@@ -59,7 +68,7 @@ export default {
         },
         prevSlide() {
             if (this.currentIndex === 0) {
-                this.currentIndex = this.parts.length - 3;
+                this.currentIndex = this.parts.length - 3; //-2
             } else {
                 this.currentIndex -= 1;
             }
