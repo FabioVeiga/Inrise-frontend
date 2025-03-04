@@ -32,6 +32,9 @@ export default {
       if (tab === 'computadores') {
         this.$router.push({ name: 'ClientComputers' });
       }
+      if (tab === 'perifericos') {
+        this.$router.push({ name: 'ClientPeripherals' });
+      }
     }
   }
 };
