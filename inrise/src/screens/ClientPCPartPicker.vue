@@ -88,53 +88,67 @@
             <!-- Periféricos -->
             <div v-if="isAllPartsSelected">
               <!-- Kits -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Conjuntos
-              </p>
-              <PcPartRow partType="kit" :parts="monitores" :selectedParts="[selectedParts.kit]"
-                @update:selectedParts="selectPart('kit', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Conjuntos
+                </p>
+                <PcPartRow partType="kit" :parts="monitores" :selectedParts="[selectedParts.kit]"
+                  @update:selectedParts="selectPart('kit', $event)" />
+              </div>
 
               <!-- Keyboards -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Teclados
-              </p>
-              <PcPartRow partType="keyboard" :parts="monitores" :selectedParts="[selectedParts.keyboard]"
-                @update:selectedParts="selectPart('keyboard', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Teclados
+                </p>
+                <PcPartRow partType="keyboard" :parts="monitores" :selectedParts="[selectedParts.keyboard]"
+                  @update:selectedParts="selectPart('keyboard', $event)" />
+              </div>
 
               <!-- Mouses -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Ratos
-              </p>
-              <PcPartRow partType="mouse" :parts="monitores" :selectedParts="[selectedParts.mouse]"
-                @update:selectedParts="selectPart('mouse', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Ratos
+                </p>
+                <PcPartRow partType="mouse" :parts="monitores" :selectedParts="[selectedParts.mouse]"
+                  @update:selectedParts="selectPart('mouse', $event)" />
+              </div>
 
               <!-- Monitors -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Monitores
-              </p>
-              <PcPartRow partType="monitor" :parts="monitores" :selectedParts="[selectedParts.monitor]"
-                @update:selectedParts="selectPart('monitor', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Monitores
+                </p>
+                <PcPartRow partType="monitor" :parts="monitores" :selectedParts="[selectedParts.monitor]"
+                  @update:selectedParts="selectPart('monitor', $event)" />
+              </div>
 
               <!-- Headsets -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Auscultadores
-              </p>
-              <PcPartRow partType="headset" :parts="monitores" :selectedParts="[selectedParts.headset]"
-                @update:selectedParts="selectPart('headset', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Auscultadores
+                </p>
+                <PcPartRow partType="headset" :parts="monitores" :selectedParts="[selectedParts.headset]"
+                  @update:selectedParts="selectPart('headset', $event)" />
+              </div>
 
               <!-- Mousepads -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Tapetes
-              </p>
-              <PcPartRow partType="mousepad" :parts="monitores" :selectedParts="[selectedParts.mousepad]"
-                @update:selectedParts="selectPart('mousepad', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Tapetes
+                </p>
+                <PcPartRow partType="mousepad" :parts="monitores" :selectedParts="[selectedParts.mousepad]"
+                  @update:selectedParts="selectPart('mousepad', $event)" />
+              </div>
 
               <!-- Chairs -->
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Cadeiras
-              </p>
-              <PcPartRow partType="chair" :parts="monitores" :selectedParts="[selectedParts.chair]"
-                @update:selectedParts="selectPart('chair', $event)" />
+              <div v-if="monitores.length">
+                <p style="white-space: nowrap" class="text-xl font-semibold">
+                  Cadeiras
+                </p>
+                <PcPartRow partType="chair" :parts="monitores" :selectedParts="[selectedParts.chair]"
+                  @update:selectedParts="selectPart('chair', $event)" />
+              </div>
             </div>
           </form>
         </div>
