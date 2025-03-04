@@ -1,7 +1,7 @@
 <template>
 
 
-  <div class="landing-page font-spaceGrotesk">
+  <div class="landing-page">
     <!-- Menu Preto -->
     <nav class="navbar flex justify-between w-full h-[100px] bg-black text-xl items-center my-9 px-0 lg:px-16">
       <!-- Logo à esquerda -->
@@ -454,7 +454,7 @@ export default {
 
 <style scoped>
 .landing-page {
-  font-family: 'Space Grotesk', sans-serif;
+   /*font-family: 'Space Grotesk', sans-serif;*/
 }
 
 .navbar ul {

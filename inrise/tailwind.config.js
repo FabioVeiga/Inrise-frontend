@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         spaceGrotesk: ['"Space Grotesk"', 'sans-serif'],
+        inter: ['"Inter"', 'sans-serif'],
       },
     },
   },
