@@ -5,7 +5,7 @@
         &times;
       </button>
 
-      <h2 class="text-2xl font-semibold mb-4 text-center">Editar Memória RAM</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-center">Editar Personalizado</h2>
 
       <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-4">
         <!-- Componente InfoGeral -->

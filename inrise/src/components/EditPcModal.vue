@@ -1,7 +1,7 @@
 <template>
   <div class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50" @click.self="closeModal">
     <div class="bg-white relative p-6 rounded-lg max-w-2xl w-full">
-      <h2 class="text-2xl font-bold mb-4">Editar PC</h2>
+      <h2 class="text-2xl font-bold mb-4">Editar Personalizado</h2>
       <button @click="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">
         &times;
       </button>
@@ -153,7 +153,7 @@
             Cancelar
           </button>
           <button type="submit" class="w-full md:w-auto bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
-            Salvar Memória RAM
+            Salvar Personalizado
           </button>
         </div>
       </form>
