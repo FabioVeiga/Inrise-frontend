@@ -11,29 +11,29 @@
         <!-- Componente InfoGeral -->
         <InfoGeral :form-data="editedProduct" @update-form-data="updateFormData" :product-type="'monitorScreen'" />
 
-        <!-- Informações Específicas do Monitor -->
+        <!-- Informações Específicas do Monitor
         <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
           <h2 class="col-span-2 text-2xl font-bold">Informações do Monitor</h2>
 
-          <!-- Dimensão -->
+          <- Dimensão 
           <div class="form-group">
             <label for="dimesion" class="block mb-1 font-semibold">Dimensão (pol)</label>
             <input type="text" v-model="editedProduct.dimesion" id="dimesion" required class="w-full border p-2" />
           </div>
 
-          <!-- Taxa de Atualização -->
+          <- Taxa de Atualização 
           <div class="form-group">
             <label for="updateVolume" class="block mb-1 font-semibold">Taxa de Atualização (Hz)</label>
             <input type="number" v-model="editedProduct.updateVolume" id="updateVolume" required
               class="w-full border p-2" />
           </div>
 
-          <!-- Qualidade -->
+          <- Qualidade 
           <div class="form-group">
             <label for="quality" class="block mb-1 font-semibold">Qualidade</label>
             <input type="text" v-model="editedProduct.quality" id="quality" required class="w-full border p-2" />
           </div>
-        </div>
+        </div>-->
 
         <!-- Componente InfoPreco -->
         <InfoPreco :form-data="editedProduct" @update-form-data="updateFormData" />
@@ -45,7 +45,7 @@
             Cancelar
           </button>
           <button type="submit" class="w-full md:w-auto bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
-            Salvar Memória RAM
+            Salvar Pre-build
           </button>
         </div>
       </form>
