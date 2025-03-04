@@ -513,6 +513,16 @@ export async function registerPC(data) {
 
   return apiClient.post('/Computer', data, { headers });
 }
+//TODO: Ajeitar isso pra perifericos finais
+
+export async function registerPeripheral(data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+
+  return apiClient.post('/Peripheral', data, { headers });
+}
 
 //Fetch All
 export async function fetchAllRam(user) {
@@ -1064,6 +1074,23 @@ export async function editPC(id, data) {
   } catch (error) {
     console.error('Erro ao editar o computador:', error);
     throw new Error('Erro ao editar o computador');
+  }
+}
+//TODO: Ajeitar isso pra perifericos finais
+
+export async function editPeripheral(id, data) {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {};
+
+  try {
+    const response = await apiClient.put(`/Peripheral/${id}`, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao editar a fonte:', error);
+    throw new Error('Erro ao editar a fonte');
   }
 }
 

@@ -3,13 +3,13 @@ import {
   fetchAllGpu, fetchAllPsu, fetchAllCooler, fetchAllMonitor, fetchAllPC,
 } from '@/api';
 
-export async function loadProducts(productType, user = null) { 
+export async function loadProducts(productType, user = null) {
   if (productType === 'select') {
     return [];
   }
 
   let response;
-  
+
   try {
     switch (productType) {
       case 'ram':
@@ -41,6 +41,10 @@ export async function loadProducts(productType, user = null) {
         break;
       case 'placaMae':
         response = await fetchAllMobo(user);
+        break;
+        //TODO: Ajeitar isso pra perifericos finais
+      case 'perifericos':
+        response = await fetchAllMonitor(user);
         break;
       default:
         throw new Error('Tipo de produto não suportado');
