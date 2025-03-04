@@ -1,7 +1,6 @@
 <template>
     <div class="relative">
         <div class="flex">
-            <!-- Left Chevron Button (positioned absolutely at the left) -->
             <button type="button"
                 class="absolute left-0 top-1/2 transform -translate-y-1/2 flex items-center justify-center text-gray-800 border-2 border-gray-800 rounded-full w-12 h-12 focus:outline-none bg-white hover:bg-gray-100"
                 @click="prevSlide">

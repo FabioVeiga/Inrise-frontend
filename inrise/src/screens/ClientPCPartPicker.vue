@@ -36,12 +36,21 @@
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Memória RAM
               </p>
-              <PcPartRow partType="memoryRam" :parts="memoriasRam" :selectedParts="[selectedParts.memoryRam]"
+              <PcPartRow partType="memoryRam" :parts="memoriasRamFilter" :selectedParts="[selectedParts.memoryRam]"
                 @update:selectedParts="selectPart('memoryRam', $event)" />
             </div>
 
+            <!-- Coolers -->
+            <div v-if="selectedParts.memoryRam && coolersFilter.length">
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Cooler
+              </p>
+              <PcPartRow partType="cooler" :parts="coolersFilter" :selectedParts="[selectedParts.cooler]"
+                @update:selectedParts="selectPart('cooler', $event)" />
+            </div>
+
             <!-- GPU -->
-            <div v-if="selectedParts.memoryRam">
+            <div v-if="selectedParts.cooler">
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Placa de Vídeo
               </p>
@@ -50,7 +59,7 @@
             </div>
 
             <!-- Disco -->
-            <div v-if="selectedParts.memoryRam">
+            <div v-if="selectedParts.cooler">
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Disco
               </p>
@@ -59,7 +68,7 @@
             </div>
 
             <!-- PSU -->
-            <div v-if="selectedParts.memoryRam">
+            <div v-if="selectedParts.cooler">
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Fonte
               </p>
@@ -67,17 +76,10 @@
                 @update:selectedParts="selectPart('powerSupply', $event)" />
             </div>
 
-            <!-- Coolers -->
-            <div v-if="selectedParts.memoryRam">
-              <p style="white-space: nowrap" class="text-xl font-semibold">
-                Cooler
-              </p>
-              <PcPartRow partType="cooler" :parts="coolers" :selectedParts="[selectedParts.cooler]"
-                @update:selectedParts="selectPart('cooler', $event)" />
-            </div>
+
 
             <!-- Gabinete -->
-            <div v-if="selectedParts.memoryRam">
+            <div v-if="selectedParts.cooler">
               <p style="white-space: nowrap" class="text-xl font-semibold">
                 Gabinete
               </p>
@@ -128,7 +130,7 @@
       <ActionButton :to="{ name: 'ClientSoftware' }" :isNext="false">
         Página Anterior
       </ActionButton>
-      
+
     </div>
   </HomeContentView>
 </template>
@@ -177,10 +179,12 @@ export default {
       placasMaeFilter: [],
       gabinetes: [],
       memoriasRam: [],
+      memoriasRamFilter: [],
       discos: [],
       placasVideo: [],
       fontesAlimentacao: [],
       coolers: [],
+      coolersFilter: [],
       monitores: [],
       finalPrice: 0
     };
@@ -240,6 +244,7 @@ export default {
         );
         this.selectedSocket = selectedCpu ? selectedCpu.socket : null;
         this.filterMotherboardsBySocket();
+        this.filterCoolersBySocket();
       }
 
       if (partType === 'motherBoard') {
@@ -281,6 +286,16 @@ export default {
         //console.log("Filtered RAM:", this.memoriasRamFilter);
       } else {
         this.memoriasRamFilter = this.memoriasRam;
+      }
+    },
+
+    filterCoolersBySocket() {
+      if (this.selectedSocket) {
+        this.coolersFilter = this.coolers.filter(
+          (cooler) => cooler.refrigeration === this.selectedSocket
+        );
+      } else {
+        this.coolersFilter = this.coolers;
       }
     },
 
@@ -366,7 +381,7 @@ export default {
   color: white;
   position: sticky;
   top: 0;
-  right:0;
+  right: 0;
   height: 100vh;
   padding: 20px;
   display: flex;
