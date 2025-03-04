@@ -14,6 +14,7 @@
         <option value="memoryRom">Disco</option>
         <option value="computer">Computador</option>
         <option value="motherBoard">Placa Mãe</option>
+        <option value="peripheral">Periférico</option>
       </select>
     </div>
 
@@ -28,6 +29,7 @@
       <CadastroDisco v-if="productType === 'memoryRom'" />
       <CadastroPC v-if="productType === 'computer'" />
       <CadastroMobo v-if="productType === 'motherBoard'" />
+      <CadastroPerifericos v-if="productType === 'peripheral'" />
     </div>
   </div>
 </template>
@@ -43,6 +45,7 @@ import CadastroCooler from './CadastroCooler.vue';
 import CadastroDisco from './CadastroDisco.vue';
 import CadastroPC from './CadastroPC.vue';
 import CadastroMobo from './CadastroMobo.vue';
+import CadastroPerifericos from './CadastroPerifericos.vue';
 
 export default {
   name: 'CadastrarProduto',
@@ -56,7 +59,8 @@ export default {
     CadastroCooler,
     CadastroDisco,
     CadastroPC,
-    CadastroMobo
+    CadastroMobo,
+    CadastroPerifericos
   },
   data() {
     return {

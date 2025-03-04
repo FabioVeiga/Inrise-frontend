@@ -16,6 +16,8 @@
         <option value="disco">Disco</option>
         <option value="computador">Personalizado</option>
         <option value="placaMae">Placa Mãe</option>
+        <option value="perifericos">Periféricos</option>
+
       </select>
     </div>
 
@@ -131,6 +133,8 @@ export default {
           return 'ComputerCard';
         case 'placaMae':
           return 'MoboCard';
+        case 'perifericos':
+          return 'MonitorCard';
         default:
           return null;
       }
