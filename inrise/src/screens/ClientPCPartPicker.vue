@@ -76,8 +76,6 @@
                 @update:selectedParts="selectPart('powerSupply', $event)" />
             </div>
 
-
-
             <!-- Gabinete -->
             <div v-if="selectedParts.cooler">
               <p style="white-space: nowrap" class="text-xl font-semibold">
@@ -86,13 +84,63 @@
               <PcPartRow partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
                 @update:selectedParts="selectPart('tower', $event)" />
             </div>
-            <!-- Periféricos -->
 
+            <!-- Periféricos -->
+            <div v-if="isAllPartsSelected">
+              <!-- Kits -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Conjuntos
+              </p>
+              <PcPartRow partType="kit" :parts="monitores" :selectedParts="[selectedParts.kit]"
+                @update:selectedParts="selectPart('kit', $event)" />
+
+              <!-- Keyboards -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Teclados
+              </p>
+              <PcPartRow partType="keyboard" :parts="monitores" :selectedParts="[selectedParts.keyboard]"
+                @update:selectedParts="selectPart('keyboard', $event)" />
+
+              <!-- Mouses -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Ratos
+              </p>
+              <PcPartRow partType="mouse" :parts="monitores" :selectedParts="[selectedParts.mouse]"
+                @update:selectedParts="selectPart('mouse', $event)" />
+
+              <!-- Monitors -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Monitores
+              </p>
+              <PcPartRow partType="monitor" :parts="monitores" :selectedParts="[selectedParts.monitor]"
+                @update:selectedParts="selectPart('monitor', $event)" />
+
+              <!-- Headsets -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Auscultadores
+              </p>
+              <PcPartRow partType="headset" :parts="monitores" :selectedParts="[selectedParts.headset]"
+                @update:selectedParts="selectPart('headset', $event)" />
+
+              <!-- Mousepads -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Tapetes
+              </p>
+              <PcPartRow partType="mousepad" :parts="monitores" :selectedParts="[selectedParts.mousepad]"
+                @update:selectedParts="selectPart('mousepad', $event)" />
+
+              <!-- Chairs -->
+              <p style="white-space: nowrap" class="text-xl font-semibold">
+                Cadeiras
+              </p>
+              <PcPartRow partType="chair" :parts="monitores" :selectedParts="[selectedParts.chair]"
+                @update:selectedParts="selectPart('chair', $event)" />
+            </div>
           </form>
         </div>
       </div>
-      <!-- Modal de Partes  -->
 
+      <!-- Modal de Partes -->
       <div class="modal flex flex-col justify-between">
         <div class="h-3/4">
           <div>
@@ -109,31 +157,26 @@
           <!-- Submit 
            add aqui o isDisabled baseado no isAllPartsSelected
           -->
-          <ActionButton :to="{ name: 'ClientPCPartPicker' }" 
-            :isNext="true" 
-            :isFinish="true"
-            :isDisabled="!isAllPartsSelected"  
-            @click="validateAndSubmitForm">
+          <ActionButton :to="{ name: 'ClientPCPartPicker' }" :isNext="true" :isFinish="true"
+            :isDisabled="!isAllPartsSelected" @click="validateAndSubmitForm">
             Finalizar Pagamento
           </ActionButton>
 
           <div v-if="isAllPartsSelected" class="text-lg font-semibold">
             <p>Preço Final: {{ finalPrice }}</p>
           </div>
-
-
-
         </div>
       </div>
     </div>
+
     <div class="flex justify-between w-full max-w-[1366px]">
       <ActionButton :to="{ name: 'ClientSoftware' }" :isNext="false">
         Página Anterior
       </ActionButton>
-
     </div>
   </HomeContentView>
 </template>
+
 
 <script>
 //TODO: Ajeitar o actionbutton acima (pra transparencia) e a questão de responsividade
@@ -153,13 +196,31 @@ export default {
   },
   computed: {
     selectedPartsList() {
-      return Object.values(this.selectedParts).filter(part => part).map(part => part.name);
+      return Object.values(this.selectedParts)
+        .filter(part => part)
+        .map(part => part.name);
     },
     isAllPartsSelected() {
-      const missingParts = Object.keys(this.selectedParts).filter(partType => !this.selectedParts[partType]);
+      const requiredParts = [
+        'processor',
+        'motherBoard',
+        'memoryRam',
+        'videoBoard',
+        'memoryRom',
+        'powerSupply',
+        'cooler',
+        'tower'
+      ];
+
+      if (this.isPeripheralSelectionRequired) {
+        requiredParts.push('kit', 'keyboard', 'mouse', 'monitor', 'headset', 'mousepad', 'chair');
+      }
+
+      const missingParts = requiredParts.filter(partType => !this.selectedParts[partType]);
       return missingParts.length === 0;
     }
   },
+
   data() {
     return {
       loading: false,
@@ -172,8 +233,14 @@ export default {
         powerSupply: null,
         cooler: null,
         tower: null,
+        kit: null,
+        keyboard: null,
+        mouse: null,
+        monitor: null,
+        headset: null,
+        mousepad: null,
+        chair: null,
       },
-      cpuSocket: null,
       processadores: [],
       placasMae: [],
       placasMaeFilter: [],
@@ -185,10 +252,17 @@ export default {
       fontesAlimentacao: [],
       coolers: [],
       coolersFilter: [],
+      kits: [],
+      keyboards: [],
+      mouses: [],
       monitores: [],
+      headsets: [],
+      mousepads: [],
+      chairs: [],
       finalPrice: 0
     };
   },
+
   methods: {
     async fetchData() {
       this.loading = true;
