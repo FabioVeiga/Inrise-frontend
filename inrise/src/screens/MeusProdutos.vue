@@ -8,13 +8,13 @@
         <option value="select">Selecione uma opção</option>
         <option value="ram">Memória RAM</option>
         <option value="psu">Fonte</option>
-        <option value="monitor">Monitor</option>
+        <option value="monitor">Pre-build</option>
         <option value="placaDeVideo">Placa de Vídeo</option>
         <option value="processador">Processador</option>
         <option value="gabinete">Gabinete</option>
         <option value="cooler">Cooler</option>
         <option value="disco">Disco</option>
-        <option value="computador">Computador</option>
+        <option value="computador">Personalizado</option>
         <option value="placaMae">Placa Mãe</option>
       </select>
     </div>

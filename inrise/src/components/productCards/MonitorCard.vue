@@ -1,11 +1,11 @@
 <template>
   <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
     @control-product="handleControl" @edit-product="openEditModal">
-    <template #default="{ product }">
+    <!-- <template #default="{ product }">
       <p>Dimensão: {{ product.dimesion ? product.dimesion + ' "' : 'Dimensão não disponível' }}</p>
       <p>Frequência: {{ product.updateVolume ? product.updateVolume + ' Hz' : 'Frequência não disponível' }}</p>
       <p>Resolução: {{ product.quality || 'Resolução não disponível' }}</p>
-    </template>
+    </template> -->
   </ProductCard>
 
   <!-- Modal de Edição de Monitor -->
