@@ -3,7 +3,7 @@
   @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
       <p>Ar: {{ product.air }}</p>
-      <p>Refrigeração: {{ product.refrigeration }}</p>
+      <p>Socket: {{ product.refrigeration }}</p>
       <p>Ventoinhas: {{ product.fanQuantity }}</p>
       <p>Dimensões: {{ product.dimension }} mm</p>
     </template>

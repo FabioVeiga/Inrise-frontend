@@ -22,9 +22,9 @@
             <input type="text" v-model="editedProduct.air" id="air" required class="w-full border p-2" />
           </div>
 
-          <!-- Tipo de Refrigeração -->
+          <!-- Socket do Cooler -->
           <div class="form-group">
-            <label for="refrigeration" class="block mb-1 font-semibold">Refrigeração</label>
+            <label for="refrigeration" class="block mb-1 font-semibold">Socket</label>
             <input type="text" v-model="editedProduct.refrigeration" id="refrigeration" required
               class="w-full border p-2" />
           </div>

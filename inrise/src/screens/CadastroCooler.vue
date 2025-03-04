@@ -22,7 +22,7 @@
   
           <!-- Tipo de Refrigeração -->
           <div class="form-group">
-            <label for="refrigeration" class="block mb-1 font-semibold">Refrigeração</label>
+            <label for="refrigeration" class="block mb-1 font-semibold">Socket</label>
             <input
               type="text"
               v-model="formData.refrigeration"
