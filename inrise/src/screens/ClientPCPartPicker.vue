@@ -84,6 +84,8 @@
               <PcPartRow partType="tower" :parts="gabinetes" :selectedParts="[selectedParts.tower]"
                 @update:selectedParts="selectPart('tower', $event)" />
             </div>
+            <!-- Periféricos -->
+
           </form>
         </div>
       </div>
