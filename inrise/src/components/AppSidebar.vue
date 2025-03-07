@@ -1,13 +1,15 @@
 <template>
   <div class="sidebar">
-    <img src="@/assets/InRise logo.png" alt="Logo" class="logo">
+    <!-- Logo wrapped in router-link to navigate to /client/computadores -->
+    <router-link to="/client/computadores">
+      <img src="@/assets/InRise logo.png" alt="Logo" class="logo">
+    </router-link>
     <UserAuthButton :isLoggedIn="isLoggedIn" @open-user-auth-modal="openUserAuthModal"
       @auth-changed="handleAuthChanged" />
 
     <UserButton label="Home" icon="fas fa-home" targetRoute="/client" />
 
     <UserButton v-if="isLoggedIn" label="Pedidos" icon="fas fa-box" targetRoute="/client/orders" />
-
   </div>
 </template>
 

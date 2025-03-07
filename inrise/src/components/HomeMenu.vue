@@ -2,6 +2,9 @@
   <nav class="home-menu">
     <ul>
       <li :class="{ 'active': activeTab === 'computadores' }">
+        <a @click="changeTab('configurador')">CONFIGURADOR</a>
+      </li>
+      <li :class="{ 'active': activeTab === 'computadores' }">
         <a @click="changeTab('computadores')">COMPUTADORES</a>
       </li>
       <li :class="{ 'active': activeTab === 'perifericos' }">
@@ -29,8 +32,11 @@ export default {
     changeTab(tab) {
       console.log("Clicked:", tab, this.activeTab);
       this.activeTab = tab;
-      if (tab === 'computadores') {
+      if (tab === 'configurador') {
         this.$router.push({ name: 'ClientComputers' });
+      }
+      if (tab === 'computadores') {
+        this.$router.push({ name: 'ClientPcPrebuiltPicker' });
       }
       if (tab === 'perifericos') {
         this.$router.push({ name: 'ClientPeripherals' });
