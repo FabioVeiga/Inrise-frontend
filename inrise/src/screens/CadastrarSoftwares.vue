@@ -16,12 +16,11 @@
         <input type="text" v-model="formData.name" id="softwareName" required class="w-full border p-2" />
       </div>
 
-      <!-- Categoria do Software -->
-      <!-- Categoria do Software -->
+      <!-- Grupo do Software -->
       <div class="form-group">
-        <label for="category" class="block mb-1 font-semibold">Categoria</label>
+        <label for="category" class="block mb-1 font-semibold">Grupo</label>
         <select v-model="formData.categoryId" id="category" required class="w-full border p-2" @change="logCategoryId">
-          <option value="" disabled>Selecione uma categoria</option>
+          <option value="" disabled>Selecione um Grupo</option>
           <option v-for="category in categories.items" :key="category.id" :value="category.id">
             {{ category.name }}
           </option>
