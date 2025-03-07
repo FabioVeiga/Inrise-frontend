@@ -5,7 +5,7 @@
     <div class="form-group my-8">
       <select class="px-4 w-52 h-12" v-model="productType" id="productType" @change="loadProducts" required
         :disabled="loading">
-        <option value="select">Selecione uma opção</option>
+        <option value="select" disabled>Selecione uma opção</option>
         <option value="ram">Memória RAM</option>
         <option value="psu">Fonte</option>
         <option value="monitor">Pre-build</option>
@@ -16,7 +16,7 @@
         <option value="disco">Disco</option>
         <option value="computador">Personalizado</option>
         <option value="placaMae">Placa Mãe</option>
-        <option value="perifericos">Periféricos</option>
+        <!--<option value="perifericos">Periféricos</option>-->
 
       </select>
     </div>
