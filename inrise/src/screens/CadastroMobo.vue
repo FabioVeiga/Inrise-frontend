@@ -38,12 +38,6 @@
           <label for="socketM2" class="block mb-1 font-semibold">Socket M.2</label>
           <input type="text" v-model="formData.socketM2" id="socketM2" required class="w-full border p-2" />
         </div>
-
-        <!-- Descrição -->
-        <div class="form-group">
-          <label for="description" class="block mb-1 font-semibold">Descrição</label>
-          <textarea v-model="formData.description" id="description" required class="w-full border p-2"></textarea>
-        </div>
       </div>
 
       <!-- Componente de Preço -->
