@@ -115,14 +115,21 @@ export default {
       const CA = porcentageADMCost / 100;
       const CF = porcentageFixedCost / 100;
       const L = porcentageProfit / 100;
-      return (costPrice * (1 + CA + CF)) * (1 + L);
+      const subtotal = (costPrice * (1 + CA + CF)) * (1 + L);
+      return this.roundToTwoDecimals(subtotal);
     },
     finalPrice() {
       const { subtotal, iva } = this;
       const tax = subtotal * (iva / 100);
       const subtotalWithTax = subtotal + tax;
       const stripeFee = 0.25 + 0.015 * subtotalWithTax;
-      return subtotalWithTax + stripeFee;
+      const finalPrice = subtotalWithTax + stripeFee;
+      return this.roundToTwoDecimals(finalPrice);
+    },
+  },
+  methods: {
+    roundToTwoDecimals(value) {
+      return parseFloat(value.toFixed(2));
     },
   },
   watch: {
