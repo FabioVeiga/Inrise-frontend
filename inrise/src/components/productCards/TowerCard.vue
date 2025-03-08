@@ -2,7 +2,7 @@
   <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
     @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
-      <p>Tamanho: {{ product.dimesion || 'Tamanho não disponível' }}</p>
+      <p>Form Factor: {{ getTowerLabel(product.dimesion) || 'Tamanho não disponível' }}</p>
       <p>Max Ventoinhas: {{ product.maxFans || 'Max. Ventoinhas não disponível' }}</p>
     </template>
   </ProductCard>
@@ -42,6 +42,15 @@ export default {
       await controlTower(product.id, product.active)
       alert(product.active ? 'Gabinete desativado com sucesso!' : 'Gabinete ativado com sucesso!');
       this.$emit('control-product', product);
+    },
+    getTowerLabel(towerType) {
+      const labels = {
+        'microatx': 'Micro ATX',
+        'miniatx': 'Mini ATX',
+        'atx': 'ATX',
+
+      };
+      return labels[towerType] || 'Inválido';
     },
     openEditModal() {
       this.isEditModalOpen = true;

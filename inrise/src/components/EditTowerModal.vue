@@ -16,10 +16,17 @@
         <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
           <h2 class="col-span-2 text-2xl font-bold">Informações do Gabinete</h2>
 
-          <!-- Dimensão -->
+          <!-- Form Factor -->
           <div class="form-group">
-            <label for="dimesion" class="block mb-1 font-semibold">Dimensão</label>
-            <input type="text" v-model="editedProduct.dimesion" id="dimesion" required class="w-full border p-2" />
+            <label for="dimesion" class="block mb-1 font-semibold">Form Factor</label>
+
+            <select class="w-full border p-2" v-model="editedProduct.dimesion" id="air" @change="loadProducts" required
+              :disabled="loading">
+              <option value="select" disabled>Selecione uma opção</option>
+              <option value="microatx">Micro-ATX</option>
+              <option value="miniatx">Mini-ATX</option>
+              <option value="atx">ATX</option>
+            </select>
           </div>
 
           <!-- Máximo de Ventoinhas -->
