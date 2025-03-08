@@ -53,12 +53,7 @@
             <input type="text" v-model="editedProduct.socketM2" id="socketM2" required class="w-full border p-2" />
           </div>
 
-          <!-- Descrição -->
-          <div class="form-group">
-            <label for="description" class="block mb-1 font-semibold">Descrição</label>
-            <textarea v-model="editedProduct.description" id="description" required
-              class="w-full border p-2"></textarea>
-          </div>
+  
         </div>
 
         <!-- Componente InfoPreco -->
