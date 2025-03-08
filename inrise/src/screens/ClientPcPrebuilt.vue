@@ -11,8 +11,8 @@
                 <div v-if="loading" class="text-center text-xl text-gray-500">
                     <p>Carregando peças...</p>
                 </div>
-                <PcProductCard v-for="(product, index) in products" :key="index" :productName="product.name"
-                    :productDescription="product.description" :productImage="product.images[0]?.url" />
+                <PcProductCard v-for="(product, index) in products" :key="index" :productName="product.name" 
+                    :productDescription="product.description" :productImage="product.images[0]?.url" :productPrice="product.price.finalPrice"/>
             </div>
 
             <div class="flex justify-between w-full max-w-[1366px]">
