@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar">
-    <!-- Logo wrapped in router-link to navigate to /client/computadores -->
     <router-link to="/client/computadores">
       <img src="@/assets/InRise logo.png" alt="Logo" class="logo">
     </router-link>
