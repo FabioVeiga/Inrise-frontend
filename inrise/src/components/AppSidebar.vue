@@ -11,7 +11,7 @@
     <UserButton v-if="isLoggedIn" label="Pedidos" icon="fas fa-box" targetRoute="/client/orders" />
     
     <button @click="openModal" class="px-4 py-2 bg-blue-500 text-white rounded mt-4">
-      Open Modal
+      Abrir Modal de Teste
     </button>
     <MarkdownModal
       :isVisible="isModalVisible"
@@ -25,6 +25,7 @@
 import UserAuthButton from './UserAuthButton.vue';
 import UserButton from './UserButton.vue';
 import MarkdownModal from '@/components/MarkdownModal.vue';
+import { marked } from 'marked';
 
 export default {
   name: 'AppSidebar',
@@ -42,8 +43,13 @@ export default {
   data() {
     return {
       isModalVisible: false,
-      markdownContent: `# Teste Header  \n Teste de **negrito** e _itálico_. \n - Bullet Point 1 \n - Bullet Point 2`
+      markdownContent: "# Teste Header\n\nTeste de **negrito** e _itálico_.\n\n- Bullet Point 1\n- Bullet Point 2\n\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Row 1    | Data 1   | Data 2   |\n| Row 2    | Data 3   | Data 4   |\n| Row 3    | Data 5   | Data 6   |"
     };
+  },
+  computed: {
+    renderedContent() {
+      return marked(this.markdownContent);
+    }
   },
   methods: {
     openUserAuthModal() {

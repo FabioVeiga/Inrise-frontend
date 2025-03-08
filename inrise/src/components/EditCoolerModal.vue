@@ -22,7 +22,6 @@
             <select class="w-full border p-2" v-model="editedProduct.air" id="air" @change="loadProducts" required
               :disabled="loading">
               <option value="select" disabled>Selecione uma opção</option>
-
               <option value="air">Air Cooler</option>
               <option value="water">Water Cooler</option>
 

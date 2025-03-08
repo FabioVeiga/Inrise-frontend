@@ -4,6 +4,6 @@
 @tailwind utilities;
 
 .no-scroll {
-    overflow: hidden; /* Bloqueia o scroll da página */
-    height: 100vh;
-  }
+  overflow: hidden;
+  height: 100vh;
+}
