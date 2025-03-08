@@ -35,10 +35,16 @@
               class="w-full border p-2" />
           </div>
 
-          <!-- Socket SSD -->
+          <!-- Socket SSD (Repurposed -> Form Factor)-->
           <div class="form-group">
-            <label for="socketSSD" class="block mb-1 font-semibold">Socket SSD</label>
-            <input type="text" v-model="editedProduct.socketSSD" id="socketSSD" required class="w-full border p-2" />
+            <label for="socketSSD" class="block mb-1 font-semibold">Form Factor</label>
+            <select class="w-full border p-2" v-model="editedProduct.socketSSD" @change="loadProducts" required
+              :disabled="loading">
+              <option value="select" disabled>Selecione uma opção</option>
+              <option value="microatx">Micro-ATX</option>
+              <option value="miniatx">Mini-ATX</option>
+              <option value="atx">ATX</option>
+            </select>
           </div>
 
           <!-- Socket M.2 -->

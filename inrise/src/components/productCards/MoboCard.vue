@@ -2,6 +2,7 @@
   <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
     @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
+      <p>Form Factor: {{ getMoboLabel(product.socketSSD) || 'Tamanho não disponível' }}</p>
       <p>Socket: {{ product.socket || 'Socket não disponível' }}</p>
       <p>Memória Suportada: {{ product.socketMemory || 'Informação não disponível' }}</p>
       <p>Memória de Vídeo: {{ product.socketMemoryVideo || 'Informação não disponível' }}</p>
@@ -43,6 +44,15 @@ export default {
       await controlMobo(product.id, product.active)
       alert(product.active ? 'MOBO desativada com sucesso!' : 'MOBO ativada com sucesso!');
       this.$emit('control-product', product);
+    },
+    getMoboLabel(moboType) {
+      const labels = {
+        'microatx': 'Micro ATX',
+        'miniatx': 'Mini ATX',
+        'atx': 'ATX',
+
+      };
+      return labels[moboType] || 'Inválido';
     },
     openEditModal() {
       this.isEditModalOpen = true;
