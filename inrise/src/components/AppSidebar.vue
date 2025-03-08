@@ -9,24 +9,41 @@
     <UserButton label="Home" icon="fas fa-home" targetRoute="/client" />
 
     <UserButton v-if="isLoggedIn" label="Pedidos" icon="fas fa-box" targetRoute="/client/orders" />
+    
+    <button @click="openModal" class="px-4 py-2 bg-blue-500 text-white rounded mt-4">
+      Open Modal
+    </button>
+    <MarkdownModal
+      :isVisible="isModalVisible"
+      :markdownContent="markdownContent"
+      @close="closeModal"
+    />
   </div>
 </template>
 
 <script>
 import UserAuthButton from './UserAuthButton.vue';
 import UserButton from './UserButton.vue';
+import MarkdownModal from '@/components/MarkdownModal.vue';
 
 export default {
   name: 'AppSidebar',
   components: {
     UserAuthButton,
-    UserButton
+    UserButton,
+    MarkdownModal
   },
   props: {
     isLoggedIn: {
       type: Boolean,
       required: true
     }
+  },
+  data() {
+    return {
+      isModalVisible: false,
+      markdownContent: `# Teste Header  \n Teste de **negrito** e _itálico_. \n - Bullet Point 1 \n - Bullet Point 2`
+    };
   },
   methods: {
     openUserAuthModal() {
@@ -35,6 +52,12 @@ export default {
     handleAuthChanged(isLoggedIn) {
       console.log("Logged out in sidebar", isLoggedIn);
       this.$emit('auth-changed', isLoggedIn);
+    },
+    openModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
     }
   }
 };
