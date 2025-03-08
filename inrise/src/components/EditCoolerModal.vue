@@ -16,10 +16,18 @@
         <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
           <h2 class="col-span-2 text-2xl font-bold">Informações do Cooler</h2>
 
-          <!-- Ar -->
+          <!-- Tipo -->
           <div class="form-group">
-            <label for="air" class="block mb-1 font-semibold">Ar</label>
-            <input type="text" v-model="editedProduct.air" id="air" required class="w-full border p-2" />
+            <label for="air" class="block mb-1 font-semibold">Tipo</label>
+            <select class="w-full border p-2" v-model="editedProduct.air" id="air" @change="loadProducts" required
+              :disabled="loading">
+              <option value="select" disabled>Selecione uma opção</option>
+
+              <option value="air">Air Cooler</option>
+              <option value="water">Water Cooler</option>
+
+            </select>
+
           </div>
 
           <!-- Socket do Cooler -->

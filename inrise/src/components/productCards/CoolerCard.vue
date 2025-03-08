@@ -2,7 +2,7 @@
   <ProductCard :product="product" :formatCurrency="formatCurrency" @delete-product="handleDelete"
   @control-product="handleControl" @edit-product="openEditModal">
     <template #default="{ product }">
-      <p>Ar: {{ product.air }}</p>
+      <p>Tipo de Cooler: {{ getCoolerLabel(product.air) }}</p>
       <p>Socket: {{ product.refrigeration }}</p>
       <p>Ventoinhas: {{ product.fanQuantity }}</p>
       <p>Dimensões: {{ product.dimension }} mm</p>
@@ -70,6 +70,13 @@ export default {
         console.error(error);
       }
     },
+    getCoolerLabel(airType) {
+      const labels = {
+        'air': 'Air Cooler',
+        'water': 'Water Cooler',
+      };
+      return labels[airType] || 'Tipo Inválido';
+    }
   },
 };
 </script>
