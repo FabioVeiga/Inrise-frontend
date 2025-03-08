@@ -111,17 +111,18 @@ export default {
       },
     },
     subtotal() {
-      const { costPrice, porcentageProfit, porcentageFixedCost, porcentageADMCost, porcentageDiscount } = this.formData.price;
-      const profit = (costPrice * porcentageProfit) / 100;
-      const fixedCost = (costPrice * porcentageFixedCost) / 100;
-      const admCost = (costPrice * porcentageADMCost) / 100;
-      const discount = (costPrice * porcentageDiscount) / 100;
-      return costPrice + profit + fixedCost + admCost - discount;
+      const { costPrice, porcentageProfit, porcentageFixedCost, porcentageADMCost } = this.formData.price;
+      const CA = porcentageADMCost / 100;
+      const CF = porcentageFixedCost / 100;
+      const L = porcentageProfit / 100;
+      return (costPrice * (1 + CA + CF)) * (1 + L);
     },
     finalPrice() {
       const { subtotal, iva } = this;
-      const tax = (subtotal * iva) / 100;
-      return subtotal + tax;
+      const tax = subtotal * (iva / 100);
+      const subtotalWithTax = subtotal + tax;
+      const stripeFee = 0.25 + 0.015 * subtotalWithTax;
+      return subtotalWithTax + stripeFee;
     },
   },
   watch: {
