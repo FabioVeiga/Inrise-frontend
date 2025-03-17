@@ -16,7 +16,7 @@
         <option value="disco">Disco</option>
         <option value="computador">Personalizado</option>
         <option value="placaMae">Placa Mãe</option>
-        <!--<option value="perifericos">Periféricos</option>-->
+        <option value="perifericos">Produtos Genéricos</option>
 
       </select>
     </div>

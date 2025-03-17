@@ -213,6 +213,26 @@ export async function fetchAllSoftware() {
 
 }
 
+export async function fetchAllProductCategory() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  try {
+    const response = await apiClient.get('/ProductCategory', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter as categorias de produto:', error);
+    throw new Error('Erro ao obter as categorias de produto:');
+  }
+}
 
 /*export async function fetchSoftwareByGroupId() {
   const token = getToken();
@@ -515,13 +535,13 @@ export async function registerPC(data) {
 }
 //TODO: Ajeitar isso pra perifericos finais
 
-export async function registerPeripheral(data) {
+export async function registerProduct(data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.post('/Peripheral', data, { headers });
+  return apiClient.post('/Product', data, { headers });
 }
 
 //Fetch All
@@ -759,7 +779,8 @@ export async function fetchAllPC(user) {
     const response = await apiClient.get('/Computer', {
       headers,
       params: {
-        //@TODO: Ver se o fabinho corrigiu o isdeleted "IsDeleted": false,
+        //@TODO: Desfazer isso quando o filtro de isDeleted for consertado, tava causando erro 500
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
         "isActive": user ? true : ''
@@ -1078,7 +1099,7 @@ export async function editPC(id, data) {
 }
 //TODO: Ajeitar isso pra perifericos finais
 
-export async function editPeripheral(id, data) {
+export async function editProduct(id, data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
@@ -1086,7 +1107,7 @@ export async function editPeripheral(id, data) {
   } : {};
 
   try {
-    const response = await apiClient.put(`/Peripheral/${id}`, data, { headers });
+    const response = await apiClient.put(`/Product/${id}`, data, { headers });
     return response.data;
   } catch (error) {
     console.error('Erro ao editar a fonte:', error);
