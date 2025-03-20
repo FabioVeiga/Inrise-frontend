@@ -8,7 +8,7 @@
             </button>
 
             <div class="flex flex-wrap justify-between w-[100%] px-20">
-                <PcPart v-for="(part, index) in currentParts" :key="index" :name="part.name" :images="part.images"
+                <PcPart v-for="(part, index) in currentParts" :key="index" :name="part.name" :images="part.images" :description="part.description"
                     :value="part.valueClassification" :price="part.price" :id="part.id"
                     :selectedPart="localSelectedPart" :partType="partType" @update:selectedPart="updateSelectedPart" />
             </div>
