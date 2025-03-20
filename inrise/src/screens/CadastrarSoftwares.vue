@@ -27,6 +27,14 @@
         </select>
       </div>
 
+      <!-- Descrição do Software -->
+      <div class="form-group col-span-1 md:col-span-2">
+        <label for="description" class="block mb-1 font-semibold">Descrição do Software</label>
+        <textarea v-model="formData.description" id="description" rows="4" required
+          class="w-full border p-2"></textarea>
+      </div>
+
+
 
       <!-- Requisitos de Processador -->
       <div class="form-group">
@@ -107,6 +115,7 @@
   </div>
 </template>
 
+
 <script>
 import { fetchAllCpu, fetchAllGpu, fetchAllRam, fetchAllStorage, fetchAllTower, fetchAllMonitor, fetchAllSoftwareGroup } from '@/api';
 import { registerSoftware } from '@/api';
@@ -117,6 +126,7 @@ export default {
     return {
       formData: {
         name: '',
+        description: '',
         processadorMinId: null,
         processadorIdealId: null,
         memoryRamMinId: null,
@@ -140,8 +150,8 @@ export default {
   },
   methods: {
     logCategoryId() {
-    console.log("Categoria selecionada:", this.formData.categoryId);
-  },
+      console.log("Categoria selecionada:", this.formData.categoryId);
+    },
     handleIconUpload(event) {
       this.formData.icon = event.target.files[0];
     },

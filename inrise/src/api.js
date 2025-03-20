@@ -93,6 +93,7 @@ export async function registerSoftware(data) {
   try {
     const formData = new FormData();
     formData.append('name', data.name);
+    formData.append('description', data.name);
     formData.append('categoryId', data.categoryId);
     formData.append('processadorMinId', data.processadorMinId);
     formData.append('processadorIdealId', data.processadorIdealId);
