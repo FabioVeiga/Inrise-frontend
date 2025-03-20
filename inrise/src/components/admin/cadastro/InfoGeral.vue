@@ -107,10 +107,10 @@ export default {
     },
     description: {
       get() {
-        return this.formData.description;
+        return this.formData.description ? this.formData.description.replace(/\n/g, '\n') : '';
       },
       set(value) {
-        this.$emit("update-form-data", { key: "description", value });
+        this.$emit("update-form-data", { key: "description", value: value.replace(/\n/g, '\n') });
       },
     },
   },
