@@ -2,6 +2,10 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+import { loadStripe } from '@stripe/stripe-js';
+
+
+
 const getToken = () => {
   const token = Cookies.get('adminAuthToken') || Cookies.get('userAuthToken');
   return token;
@@ -25,18 +29,39 @@ export function registerUser(data) {
 }
 
 
+
 export async function stripePayment(data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   } : {};
+
   try {
+    // Make API call to create Stripe Checkout session
     const response = await apiClient.post('/Payment', data, { headers });
-    return response.data;
+
+    // Ensure response structure is correct
+    const sessionId = response?.data?.data
+    if (!sessionId) {
+      throw new Error('Invalid Stripe session ID');
+    }
+
+    // Initialize Stripe instance
+    const stripe = await loadStripe('pk_test_51PlB012KYHPXsQOeWITB7DCUT3ujhegz97eKqQLygLKMRwPxRk7AocU7UUSNdX4R3U24be3CT6IVSemkDpFulBzZ00EDVnsGU3');
+
+    // Redirect to Stripe Checkout
+    const result = await stripe.redirectToCheckout({ sessionId });
+
+    if (result.error) {
+      console.error('Stripe redirect error:', result.error);
+      alert(result.error.message);
+    }
+
+    return response.data; // Return session data if needed
   } catch (error) {
-    console.error('Erro ao processar pagamento:', error);
-    throw new Error('Erro ao processar pagamento');
+    console.error('Error processing payment:', error.response || error.message);
+    throw new Error('Error processing payment');
   }
 }
 

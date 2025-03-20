@@ -87,68 +87,68 @@
 
             <!-- Periféricos -->
             <div v-if="isAllPartsSelected">
-              <!-- Kits -->
+              <!-- Kits 
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Conjuntos
                 </p>
                 <PcPartRow partType="kit" :parts="monitores" :selectedParts="[selectedParts.kit]"
                   @update:selectedParts="selectPart('kit', $event)" />
-              </div>
+              </div>-->
 
-              <!-- Keyboards -->
+              <!-- Keyboards
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Teclados
                 </p>
                 <PcPartRow partType="keyboard" :parts="monitores" :selectedParts="[selectedParts.keyboard]"
                   @update:selectedParts="selectPart('keyboard', $event)" />
-              </div>
+              </div> -->
 
-              <!-- Mouses -->
+              <!-- Mouses
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Ratos
                 </p>
                 <PcPartRow partType="mouse" :parts="monitores" :selectedParts="[selectedParts.mouse]"
                   @update:selectedParts="selectPart('mouse', $event)" />
-              </div>
+              </div> -->
 
-              <!-- Monitors -->
+              <!-- Monitors 
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Monitores
                 </p>
                 <PcPartRow partType="monitor" :parts="monitores" :selectedParts="[selectedParts.monitor]"
                   @update:selectedParts="selectPart('monitor', $event)" />
-              </div>
+              </div>-->
 
-              <!-- Headsets -->
+              <!-- Headsets
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Auscultadores
                 </p>
                 <PcPartRow partType="headset" :parts="monitores" :selectedParts="[selectedParts.headset]"
                   @update:selectedParts="selectPart('headset', $event)" />
-              </div>
+              </div> -->
 
-              <!-- Mousepads -->
+              <!-- Mousepads
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Tapetes
                 </p>
                 <PcPartRow partType="mousepad" :parts="monitores" :selectedParts="[selectedParts.mousepad]"
                   @update:selectedParts="selectPart('mousepad', $event)" />
-              </div>
+              </div> -->
 
-              <!-- Chairs -->
+              <!-- Chairs 
               <div v-if="monitores.length">
                 <p style="white-space: nowrap" class="text-xl font-semibold">
                   Cadeiras
                 </p>
                 <PcPartRow partType="chair" :parts="monitores" :selectedParts="[selectedParts.chair]"
                   @update:selectedParts="selectPart('chair', $event)" />
-              </div>
+              </div>-->
             </div>
           </form>
         </div>
@@ -200,7 +200,7 @@ import HomeMenu from '../components/HomeMenu.vue';
 import HeaderRectanglesLarge from '../components/HeaderRectanglesLarge.vue';
 import AppBreadcrumbs from '@/components/AppBreadcrumbs.vue';
 import ActionButton from '@/components/ActionButton.vue';
-import { createOrder } from '@/api';
+import { createOrder, stripePayment } from '@/api';
 import Cookies from 'js-cookie';
 import PcPartRow from '@/components/PcPartRow.vue';
 export default {
@@ -226,9 +226,9 @@ export default {
         'tower'
       ];
 
-      if (this.isPeripheralSelectionRequired) {
+      /*if (this.isPeripheralSelectionRequired) {
         requiredParts.push('kit', 'keyboard', 'mouse', 'monitor', 'headset', 'mousepad', 'chair');
-      }
+      }*/
 
       const missingParts = requiredParts.filter(partType => !this.selectedParts[partType]);
       return missingParts.length === 0;
@@ -247,13 +247,6 @@ export default {
         powerSupply: null,
         cooler: null,
         tower: null,
-        kit: null,
-        keyboard: null,
-        mouse: null,
-        monitor: null,
-        headset: null,
-        mousepad: null,
-        chair: null,
       },
       processadores: [],
       placasMae: [],
@@ -399,6 +392,8 @@ export default {
       this.finalPrice = totalPrice.toFixed(2);
       console.log("Calculated Final Price:", this.finalPrice, this.selectedParts);
     },
+
+
     async submitForm() {
       console.log('Form Submitted!');
       console.log('Selected parts:', this.selectedParts);
@@ -413,11 +408,11 @@ export default {
           throw new Error("Erro: ID de usuário não presente nos cookies.");
         }
       } catch (error) {
-        alert("Por favor, faça login pra terminar seu pedido!");
+        alert("Por favor, faça login para finalizar seu pedido!");
         return;
       }
 
-
+      // Prepare the productDtos field with required data (productId, name, price, quantity)
       const orderData = {
         userid: userId,
         productDtoRequests: Object.keys(selectedPartsFromCookie).map(partType => {
@@ -433,16 +428,50 @@ export default {
         }).filter(Boolean),
         totalPrice: this.finalPrice,
       };
+      const productDtos = Object.keys(selectedPartsFromCookie).map(partType => {
+        const part = selectedPartsFromCookie[partType];
+        if (part) {
+          return {
+            productId: part.id,              // Assuming part.id is the productId
+            name: part.name,                 // Assuming part.name is the name
+            price: Math.round(part.finalPrice),  // Rounds to the nearest integer     // Assuming part.finalPrice is the price
+            quantity: 1,                     // Assuming 1 item per part selected
+          };
+        }
+      }).filter(Boolean);
 
+      
+      const stripeOrderData = {
+        productDtos
+      };
+
+      // Ensure productDtos is not empty
+      if (productDtos.length === 0) {
+        alert("Por favor, selecione pelo menos uma peça.");
+        return;
+      }
+
+      // Prepare the order data
       try {
+        // Create the order on the backend
         const response = await createOrder(orderData);
         console.log('Order response:', response.data);
-        alert("Pedido criado com sucesso!");
-      } catch (error) {
 
+        // Call stripePayment method to create the Stripe checkout session
+        const stripeSessionData = await stripePayment(stripeOrderData);
+
+        if (stripeSessionData) {
+          // The stripePayment method will handle redirection to Stripe Checkout
+        } else {
+          alert("Erro ao redirecionar para pagamento.");
+        }
+      } catch (error) {
         alert(error || "Erro imprevisto ao fazer pedido.");
       }
     }
+    ,
+
+
 
   },
   mounted() {
