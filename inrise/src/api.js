@@ -2,6 +2,10 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+import { loadStripe } from '@stripe/stripe-js';
+
+
+
 const getToken = () => {
   const token = Cookies.get('adminAuthToken') || Cookies.get('userAuthToken');
   return token;
@@ -25,18 +29,39 @@ export function registerUser(data) {
 }
 
 
+
 export async function stripePayment(data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   } : {};
+
   try {
+    // Make API call to create Stripe Checkout session
     const response = await apiClient.post('/Payment', data, { headers });
-    return response.data;
+
+    // Ensure response structure is correct
+    const sessionId = response?.data?.data
+    if (!sessionId) {
+      throw new Error('Invalid Stripe session ID');
+    }
+
+    // Initialize Stripe instance
+    const stripe = await loadStripe('pk_test_51PlB012KYHPXsQOeWITB7DCUT3ujhegz97eKqQLygLKMRwPxRk7AocU7UUSNdX4R3U24be3CT6IVSemkDpFulBzZ00EDVnsGU3');
+
+    // Redirect to Stripe Checkout
+    const result = await stripe.redirectToCheckout({ sessionId });
+
+    if (result.error) {
+      console.error('Stripe redirect error:', result.error);
+      alert(result.error.message);
+    }
+
+    return response.data; // Return session data if needed
   } catch (error) {
-    console.error('Erro ao processar pagamento:', error);
-    throw new Error('Erro ao processar pagamento');
+    console.error('Error processing payment:', error.response || error.message);
+    throw new Error('Error processing payment');
   }
 }
 
@@ -68,6 +93,7 @@ export async function registerSoftware(data) {
   try {
     const formData = new FormData();
     formData.append('name', data.name);
+    formData.append('description', data.name);
     formData.append('categoryId', data.categoryId);
     formData.append('processadorMinId', data.processadorMinId);
     formData.append('processadorIdealId', data.processadorIdealId);
@@ -213,6 +239,26 @@ export async function fetchAllSoftware() {
 
 }
 
+export async function fetchAllProductCategory() {
+  const token = getToken();
+  const headers = token ? {
+    'Authorization': `Bearer ${token}`
+  } : {};
+  try {
+    const response = await apiClient.get('/ProductCategory', {
+      headers,
+      params: {
+        "Pagination.PageIndex": 1,
+        "Pagination.PageSize": 99,
+
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter as categorias de produto:', error);
+    throw new Error('Erro ao obter as categorias de produto:');
+  }
+}
 
 /*export async function fetchSoftwareByGroupId() {
   const token = getToken();
@@ -515,13 +561,13 @@ export async function registerPC(data) {
 }
 //TODO: Ajeitar isso pra perifericos finais
 
-export async function registerPeripheral(data) {
+export async function registerProduct(data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};
 
-  return apiClient.post('/Peripheral', data, { headers });
+  return apiClient.post('/Product', data, { headers });
 }
 
 //Fetch All
@@ -759,7 +805,8 @@ export async function fetchAllPC(user) {
     const response = await apiClient.get('/Computer', {
       headers,
       params: {
-        //@TODO: Ver se o fabinho corrigiu o isdeleted "IsDeleted": false,
+        //@TODO: Desfazer isso quando o filtro de isDeleted for consertado, tava causando erro 500
+        "IsDeleted": false,
         "Pagination.PageIndex": 1,
         "Pagination.PageSize": 99,
         "isActive": user ? true : ''
@@ -1078,7 +1125,7 @@ export async function editPC(id, data) {
 }
 //TODO: Ajeitar isso pra perifericos finais
 
-export async function editPeripheral(id, data) {
+export async function editProduct(id, data) {
   const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`,
@@ -1086,7 +1133,7 @@ export async function editPeripheral(id, data) {
   } : {};
 
   try {
-    const response = await apiClient.put(`/Peripheral/${id}`, data, { headers });
+    const response = await apiClient.put(`/Product/${id}`, data, { headers });
     return response.data;
   } catch (error) {
     console.error('Erro ao editar a fonte:', error);

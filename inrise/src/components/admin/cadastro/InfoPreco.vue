@@ -7,29 +7,29 @@
       <label for="costPrice" class="block mb-1 font-semibold">Preço de Custo</label>
       <input type="number" v-model="costPrice" id="costPrice" required class="w-full border p-2" step="0.01" min="0" />
     </div>
-
+    
     <!-- Porcentagem de Lucro -->
     <div class="form-group">
       <label for="porcentageProfit" class="block mb-1 font-semibold">Porcentagem de Lucro</label>
-      <input type="number" v-model="porcentageProfit" id="porcentageProfit" required class="w-full border p-2" />
+      <input type="number" v-model="porcentageProfit" id="porcentageProfit" required class="w-full border p-2" step="0.01" />
     </div>
 
     <!-- Porcentagem de Custo Fixo -->
     <div class="form-group">
       <label for="porcentageFixedCost" class="block mb-1 font-semibold">Porcentagem de Custo Fixo</label>
-      <input type="number" v-model="porcentageFixedCost" id="porcentageFixedCost" required class="w-full border p-2" />
+      <input type="number" v-model="porcentageFixedCost" id="porcentageFixedCost" required class="w-full border p-2" step="0.01" />
     </div>
 
     <!-- Porcentagem de Custo ADM -->
     <div class="form-group">
       <label for="porcentageADMCost" class="block mb-1 font-semibold">Porcentagem de Custo ADM</label>
-      <input type="number" v-model="porcentageADMCost" id="porcentageADMCost" required class="w-full border p-2" />
+      <input type="number" v-model="porcentageADMCost" id="porcentageADMCost" required class="w-full border p-2" step="0.01" />
     </div>
 
     <!-- Porcentagem de Desconto -->
     <div class="form-group">
       <label for="porcentageDiscount" class="block mb-1 font-semibold">Porcentagem de Desconto</label>
-      <input type="number" v-model="porcentageDiscount" id="porcentageDiscount" required class="w-full border p-2" />
+      <input type="number" v-model="porcentageDiscount" id="porcentageDiscount" required class="w-full border p-2" step="0.01" />
     </div>
 
     <!-- Subtotal (calculado automaticamente) -->
@@ -41,7 +41,7 @@
     <!-- IVA -->
     <div class="form-group">
       <label for="iva" class="block mb-1 font-semibold">IVA</label>
-      <input type="number" v-model="iva" id="iva" required class="w-full border p-2" />
+      <input type="number" v-model="iva" id="iva" required class="w-full border p-2" step="0.01" />
     </div>
 
     <!-- Preço Final (calculado automaticamente) -->
@@ -51,6 +51,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

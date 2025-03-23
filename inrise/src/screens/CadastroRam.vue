@@ -15,7 +15,8 @@
         <!-- Frequência -->
         <div class="form-group">
           <label for="frequency" class="block mb-1 font-semibold">Frequência (MHz)</label>
-          <input type="number" v-model="formData.frequency" id="frequency" required class="w-full border p-2" />
+          <input type="number" v-model="formData.frequency" id="frequency" required class="w-full border p-2"
+            step="0.01" />
         </div>
 
         <!-- Capacidade -->
@@ -37,7 +38,6 @@
     </form>
   </div>
 </template>
-
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
 import { registerRam, registerImage } from '@/api';
@@ -72,6 +72,16 @@ export default {
       }
     };
   },
+  computed: {
+    frequency: {
+      get() {
+        return this.formData.frequency || 0;
+      },
+      set(value) {
+        this.$emit('update-form-data', { key: 'frequency', value: this.roundToTwoDecimals(value) });
+      },
+    },
+  },
   methods: {
     updateFormData({ key, value }) {
       const keys = key.split('.');
@@ -81,15 +91,16 @@ export default {
         this.formData[key] = value;
       }
     },
+    roundToTwoDecimals(value) {
+      return parseFloat(parseFloat(value).toFixed(2)) || 0;
+    },
     async submitForm() {
       try {
         const response = await registerRam(this.formData);
         console.log('Memória RAM cadastrada com sucesso!', response);
 
         const productId = response.data.data.id;
-        console.log("Resp", response)
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
           const imageResponse = await registerImage('memoryRam', productId, this.formData.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
@@ -121,6 +132,6 @@ export default {
         image: null
       };
     }
-  }
+  },
 };
 </script>

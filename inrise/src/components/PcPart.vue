@@ -1,6 +1,12 @@
 <template>
     <div class="square p-8 w-[32%] flex flex-col justify-start items-center cursor-pointer" @click="toggleCheckbox">
-        <div class="w-[196px] h-[96px] flex items-center justify-center overflow-hidden">
+        <div class="relative w-[196px] h-[96px] flex items-center justify-center overflow-hidden">
+            <!-- Information Icon -->
+            <button type="button" @click.stop="openModal"
+                class="absolute top-1 right-1 bg-gray-200 p-1 rounded-full hover:bg-gray-300 transition">
+                ℹ️
+            </button>
+
             <img :src="images[0]?.url" :alt="name" class="object-contain w-full h-auto">
         </div>
 
@@ -11,45 +17,35 @@
         <!-- Name and price -->
         <p class="text-2xl font-bold my-2">{{ name.toUpperCase() }}</p>
         <!--<p class="text-lg font-semibold">{{ formatCurrency(price.finalPrice) }}</p>-->
+
+        <!-- Markdown Modal -->
+        <MarkdownModal :isVisible="showModal" :markdownContent="description" @close="closeModal" />
     </div>
 </template>
 
 <script>
+import MarkdownModal from '@/components/MarkdownModal.vue'; // Ensure the correct path
+
 export default {
     name: 'PcPart',
+    components: {
+        MarkdownModal,
+    },
     props: {
-        name: {
-            type: String,
-            required: true
-        },
-        images: {
-            type: Array,
-            required: true
-        },
-        value: {
-            type: String,
-            required: true
-        },
-        price: {
-            type: Object,
-            required: true
-        },
-        id: {
-            type: Number,
-            required: true
-        },
-        selectedPart: {
-            type: Object,
-            required: true
-        },
-        partType: {
-            type: String,
-            required: true
-        },
-        valueClassification: {
-            type: Number,
-            required: true
-        }
+        name: { type: String, required: true },
+        images: { type: Array, required: true },
+        value: { type: String, required: true },
+        price: { type: Object, required: true },
+        description: { type: String, required: true },
+        id: { type: Number, required: true },
+        selectedPart: { type: Object, required: true },
+        partType: { type: String, required: true },
+        valueClassification: { type: Number, required: true }
+    },
+    data() {
+        return {
+            showModal: false,
+        };
     },
     computed: {
         isSelected() {
@@ -57,45 +53,37 @@ export default {
         }
     },
     methods: {
-        formatCurrency(value) {
-            return value ? value.toLocaleString('pt', {
-                style: 'currency',
-                currency: 'EUR',
-            }) : 'Preço não disponível';
-        },
         toggleCheckbox() {
-            console.log(`Toggling checkbox for part: ${this.name}`);
             if (this.isSelected) {
-                console.log(`${this.name} is already selected. Deselecting...`);
                 this.deselect();
             } else {
-                console.log(`${this.name} is not selected. Selecting...`);
                 this.select();
             }
         },
         handleCheckboxChange(event) {
-            const isChecked = event.target.checked;
-            if (isChecked) {
-                this.select();
-            } else {
-                this.deselect();
-            }
+            event.target.checked ? this.select() : this.deselect();
         },
         handleCheckboxClick(event) {
             event.stopPropagation();
         },
         select() {
-            const selectedPart = {
+            this.$emit('update:selectedPart', {
                 id: this.id,
                 value: this.value,
                 partType: this.partType,
                 name: this.name,
                 finalPrice: this.price.finalPrice,
-            };
-            this.$emit('update:selectedPart', selectedPart);
+            });
         },
         deselect() {
-            this.$emit('update:selectedPart', null);
+            this.$emit('update:selectedPart', { id: null, value: "", partType: "", name: "", finalPrice: 0 });
+        }
+        ,
+        openModal() {
+            this.showModal = true;
+        },
+        closeModal() {
+            this.showModal = false;
         }
     }
 };

@@ -14,7 +14,7 @@
         <option value="memoryRom">Disco</option>
         <option value="computer">Computador</option>
         <option value="motherBoard">Placa Mãe</option>
-        <option value="peripheral">Periférico</option>
+        <option value="peripheral">Produtos Genéricos</option>
       </select>
     </div>
 

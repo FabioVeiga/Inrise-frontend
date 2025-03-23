@@ -29,7 +29,8 @@
         <!-- Frequência -->
         <div class="form-group">
           <label for="frequency" class="block mb-1 font-semibold">Frequência (GHz)</label>
-          <input type="number" v-model="formData.frequency" id="frequency" required class="w-full border p-2" />
+          <input type="number" v-model="formData.frequency" id="frequency" required class="w-full border p-2"
+            step="0.01" />
         </div>
 
         <!-- Potência -->
