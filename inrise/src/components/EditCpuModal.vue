@@ -58,11 +58,11 @@
                             class="w-full border p-2" />
                     </div>
 
-                    <!-- Suporte à Memória ROM -->
+                    <!-- Suporte à Memória ROM 
                     <div class="form-group">
                         <label for="suportMemoryROM" class="block mb-1 font-semibold">Suporte à Memória ROM</label>
                         <input type="text" v-model="editedProduct.suportMemoryROM" id="suportMemoryROM" required
-                            class="w-full border p-2" />
+                            class="w-full border p-2" />-->
                     </div>
 
                     <!-- Suporte a Vídeo -->

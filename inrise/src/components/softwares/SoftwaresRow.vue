@@ -45,18 +45,22 @@ export default {
   async created() {
     try {
       const categories = await softwareUtils.fetchCategories();
-      console.log("Cats", categories);
+      console.log("Categories", categories);
       this.softwareItems = categories
-        .filter(category => this.categoryIds.includes(category.id))
-        .map(category => ({
-          name: category.name,
-          image: category.images[0]?.url || 'default-image.jpg',
-          description: category.description || '',
-          id: category.id,
-          //Talvez eu possa já colocar props com o maior requisito de cada categoria dentro da row.
-          minimumGPU: category.minimumGPU,
-          idealGPU: category.idealGPU,
-        }));
+        .filter(category => this.categoryIds.includes(category.id))  // Filter categories based on categoryIds prop
+        .map(category => {
+          const firstSoftware = category.softwares?.[0];  // Get the first software in the category
+          const description = firstSoftware ? firstSoftware.description : 'No description available';  // Use first software's description
+
+          return {
+            name: category.name,
+            image: category.images?.[0]?.url || 'default-image.jpg',  // Get the first image if available
+            description: description,  // Use the description of the first software
+            id: category.id,
+            minimumGPU: category.minimumGPU,
+            idealGPU: category.idealGPU
+          };
+        });
 
       const savedTypes = Cookies.get('selectedSoftwares');
       if (savedTypes) {
@@ -78,6 +82,7 @@ export default {
     }
   }
 };
+
 </script>
 
 <style scoped>
