@@ -24,7 +24,7 @@
           <!-- Frequência -->
           <div class="form-group">
             <label for="frequency" class="block mb-1 font-semibold">Frequência (MHz)</label>
-            <input type="number" v-model="editedProduct.frequency" id="frequency" required class="w-full border p-2" />
+            <input type="number" step="0.01" v-model="editedProduct.frequency" id="frequency" required class="w-full border p-2" />
           </div>
 
           <!-- Capacidade -->
