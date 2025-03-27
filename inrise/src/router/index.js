@@ -36,6 +36,102 @@ const routes = [
     "statusCode": 301
   },
   {
+    "route": "/css/",
+    "headers": {
+      "Cache-Control": "max-age=31536000"
+    }
+  },
+  {
+    "route": "/js/",
+    "headers": {
+      "Cache-Control": "max-age=31536000"
+    }
+  },
+  {
+    "route": "/client",
+    "rewrite": "/index.html"
+  },
+  {
+    "route": "/adminLogin",
+    "rewrite": "/index.html"
+  },
+  {
+    "route": "/landingPage",
+    "rewrite": "/index.html"
+  },
+  {
+    "route": "/userCadastro",
+    "rewrite": "/index.html"
+  },
+  {
+    "route": "/admin",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/meusProdutos",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/cadastrarProdutos",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/computadoresProntos",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/cadastrarSoftwares",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/gruposDeSoftware",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/cadastroDeCategorias",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/usuarios",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/todosOsPedidos",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/admin/analiseFinanceira",
+    "rewrite": "/admin/index.html"
+  },
+  {
+    "route": "/client/activity",
+    "rewrite": "/client/index.html"
+  },
+  {
+    "route": "/client/software",
+    "rewrite": "/client/index.html"
+  },
+  {
+    "route": "/client/pcpartpicker",
+    "rewrite": "/client/index.html"
+  },
+  {
+    "route": "/client/orders",
+    "rewrite": "/client/index.html"
+  },
+  {
+    "route": "/client/picker",
+    "rewrite": "/client/index.html"
+  },
+  {
+    "route": "/client/prebuilts",
+    "rewrite": "/client/index.html"
+  },
+  {
+    "route": "/client/peripherals",
+    "rewrite": "/client/index.html"
+  },
+  {
     path: '/client',
     name: 'client',
     component: ClientHome,
@@ -102,10 +198,10 @@ const routes = [
     path: '/admin',
     component: AdminHome,
     beforeEnter: (to, from, next) => {
-      if (isAuthenticatedAdmin()) {  // Check using the new isAuthenticatedAdmin function
+      if (isAuthenticatedAdmin()) {
         next();
       } else {
-        next('/adminLogin');  // Redirect to the login page if not authenticated
+        next('/adminLogin');  
       }
     },
     children: [
