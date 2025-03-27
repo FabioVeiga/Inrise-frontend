@@ -21,19 +21,19 @@
         <div class="flex gap-4">
           <div>
             <input type="checkbox" id="type1" :value="1" v-model.number="valueTypeProducts" />
-            <label for="type1" class="text-sm">Tipo 1</label>
+            <label for="type1" class="text-sm">Casual</label>
           </div>
           <div>
             <input type="checkbox" id="type2" :value="2" v-model.number="valueTypeProducts" />
-            <label for="type2" class="text-sm">Tipo 2</label>
+            <label for="type2" class="text-sm">Profissional</label>
           </div>
           <div>
             <input type="checkbox" id="type3" :value="3" v-model.number="valueTypeProducts" />
-            <label for="type3" class="text-sm">Tipo 3</label>
+            <label for="type3" class="text-sm">Gamer Low</label>
           </div>
           <div>
             <input type="checkbox" id="type4" :value="4" v-model.number="valueTypeProducts" />
-            <label for="type4" class="text-sm">Tipo 4</label>
+            <label for="type4" class="text-sm">Gamer High</label>
           </div>
         </div>
       </div>

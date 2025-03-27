@@ -36,7 +36,15 @@
             </select>
           </div>
 
-
+          <!-- Gabinete -->
+          <div class="form-group">
+            <label for="towerId" class="block mb-1 font-semibold">Gabinete</label>
+            <select v-model="editedProduct.towerId" id="towerId" class="w-full border p-2" required
+              @change="calcularPrecoFinal">
+              <option value="" disabled>Selecione um Gabinete</option>
+              <option v-for="item in gabinetes" :key="item.id" :value="item.id">{{ item.name }}</option>
+            </select>
+          </div>
 
           <!-- Memória RAM Slot 01 -->
           <div class="form-group">
@@ -51,7 +59,7 @@
           <!-- Memória RAM Slot 02 -->
           <div class="form-group">
             <label for="memoryRamSlot02Id" class="block mb-1 font-semibold">Memória RAM Slot 02</label>
-            <select v-model="editedProduct.memoryRamSlot02Id" id="memoryRamSlot02Id" class="w-full border p-2" required
+            <select v-model="editedProduct.memoryRamSlot02Id" id="memoryRamSlot02Id" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Memória RAM</option>
               <option v-for="item in memoriasRam" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -61,7 +69,7 @@
           <!-- Disco HHD -->
           <div class="form-group">
             <label for="memoryRomHHDId" class="block mb-1 font-semibold">Disco HDD</label>
-            <select v-model="editedProduct.memoryRomHHDId" id="memoryRomHHDId" class="w-full border p-2" required
+            <select v-model="editedProduct.memoryRomHHDId" id="memoryRomHHDId" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Disco HDD</option>
               <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -71,7 +79,7 @@
           <!-- Disco SSD -->
           <div class="form-group">
             <label for="memoryRomSSDId" class="block mb-1 font-semibold">Disco SSD</label>
-            <select v-model="editedProduct.memoryRomSSDId" id="memoryRomSSDId" class="w-full border p-2" required
+            <select v-model="editedProduct.memoryRomSSDId" id="memoryRomSSDId" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Disco SSD</option>
               <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -81,7 +89,7 @@
           <!-- Disco SSD M.2 -->
           <div class="form-group">
             <label for="memoryRomSSDM2Id" class="block mb-1 font-semibold">Disco SSD M.2</label>
-            <select v-model="editedProduct.memoryRomSSDM2Id" id="memoryRomSSDM2Id" class="w-full border p-2" required
+            <select v-model="editedProduct.memoryRomSSDM2Id" id="memoryRomSSDM2Id" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Disco SSD M.2</option>
               <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -91,7 +99,7 @@
           <!-- Placa de Vídeo -->
           <div class="form-group">
             <label for="videoBoardId" class="block mb-1 font-semibold">Placa de Vídeo</label>
-            <select v-model="editedProduct.videoBoardId" id="videoBoardId" class="w-full border p-2" required
+            <select v-model="editedProduct.videoBoardId" id="videoBoardId" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Placa de Vídeo</option>
               <option v-for="item in placasVideo" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -111,7 +119,7 @@
           <!-- Cooler -->
           <div class="form-group">
             <label for="coolerId" class="block mb-1 font-semibold">Cooler</label>
-            <select v-model="editedProduct.coolerId" id="coolerId" class="w-full border p-2" required
+            <select v-model="editedProduct.coolerId" id="coolerId" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Cooler</option>
               <option v-for="item in coolers" :key="item.id" :value="item.id">{{ item.name }}</option>
@@ -121,20 +129,10 @@
           <!-- Monitor -->
           <div class="form-group">
             <label for="monitorScreenId" class="block mb-1 font-semibold">Monitor</label>
-            <select v-model="editedProduct.monitorScreenId" id="monitorScreenId" class="w-full border p-2" required
+            <select v-model="editedProduct.monitorScreenId" id="monitorScreenId" class="w-full border p-2"
               @change="calcularPrecoFinal">
               <option value="" disabled>Selecione Monitor</option>
               <option v-for="item in monitores" :key="item.id" :value="item.id">{{ item.name }}</option>
-            </select>
-          </div>
-
-          <!-- Gabinete -->
-          <div class="form-group">
-            <label for="towerId" class="block mb-1 font-semibold">Gabinete</label>
-            <select v-model="editedProduct.towerId" id="towerId" class="w-full border p-2" required
-              @change="calcularPrecoFinal">
-              <option value="" disabled>Selecione um Gabinete</option>
-              <option v-for="item in gabinetes" :key="item.id" :value="item.id">{{ item.name }}</option>
             </select>
           </div>
 

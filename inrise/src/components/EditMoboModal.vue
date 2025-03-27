@@ -42,7 +42,7 @@
               :disabled="loading">
               <option value="select" disabled>Selecione uma opção</option>
               <option value="microatx">Micro-ATX</option>
-              <option value="miniatx">Mini-ATX</option>
+              <option value="miniatx">Mini-ITX</option>
               <option value="atx">ATX</option>
             </select>
           </div>
