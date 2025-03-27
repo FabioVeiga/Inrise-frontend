@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { isAuthenticatedAdmin } from '@/utils/auth'; 
+import { isAuthenticatedAdmin } from '@/utils/auth';
 import ClientHome from '../screens/ClientHome.vue';
 import ClientComputers from '@/screens/ClientComputers.vue';
 import AdminHome from '@/screens/AdminHome.vue';
@@ -24,48 +24,60 @@ import ClientPcPrebuiltPicker from '@/screens/ClientPcPrebuiltPicker.vue';
 import ClientPeripherals from '@/screens/ClientPeripherals.vue';
 
 const routes = [
+  /*{
+    path: '/:catchAll(.*)',
+    beforeEnter: (to, from, next) => {
+      window.location.href = `https://inrise.pt${to.fullPath}`;
+    }
+  },*/
+  {
+    "route": "/**",
+    "redirect": "https://inrise.pt{request.uri}/",
+    "statusCode": 301
+  },
   {
     path: '/client',
     name: 'client',
     component: ClientHome,
+
     children: [
       {
-        path: '', 
+        path: '',
         name: 'ClientComputers',
         component: ClientComputers
       },
       {
-        path: 'activity', 
+        path: 'activity',
         name: 'ClientActivity',
         component: ClientActivity
       },
       {
-        path: 'software', 
+        path: 'software',
         name: 'ClientSoftware',
         component: ClientSoftware
       },
       {
-        path: 'pcpartpicker', 
+        path: 'pcpartpicker',
         name: 'ClientPCPartPicker',
         component: ClientPCPartPicker
       },
       {
-        path: 'orders', 
+        path: 'orders',
         name: 'ClientOrders',
         component: ClientOrders
       },
       {
-        path: 'picker', 
+        path: 'picker',
         name: 'ClientPcPrebuiltPicker',
         component: ClientPcPrebuiltPicker
       },
       {
-        path: 'prebuilts', 
+        path: 'prebuilts',
         name: 'ClientPcPrebuilt',
         component: ClientPcPrebuilt
       },
       {
-        path: 'peripherals', 
+        path: 'peripherals',
         name: 'ClientPeripherals',
         component: ClientPeripherals
       },
@@ -88,10 +100,10 @@ const routes = [
   },
   {
     path: '/admin',
-    component: AdminHome, 
+    component: AdminHome,
     beforeEnter: (to, from, next) => {
       if (isAuthenticatedAdmin()) {  // Check using the new isAuthenticatedAdmin function
-        next(); 
+        next();
       } else {
         next('/adminLogin');  // Redirect to the login page if not authenticated
       }

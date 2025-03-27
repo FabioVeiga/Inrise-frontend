@@ -14,7 +14,7 @@
         <li><a class="hidden lg:flex" @click="scrollToSection('o-que-e')">O que é a InRise</a></li>
         <li><a class="hidden lg:flex" @click="scrollToSection('sobre-o-beta')">Sobre o Beta</a></li>
         <li><a class="hidden lg:flex" @click="scrollToSection('como-participar')">Como Participar</a></li>
-        <li><a class="hidden lg:flex" @click="scrollToSection('inscreva-se')">Inscreva-se</a></li>
+        <li><a class="hidden lg:flex" @click="scrollToSection('inscreva-se')">Inscreve-te</a></li>
       </ul>
 
       <!-- Hamburger Icon -->
@@ -35,7 +35,7 @@
           <li><a @click="scrollToSection('o-que-e')" class="text-lg text-gray-700">O que é a InRise</a></li>
           <li><a @click="scrollToSection('sobre-o-beta')" class="text-lg text-gray-700">Sobre o Beta</a></li>
           <li><a @click="scrollToSection('como-participar')" class="text-lg text-gray-700">Como Participar</a></li>
-          <li><a @click="scrollToSection('inscreva-se')" class="text-lg text-gray-700">Inscreva-se</a></li>
+          <li><a @click="scrollToSection('inscreva-se')" class="text-lg text-gray-700">Inscreve-te</a></li>
         </ul>
       </div>
 
@@ -89,9 +89,9 @@
               O que é o Beta da InRise?
             </span>
             <span class="w-auto lg:w-auto text-base whitespace-normal max-w-[80%] lg:text-lg text-[#FFFFFF] mt-4">
-              O Beta da InRise é muito mais do que um teste. É a tua chance de ser pioneiro, de experimentar em primeira
-              mão os nossos PCs de alto desempenho, projetados especialmente para gamers e profissionais exigentes. As
-              inscrições estarão abertas de 20 de fevereiro a 06 de março de 2025, e os players terão acesso a:
+              O Beta da InRise é muito mais do que um teste. É a tua oportunidade de ser pioneiro e experimentar em
+              primeira mão os nossos PCs de alto desempenho, projetados especialmente para gamers e profissionais
+              exigentes. As inscrições antecipadas abrem no dia 26 de março até 06 de abril os players terão acesso a:
             </span>
             <span class="w-auto lg:w-auto text-lg text-[#FFFFFF] ml-4 mt-4">
               • Preços exclusivos<br>
@@ -121,7 +121,7 @@
         <div class="flex flex-col justify-start items-center w-full max-w-[250px] h-auto">
           <img src="@/assets/beta.png" alt="Logo" class="object-scale-down w-[200px]">
           <span class="min-w-[240px] mt-12 text-center">
-            1. Inscreva-se no Beta Teste <br> através do nosso newsletter.
+            1. Inscreve-te no Beta Teste <br> através do nosso newsletter.
           </span>
         </div>
 
@@ -137,6 +137,7 @@
           <span class="min-w-[240px] mt-10 text-center">
             3. Siga a InRise nas Redes <br> Sociais para acompanhar <br> as novidades.
           </span>
+
         </div>
 
         <div class="flex flex-col justify-start items-center w-full max-w-[250px] h-auto mb-12">
@@ -146,7 +147,9 @@
           </span>
         </div>
       </div>
+
     </section>
+
 
 
     <section id="quem-somos" class="flex justify-center">
@@ -286,7 +289,6 @@
       </div>
     </section>
 
-
     <section id="faq" class="flex justify-center flex-col items-center">
       <div class="min-w-[350px] lg:min-w-[1240px] self-center">
         <div class="flex flex-1 flex-col justify-between items-center max-w-[1240px] rounded-[45px]">
@@ -301,16 +303,17 @@
         </div>
       </div>
     </section>
-    <section id="inscreva-se" class="flex flex-col justify-center my-8">
+
+    <section id="inscreva-se" class="flex flex-col justify-center mt-8">
       <div class="w-[350px] lg:w-[1240px] self-center">
 
         <span class="text-4xl lg:text-6xl text-left self-start font-medium p-1 my-1 rounded-[7px] bg-[#B9FF66]">
-          Inscreva-se no beta da InRise
+          Inscreve-te na nossa Newsletter!
         </span>
 
       </div>
       <div
-        class="flex flex-row justify-between self-center items-center min-w-[350px] lg:w-[1240px] h-[569px] rounded-[45px] bg-[#F3F3F3] p-8 my-16">
+        class="flex flex-row justify-between self-center items-center min-w-[350px] lg:w-[1240px] h-[569px] rounded-[45px] bg-[#F3F3F3] p-8">
         <div class="flex-1">
           <form @submit.prevent="handleSubmit" class="w-full max-w-md space-y-6">
             <div>
@@ -335,9 +338,6 @@
                 </a>
               </label>
             </div>
-
-            <!-- Inclua o modal -->
-
             <div>
               <button type="submit"
                 class="w-[100%] lg:w-[556px] h-[68px] bg-gradient-to-t from-[#D93BFC] to-[#5BB9EE] text-white text-xl rounded-[14px] mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
@@ -355,6 +355,24 @@
       </div>
 
     </section>
+    <div id="social" class="flex justify-center flex-col items-center">
+      <div class="mb-12 m-0 flex space-x-12">
+        <a href="https://www.facebook.com/inrisept" target="_blank" class="text-blue-600 text-3xl">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/inrise.pt/" target="_blank" class="text-pink-600 text-3xl">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@inrisept" target="_blank" class="text-black text-3xl">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://discord.gg/mFMxa8wHjP" target="_blank" class="text-blue-600 text-3xl">
+          <i class="fab fa-discord"></i>
+        </a>
+      </div>
+    </div>
+
+
   </div>
   <LpPrivacyPolicy :isVisible="showPrivacyModal" @close="closePrivacyModal" />
 
@@ -383,18 +401,33 @@ export default {
         privacy: false,
       },
       faqs: [
-        { question: 'O que é o BETA da InRise?', answer: 'O BETA da InRise é uma oportunidade exclusiva para testares em primeira mão os nossos serviços e PCs de alto desempenho. Durante o BETA, poderás adquirir computadores personalizados a preços especiais, receber brindes exclusivos e contar com suporte técnico prioritário. Ao participares, não só garantirás um setup de alta performance adaptado às tuas necessidades, mas também ajudarás a moldar o futuro da InRise, dando feedback direto à nossa equipa. Junta-te à nossa comunidade e ajuda-nos a construir um movimento de democratização da tecnologia!' },
-        { question: 'Quem pode participar?', answer: 'Qualquer pessoa que se inscreva na nossa newsletter e preencha o formulário de inscrição.' },
-        { question: 'Preciso pagar para participar?', answer: 'Não, a participação no BETA é gratuita.' },
+        { question: 'O que é o BETA da InRise?', answer: 'O BETA da InRise é uma oportunidade exclusiva para testares em primeira mão os nossos serviços e PCs de alto desempenho com preços especiais, brindes e suporte prioritário. Ao participar, ajudas a moldar o futuro da InRise com o teu feedback e ainda garantes um setup de alta performance.' },
+        { question: 'Quem pode participar?', answer: 'Qualquer gamer, profissional ou entusiasta que quer um PC sem complicação.' },
         { question: 'Quais são os benefícios exclusivos?', answer: 'Acesso a preços especiais, brindes exclusivos, suporte técnico prioritário e a oportunidade de participar em passatempos e contribuir para o desenvolvimento dos nossos produtos.' },
-        { question: 'Quais são as datas importantes?', answer: '• 20 de fevereiro a 06 de março: Período de inscrições.<br>• 7 a 21 de março: Acesso aos benefícios exclusivos.' },
+        { question: 'Quais são as datas importantes?', answer: '• 26 de março a 06 de abril: Período de inscrições.<br>• 07 de abril a 21 de abril: Acesso aos benefícios exclusivos. (Beta se mantém ativo até o dia 21 ou até o limite dos 25 primeiros clientes)' },
         { question: 'Como acompanho as atualizações?', answer: 'Através da nossa newsletter, Discord, e redes sociais (Instagram, Facebook, TikTok).' },
         { question: 'O que acontece após a inscrição?', answer: 'Receberás atualizações por e-mail. No início do BETA, terás acesso aos benefícios exclusivos e, após a compra, recolheremos o teu feedback.' },
         { question: 'Quando receberei o meu PC?', answer: 'Após a compra, o PC será enviado no prazo máximo de 10 dias úteis. Receberás atualizações por e-mail.' },
         { question: 'Os PCs têm garantia?', answer: 'Sim, todos os PCs vendidos no BETA têm garantia, incluindo suporte técnico e substituição de peças defeituosas.' },
-        { question: 'E se não comprei no prazo?', answer: 'Mesmo que não tenhas comprado no prazo, continuarás a receber novidades sobre lançamentos e eventos especiais. No entanto, os benefícios específicos do BETA, como preços exclusivos e brindes, estarão disponíveis apenas durante o período ativo do programa.' },
-        { question: 'Haverá mais vantagens no futuro?', answer: 'Sim, os participantes do BETA terão vantagens exclusivas em futuros lançamentos, testes e descontos especiais.' },
+        { question: 'E se não comprei no prazo?', answer: 'Mesmo que não tenhas comprado no prazo, continuarás a receber novidades sobre lançamentos e eventos especiais. No entanto, os benefícios específicos do BETA, como preços exclusivos e brindes, estarão disponíveis apenas durante o BETA.' },
       ],
+    };
+  },
+  mounted() {
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-GV6CLDTM5V";
+    document.head.appendChild(script);
+
+    script.onload = () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+
+      gtag("js", new Date());
+      gtag("config", "G-GV6CLDTM5V");
     };
   },
   methods: {
@@ -454,7 +487,7 @@ export default {
 
 <style scoped>
 .landing-page {
-   /*font-family: 'Space Grotesk', sans-serif;*/
+  /*font-family: 'Space Grotesk', sans-serif;*/
 }
 
 .navbar ul {
@@ -493,8 +526,6 @@ section {
   padding-left: 100px;
   padding-top: 30px;
   padding-bottom: 0px;
-  margin-top: 30px;
-  margin-bottom: 30px;
 }
 
 
