@@ -17,7 +17,7 @@ const getUserToken = () => {
 };
 
 const apiClient = axios.create({
-  baseURL: 'https://apiinriseservice.azurewebsites.net/',
+  baseURL: 'https://api-inrise-service.azurewebsites.net/index.html',
   headers: {
     'Content-Type': 'application/json',
     'secret': 'naf9uafjh_+mcdsaIFD023',

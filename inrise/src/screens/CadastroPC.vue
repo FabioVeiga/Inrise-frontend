@@ -77,7 +77,7 @@
           <label for="memoryRomSSDId" class="block mb-1 font-semibold">Disco SSD</label>
           <select v-model="formData.memoryRomSSDId" id="memoryRomSSDId" class="w-full border p-2" 
             @change="calcularPrecoFinal">
-            <option value="" disabled>Selecione Disco SSD</option>
+            <option value=" " disabled>Selecione Disco SSD</option>
             <option v-for="item in discos" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
         </div>
