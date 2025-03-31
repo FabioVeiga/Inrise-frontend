@@ -114,15 +114,15 @@ export default {
         }
 
         if (imageUploadSuccess) {
-          alert('Monitor cadastrado com sucesso!');
+          alert('Pre-build cadastrado com sucesso!');
         } else {
-          alert('Monitor cadastrado, mas houve um erro ao enviar a imagem.');
+          alert('Pre-build cadastrado, mas houve um erro ao enviar a imagem.');
         }
 
         this.resetForm();
       } catch (error) {
-        console.error('Erro ao cadastrar monitor:', error);
-        alert('Erro ao cadastrar monitor!');
+        console.error('Erro ao cadastrar Pre-build:', error);
+        alert('Erro ao cadastrar Pre-build!');
       }
     }
     ,

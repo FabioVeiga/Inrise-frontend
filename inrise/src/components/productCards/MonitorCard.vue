@@ -41,7 +41,7 @@ export default {
   methods: {
     async handleControl(product) {
       await controlMonitor(product.id, product.active)
-      alert(product.active ? 'Monitor desativado com sucesso!' : 'Monitor ativado com sucesso!');
+      alert(product.active ? 'Pre-build desativado com sucesso!' : 'Pre-build ativado com sucesso!');
       this.$emit('control-product', product);
     },
     openEditModal() {
@@ -62,10 +62,10 @@ export default {
 
       try {
         await deleteMonitor(product.id);
-        alert('Monitor excluído com sucesso!');
+        alert('Pre-build excluído com sucesso!');
         this.$emit('delete-product', product.id);
       } catch (error) {
-        alert('Erro ao excluir o monitor');
+        alert('Erro ao excluir o Pre-build');
         console.error(error);
       }
     },
