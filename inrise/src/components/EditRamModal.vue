@@ -24,7 +24,8 @@
           <!-- Frequência -->
           <div class="form-group">
             <label for="frequency" class="block mb-1 font-semibold">Frequência (MHz)</label>
-            <input type="number" step="0.01" v-model="editedProduct.frequency" id="frequency" required class="w-full border p-2" />
+            <input type="number" step="0.01" v-model="editedProduct.frequency" id="frequency" required
+              class="w-full border p-2" />
           </div>
 
           <!-- Capacidade -->
@@ -94,13 +95,27 @@ export default {
       try {
         const updatedRam = await editRam(this.editedProduct.id, this.editedProduct);
         console.log('Memória RAM editada com sucesso!', updatedRam);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) { // Check directly for the image field
           console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('memoryRam', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            const imageResponse = await registerImage('memoryRam', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Memória RAM editada com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Memória RAM editada com sucesso!');
+        } else {
+          alert('Memória RAM editada, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {

@@ -106,19 +106,34 @@ export default {
         const response = await registerPSU(formDataToSend);
         console.log('Fonte cadastrada com sucesso!', response);
         const productId = response.data.data.id;
-        console.log("Resp", response)
+        console.log("Resp", response);
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('powerSupply', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('powerSupply', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Produto cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Fonte cadastrada com sucesso!');
+        } else {
+          alert('Fonte cadastrada, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar fonte:', error);
-        alert('Erro ao cadastrar produto!');
+        alert('Erro ao cadastrar fonte!');
       }
-    },
+    }
+    ,
     resetForm() {
       this.formData = {
         name: '',

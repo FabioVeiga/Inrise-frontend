@@ -11,31 +11,34 @@
         <!-- Socket -->
         <div class="form-group">
           <label for="socket" class="block mb-1 font-semibold">Socket</label>
-          <input type="text" v-model="formData.socket" id="socket" required class="w-full border p-2" step="0.01"/>
+          <input type="text" v-model="formData.socket" id="socket" required class="w-full border p-2" step="0.01" />
         </div>
 
         <!-- Velocidade de Leitura -->
         <div class="form-group">
           <label for="velocityRead" class="block mb-1 font-semibold">Velocidade de Leitura (MB/s)</label>
-          <input type="number" v-model="formData.velocityRead" id="velocityRead" required class="w-full border p-2" step="0.01"/>
+          <input type="number" v-model="formData.velocityRead" id="velocityRead" required class="w-full border p-2"
+            step="0.01" />
         </div>
 
         <!-- Velocidade de Escrita -->
         <div class="form-group">
           <label for="velocityWrite" class="block mb-1 font-semibold">Velocidade de Escrita (MB/s)</label>
-          <input type="number" v-model="formData.velocityWrite" id="velocityWrite" required class="w-full border p-2" step="0.01"/>
+          <input type="number" v-model="formData.velocityWrite" id="velocityWrite" required class="w-full border p-2"
+            step="0.01" />
         </div>
 
         <!-- Capacidade -->
         <div class="form-group">
           <label for="capacity" class="block mb-1 font-semibold">Capacidade (GB)</label>
-          <input type="number" v-model="formData.capacity" id="capacity" required class="w-full border p-2" step="0.01"/>
+          <input type="number" v-model="formData.capacity" id="capacity" required class="w-full border p-2"
+            step="0.01" />
         </div>
 
         <!-- Potência -->
         <div class="form-group">
           <label for="potency" class="block mb-1 font-semibold">Potência (W)</label>
-          <input type="number" v-model="formData.potency" id="potency" required class="w-full border p-2" step="0.01"/>
+          <input type="number" v-model="formData.potency" id="potency" required class="w-full border p-2" step="0.01" />
         </div>
 
         <!-- Tipo de Disco -->
@@ -43,15 +46,15 @@
           <label class="block mb-1 font-semibold">Tipos de Disco</label>
           <div class="flex justify-center items-center space-x-4">
             <label class="flex items-center space-x-2">
-              <input type="radio" name="diskType" :checked="formData.isHHD"/>
+              <input type="radio" name="diskType" :checked="formData.isHHD" />
               <span>HDD</span>
             </label>
             <label class="flex items-center space-x-2">
-              <input type="radio" name="diskType" :checked="formData.isSSD"/>
+              <input type="radio" name="diskType" :checked="formData.isSSD" />
               <span>SSD</span>
             </label>
             <label class="flex items-center space-x-2">
-              <input type="radio" name="diskType" :checked="formData.isSSDM2"/>
+              <input type="radio" name="diskType" :checked="formData.isSSDM2" />
               <span>SSD M.2</span>
             </label>
           </div>
@@ -122,15 +125,28 @@ export default {
     async submitForm() {
       try {
         const response = await registerRom(this.formData);
-        console.log("Resp", response)
+        console.log("Resp", response);
         const productId = response.data.data.id;
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('memoryRom', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('memoryRom', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Disco cadastrado com sucesso!', response);
-        alert('Disco cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Disco cadastrado com sucesso!');
+        } else {
+          alert('Disco cadastrado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar disco:', error);

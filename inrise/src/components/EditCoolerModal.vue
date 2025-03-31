@@ -126,13 +126,27 @@ export default {
       try {
         const updatedCooler = await editCooler(this.editedProduct.id, this.editedProduct);
         console.log('Cooler editado com sucesso!', updatedCooler);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
-          console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('cooler', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) {
+          try {
+            console.log('Img antes da request:', this.editedProduct.image);
+            const imageResponse = await registerImage('cooler', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Cooler editado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Cooler editado com sucesso!');
+        } else {
+          alert('Cooler editado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {

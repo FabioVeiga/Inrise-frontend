@@ -70,7 +70,7 @@
 <script>
 import InfoGeral from '@/components/admin/cadastro/InfoGeral.vue';
 import InfoPreco from '@/components/admin/cadastro/InfoPreco.vue';
-import { registerCooler } from '@/api';
+import { registerCooler, registerImage } from '@/api';
 
 export default {
   name: 'CadastroCooler',
@@ -127,7 +127,27 @@ export default {
 
         const response = await registerCooler(formData);
         console.log('Cooler cadastrado com sucesso!', response);
-        alert('Cooler cadastrado com sucesso!');
+        const productId = response.data.data.id;
+
+        let imageUploadSuccess = true;
+
+        if (this.formData.image) {
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('cooler', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
+        }
+
+        if (imageUploadSuccess) {
+          alert('Cooler cadastrado com sucesso!');
+        } else {
+          alert('Cooler cadastrado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar cooler:', error);

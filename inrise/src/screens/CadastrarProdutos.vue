@@ -12,7 +12,7 @@
         <option value="tower">Gabinete</option>
         <option value="cooler">Cooler</option>
         <option value="memoryRom">Disco</option>
-        <option value="computer">Computador</option>
+        <option value="computer">Personalizado</option>
         <option value="motherBoard">Placa Mãe</option>
         <option value="peripheral">Produtos Genéricos</option>
       </select>

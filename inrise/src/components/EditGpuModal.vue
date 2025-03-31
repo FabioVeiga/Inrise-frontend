@@ -107,13 +107,26 @@ export default {
       try {
         const updatedGpu = await editGpu(this.editedProduct.id, this.editedProduct);
         console.log('Placa de Vídeo editada com sucesso!', updatedGpu);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
-          console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('videoBoard', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) {
+          try {
+            console.log('Img antes da request:', this.editedProduct.image);
+            const imageResponse = await registerImage('videoBoard', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Placa de vídeo editada com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Placa de vídeo editada com sucesso!');
+        } else {
+          alert('Placa de vídeo editada, mas houve um erro ao enviar a imagem.');
+        }
 
         this.$emit('save', this.editedProduct);
         this.closeModal();

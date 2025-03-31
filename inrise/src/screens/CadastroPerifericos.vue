@@ -21,19 +21,19 @@
         <div class="flex gap-4">
           <div>
             <input type="checkbox" id="type1" :value="1" v-model.number="valueTypeProducts" />
-            <label for="type1" class="text-sm">Tipo 1</label>
+            <label for="type1" class="text-sm">Casual</label>
           </div>
           <div>
             <input type="checkbox" id="type2" :value="2" v-model.number="valueTypeProducts" />
-            <label for="type2" class="text-sm">Tipo 2</label>
+            <label for="type2" class="text-sm">Profissional</label>
           </div>
           <div>
             <input type="checkbox" id="type3" :value="3" v-model.number="valueTypeProducts" />
-            <label for="type3" class="text-sm">Tipo 3</label>
+            <label for="type3" class="text-sm">Gamer Low</label>
           </div>
           <div>
             <input type="checkbox" id="type4" :value="4" v-model.number="valueTypeProducts" />
-            <label for="type4" class="text-sm">Tipo 4</label>
+            <label for="type4" class="text-sm">Gamer High</label>
           </div>
         </div>
       </div>
@@ -111,13 +111,26 @@ export default {
         const response = await registerProduct(this.formData);
         const productId = response.data.data.id;
         console.log('Resp', response);
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('product', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('product', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Periférico cadastrado com sucesso!', response);
-        alert('Periférico cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Periférico cadastrado com sucesso!');
+        } else {
+          alert('Periférico cadastrado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar periférico:', error);

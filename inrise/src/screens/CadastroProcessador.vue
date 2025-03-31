@@ -41,17 +41,17 @@
 
         <!-- Suporte à Memória RAM -->
         <div class="form-group">
-          <label for="suportMemoryRAM" class="block mb-1 font-semibold">Suporte à Memória RAM</label>
+          <label for="suportMemoryRAM" class="block mb-1 font-semibold">Frequencia Suportada DDR4</label>
           <input type="text" v-model="formData.suportMemoryRAM" id="suportMemoryRAM" required
             class="w-full border p-2" />
         </div>
 
-        <!-- Suporte à Memória ROM
+        <!-- Suporte à Memória ROM-->
         <div class="form-group">
-          <label for="suportMemoryROM" class="block mb-1 font-semibold">Suporte à Memória ROM</label>
+          <label for="suportMemoryROM" class="block mb-1 font-semibold">Frequência Suportada DDR5</label>
           <input type="text" v-model="formData.suportMemoryROM" id="suportMemoryROM" required
             class="w-full border p-2" />
-        </div>-->
+        </div>
 
         <!-- Suporte a Vídeo -->
         <div class="form-group">
@@ -135,20 +135,34 @@ export default {
 
         const response = await registerCPU(formData);
         const productId = response.data.data.id;
-        console.log("Resp", response)
+        console.log("Resp", response);
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('processor', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('processor', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Processador cadastrado com sucesso!', response);
-        alert('Processador cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Processador cadastrado com sucesso!');
+        } else {
+          alert('Processador cadastrado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar processador:', error);
         alert('Erro ao cadastrar processador!');
       }
-    },
+    }
+    ,
     resetForm() {
       this.formData = {
         name: '',

@@ -100,15 +100,29 @@ export default {
         console.log('Memória RAM cadastrada com sucesso!', response);
 
         const productId = response.data.data.id;
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          const imageResponse = await registerImage('memoryRam', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            const imageResponse = await registerImage('memoryRam', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Produto cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('RAM cadastrada com sucesso!');
+        } else {
+          alert('RAM cadastrada, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar memória RAM:', error);
-        alert('Erro ao cadastrar produto!');
+        alert('Erro ao cadastrar memória RAM!');
       }
     },
     resetForm() {

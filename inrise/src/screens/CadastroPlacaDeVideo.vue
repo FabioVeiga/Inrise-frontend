@@ -110,15 +110,28 @@ export default {
         });
 
         const response = await registerGPU(formData);
-        console.log("Resp", response)
+        console.log("Resp", response);
         const productId = response.data.data.id;
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('videoBoard', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('videoBoard', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Placa de vídeo cadastrada com sucesso!', response);
-        alert('Placa de vídeo cadastrada com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Placa de vídeo cadastrada com sucesso!');
+        } else {
+          alert('Placa de vídeo cadastrada, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar placa de vídeo:', error);

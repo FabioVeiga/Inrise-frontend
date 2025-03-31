@@ -94,13 +94,27 @@ export default {
       try {
         const updatedTower = await editTower(this.editedProduct.id, this.editedProduct);
         console.log('Gabinete editado com sucesso!', updatedTower);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) {
           console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('tower', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            const imageResponse = await registerImage('tower', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Disco editada com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Gabinete editado com sucesso!');
+        } else {
+          alert('Gabinete editado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
