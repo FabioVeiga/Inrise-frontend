@@ -16,7 +16,7 @@
             :disabled="loading">
             <option value="select" disabled>Selecione uma opção</option>
             <option value="microatx">Micro-ATX</option>
-            <option value="miniatx">Mini-ATX</option>
+            <option value="miniatx">Mini-ITX</option>
             <option value="atx">ATX</option>
           </select>
         </div>
@@ -60,6 +60,7 @@ export default {
         maxFans: 0,
         description: '',
         valueClassification: 0,
+        gpuDimesion: '10x10x10',
         price: {
           costPrice: 0,
           porcentageProfit: 0,
