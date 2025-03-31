@@ -11,17 +11,17 @@
       <p v-if="selectedTypes.includes('Games')" style="white-space: nowrap" class="text-xl font-semibold">
         Jogos massivo-multijogador
       </p>
-      <SoftwaresRow :categoryIds="[40, 41, 42, 43]" v-if="selectedTypes.includes('Games')" @softwares-selected="handleSoftwareSelection" />
+      <SoftwaresRow :categoryIds="[1,1,1,1]" v-if="selectedTypes.includes('Games')" @softwares-selected="handleSoftwareSelection" />
 
       <p v-if="selectedTypes.includes('Games')" style="white-space: nowrap" class="text-xl font-semibold">
         Jogos Single-player
       </p>
-      <SoftwaresRow :categoryIds="[36, 37, 38, 39]" v-if="selectedTypes.includes('Games')" @softwares-selected="handleSoftwareSelection" />
+      <SoftwaresRow :categoryIds="[1, 1, 1, 1]" v-if="selectedTypes.includes('Games')" @softwares-selected="handleSoftwareSelection" />
 
       <p v-if="selectedTypes.includes('Work')" style="white-space: nowrap" class="text-xl font-semibold">
         Softwares de trabalho
       </p>
-      <SoftwaresRow :categoryIds="[32, 33, 34, 35]" v-if="selectedTypes.includes('Work')" @softwares-selected="handleSoftwareSelection" />
+      <SoftwaresRow :categoryIds="[1, 1, 1, 1]" v-if="selectedTypes.includes('Work')" @softwares-selected="handleSoftwareSelection" />
 
       <p>Não encontrou o seu jogo? Não se preocupe. A <b>InRise garante que sua máquina atende
         <br>os requisitos</b> ao selecionar um jogo da categoria single player mais recente que um antigo não encontrado!
