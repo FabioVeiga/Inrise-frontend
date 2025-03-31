@@ -68,16 +68,16 @@ export default {
 
       try {
         await deletePC(product.id);
-        alert('Computador excluído com sucesso!');
+        alert('Personalizado excluído com sucesso!');
         this.$emit('delete-product', product.id);
       } catch (error) {
-        alert('Erro ao excluir o computador');
+        alert('Erro ao excluir o Personalizado');
         console.error(error);
       }
     },
     async handleControl(product) {
       await controlPC(product.id, product.active)
-      alert(product.active ? 'Computador desativado com sucesso!' : 'Computador ativado com sucesso!');
+      alert(product.active ? 'Personalizado desativado com sucesso!' : 'Personalizado ativado com sucesso!');
       this.$emit('control-product', product);
     },
     openEditModal() {
