@@ -62,7 +62,7 @@ export default {
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
-        if (file.size > 3 * 1024) {
+        if (file.size > 3000 * 1024) {
           alert("O arquivo excede o limite de 3KB. Por favor, escolha uma imagem menor.");
           return;
         }
@@ -79,7 +79,7 @@ export default {
     handleDrop(event) {
       const file = event.dataTransfer.files[0];
       if (file) {
-        if (file.size > 3 * 1024) {
+        if (file.size > 3000 * 1024) {
           alert("O arquivo excede o limite de 3KB. Por favor, escolha uma imagem menor.");
           return;
         }

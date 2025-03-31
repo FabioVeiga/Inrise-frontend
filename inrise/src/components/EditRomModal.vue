@@ -132,13 +132,27 @@ export default {
       try {
         const updatedRom = await editRom(this.editedProduct.id, this.editedProduct);
         console.log('Disco editado com sucesso!', updatedRom);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) { // Check directly for the image field
           console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('memoryRom', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            const imageResponse = await registerImage('memoryRom', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Disco editado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Disco editado com sucesso!');
+        } else {
+          alert('Disco editado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {

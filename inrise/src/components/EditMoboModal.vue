@@ -53,7 +53,7 @@
             <input type="text" v-model="editedProduct.socketM2" id="socketM2" required class="w-full border p-2" />
           </div>
 
-  
+
         </div>
 
         <!-- Componente InfoPreco -->
@@ -119,13 +119,27 @@ export default {
       try {
         const updatedMobo = await editMobo(this.editedProduct.id, this.editedProduct);
         console.log('Placa Mãe editada com sucesso!', updatedMobo);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
-          console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('motherBoard', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) {
+          try {
+            console.log('Img antes da request:', this.editedProduct.image);
+            const imageResponse = await registerImage('motherBoard', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Placa mãe editada com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Placa mãe editada com sucesso!');
+        } else {
+          alert('Placa mãe editada, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {

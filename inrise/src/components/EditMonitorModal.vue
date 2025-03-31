@@ -72,9 +72,9 @@ export default {
     return {
       editedProduct: this.product && typeof this.product === 'object' ? { ...this.product } : {
         name: '',
-        dimesion: '',
+        dimesion: 'Null',
         updateVolume: 0,
-        quality: '',
+        quality: 'Null',
         description: '',
         valueClassification: 0,
         price: {
@@ -93,19 +93,33 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const updatedRam = await editMonitor(this.editedProduct.id, this.editedProduct);
-        console.log('Monitor editado com sucesso!', updatedRam);
+        const updatedMonitor = await editMonitor(this.editedProduct.id, this.editedProduct);
+        console.log('Monitor editado com sucesso!', updatedMonitor);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct.images[0] && this.editedProduct.image) {
-          console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('monitorScreen', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) {
+          try {
+            console.log('Img antes da request:', this.editedProduct.image);
+            const imageResponse = await registerImage('monitorScreen', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Monitor editado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Monitor editado com sucesso!');
+        } else {
+          alert('Monitor editado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
       } catch (error) {
-        console.error('Erro ao editar memória RAM:', error);
+        console.error('Erro ao editar monitor:', error);
         alert('Erro ao editar produto!');
       }
     },

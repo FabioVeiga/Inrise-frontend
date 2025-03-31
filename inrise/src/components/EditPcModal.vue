@@ -259,14 +259,28 @@ export default {
     async submitForm() {
       try {
         const updatedPC = await editPC(this.product.id, this.editedProduct);
-        console.log(updatedPC)
+        console.log(updatedPC);
+
         const prodId = this.editedProduct.id;
-        if (this.editedProduct?.images[0] && this.editedProduct?.image) {
+        let imageUploadSuccess = true;
+
+        if (this.editedProduct.image) { 
           console.log('Img antes da request:', this.editedProduct.image);
-          const imageResponse = await registerImage('computer', prodId, this.editedProduct.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            const imageResponse = await registerImage('computer', prodId, this.editedProduct.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('PC editado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('PC editado com sucesso!');
+        } else {
+          alert('PC editado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.$emit('save', this.editedProduct);
         this.closeModal();
         this.$emit('close');
@@ -274,7 +288,8 @@ export default {
         console.error('Erro ao editar PC:', error);
         alert('Erro ao editar produto!');
       }
-    },
+    }
+    ,
 
     closeModal() {
       this.$emit('close');

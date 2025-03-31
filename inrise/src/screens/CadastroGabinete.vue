@@ -97,14 +97,27 @@ export default {
 
         const response = await registerTower(formData);
         const productId = response.data.data.id;
-        console.log("Resp", response)
+        console.log("Resp", response);
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('tower', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('tower', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Gabinete cadastrado com sucesso!', response);
-        alert('Gabinete cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Gabinete cadastrado com sucesso!');
+        } else {
+          alert('Gabinete cadastrado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar gabinete:', error);

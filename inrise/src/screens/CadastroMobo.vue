@@ -29,15 +29,15 @@
 
         <!-- Socket SSD (Repurposed -> Form Factor)-->
         <div class="form-group">
-            <label for="socketSSD" class="block mb-1 font-semibold">Form Factor</label>
-            <select class="w-full border p-2" v-model="formData.socketSSD" @change="loadProducts" required
-              :disabled="loading">
-              <option value="select" disabled>Selecione uma opção</option>
-              <option value="microatx">Micro-ATX</option>
-              <option value="miniatx">Mini-ATX</option>
-              <option value="atx">ATX</option>
-            </select>
-          </div>
+          <label for="socketSSD" class="block mb-1 font-semibold">Form Factor</label>
+          <select class="w-full border p-2" v-model="formData.socketSSD" @change="loadProducts" required
+            :disabled="loading">
+            <option value="select" disabled>Selecione uma opção</option>
+            <option value="microatx">Micro-ATX</option>
+            <option value="miniatx">Mini-ATX</option>
+            <option value="atx">ATX</option>
+          </select>
+        </div>
 
         <!-- Socket M.2 -->
         <div class="form-group">
@@ -107,14 +107,27 @@ export default {
       try {
         const response = await registerMobo(this.formData);
         const productId = response.data.data.id;
-        console.log("Resp", response)
+        console.log("Resp", response);
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('motherBoard', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('motherBoard', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Placa mãe cadastrada com sucesso!', response);
-        alert('Placa mãe cadastrada com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Placa mãe cadastrada com sucesso!');
+        } else {
+          alert('Placa mãe cadastrada, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar placa mãe:', error);

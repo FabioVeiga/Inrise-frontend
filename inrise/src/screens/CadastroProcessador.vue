@@ -135,20 +135,34 @@ export default {
 
         const response = await registerCPU(formData);
         const productId = response.data.data.id;
-        console.log("Resp", response)
+        console.log("Resp", response);
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('processor', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('processor', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        console.log('Processador cadastrado com sucesso!', response);
-        alert('Processador cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Processador cadastrado com sucesso!');
+        } else {
+          alert('Processador cadastrado, mas houve um erro ao enviar a imagem.');
+        }
+
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar processador:', error);
         alert('Erro ao cadastrar processador!');
       }
-    },
+    }
+    ,
     resetForm() {
       this.formData = {
         name: '',

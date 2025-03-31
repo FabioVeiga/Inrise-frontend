@@ -121,15 +121,6 @@
           </select>
         </div>
 
-        <!-- Monitor -->
-        <div class="form-group">
-          <label for="monitorScreenId" class="block mb-1 font-semibold">Gabinete</label>
-          <select v-model="formData.towerId" id="towerId" class="w-full border p-2"
-            @change="calcularPrecoFinal">
-            <option value="" disabled>Selecione Monitor</option>
-            <option v-for="item in gabinetes" :key="item.id" :value="item.id">{{ item.name }}</option>
-          </select>
-        </div>
 
         <!-- Monitor -->
         <div class="form-group">
@@ -270,14 +261,27 @@ export default {
     async submitForm() {
       try {
         const response = await registerPC(this.formData);
-        console.log("Resp", response)
+        console.log("Resp", response);
         const productId = response.data.data.id;
+
+        let imageUploadSuccess = true;
+
         if (this.formData.image) {
-          console.log('Img antes da request:', this.formData.image);
-          const imageResponse = await registerImage('computer', productId, this.formData.image);
-          console.log('Imagem cadastrada com sucesso!', imageResponse);
+          try {
+            console.log('Img antes da request:', this.formData.image);
+            const imageResponse = await registerImage('computer', productId, this.formData.image);
+            console.log('Imagem cadastrada com sucesso!', imageResponse);
+          } catch (imageError) {
+            console.error('Erro ao fazer upload da imagem:', imageError);
+            imageUploadSuccess = false;
+          }
         }
-        alert('Personalizado cadastrado com sucesso!');
+
+        if (imageUploadSuccess) {
+          alert('Personalizado cadastrado com sucesso!');
+        } else {
+          alert('Personalizado cadastrado, mas houve um erro ao enviar a imagem.');
+        }
       } catch (error) {
         console.error('Erro ao salvar PC:', error);
         alert('Erro ao cadastrar personalizado!');
