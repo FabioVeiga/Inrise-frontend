@@ -104,12 +104,12 @@ export default {
           const imageResponse = await registerImage('monitorScreen', productId, this.formData.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
-        console.log('Monitor cadastrado com sucesso!', response);
-        alert('Monitor cadastrado com sucesso!');
+        console.log('Pre-build cadastrado com sucesso!', response);
+        alert('Pre-build cadastrado com sucesso!');
         this.resetForm();
       } catch (error) {
-        console.error('Erro ao cadastrar monitor:', error);
-        alert('Erro ao cadastrar monitor!');
+        console.error('Erro ao cadastrar Pre-build:', error);
+        alert('Erro ao cadastrar Pre-build!');
       }
     },
     resetForm() {

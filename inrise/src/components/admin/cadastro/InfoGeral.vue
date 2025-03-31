@@ -62,6 +62,10 @@ export default {
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
+        if (file.size > 3 * 1024) {
+          alert("O arquivo excede o limite de 3KB. Por favor, escolha uma imagem menor.");
+          return;
+        }
         this.createImagePreview(file);
         this.$emit("update-form-data", { key: "image", value: file });
       }
@@ -75,6 +79,10 @@ export default {
     handleDrop(event) {
       const file = event.dataTransfer.files[0];
       if (file) {
+        if (file.size > 3 * 1024) {
+          alert("O arquivo excede o limite de 3KB. Por favor, escolha uma imagem menor.");
+          return;
+        }
         this.createImagePreview(file);
         this.$emit("update-form-data", { key: "image", value: file });
       }
@@ -87,7 +95,8 @@ export default {
       };
       reader.readAsDataURL(file);
     }
-  },
+  }
+  ,
   computed: {
     name: {
       get() {

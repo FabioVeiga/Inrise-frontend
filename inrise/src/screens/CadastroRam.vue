@@ -104,11 +104,11 @@ export default {
           const imageResponse = await registerImage('memoryRam', productId, this.formData.image);
           console.log('Imagem cadastrada com sucesso!', imageResponse);
         }
-        alert('Produto cadastrado com sucesso!');
+        alert('RAM cadastrada com sucesso!');
         this.resetForm();
       } catch (error) {
         console.error('Erro ao cadastrar memória RAM:', error);
-        alert('Erro ao cadastrar produto!');
+        alert('Erro ao cadastrar memória RAM!');
       }
     },
     resetForm() {
