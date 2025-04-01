@@ -31,6 +31,14 @@
             <li><router-link to="/admin/analiseFinanceira" class="nav-button">Análise financeira</router-link></li>
           </ul>
         </div> -->
+        <!-- Beta Category -->
+        <div class="category">
+          <div class="category-title">Beta InRise</div>
+          <ul>
+            <li><router-link to="/admin/landingPageBeta" class="nav-button">Inscrições do Beta</router-link></li>
+            <!--<li><router-link to="/admin/computadoresProntos" class="nav-button">Computadores prontos</router-link></li>-->
+          </ul>
+        </div> 
       </div> 
       <LogoutButton />
     </div>

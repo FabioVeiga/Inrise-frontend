@@ -22,6 +22,7 @@ import ClientOrders from '@/screens/ClientOrders.vue';
 import ClientPcPrebuilt from '@/screens/ClientPcPrebuilt.vue';
 import ClientPcPrebuiltPicker from '@/screens/ClientPcPrebuiltPicker.vue';
 import ClientPeripherals from '@/screens/ClientPeripherals.vue';
+import LandingPageBeta from '@/screens/LandingPageBeta.vue';
 
 const routes = [
   /*{
@@ -201,7 +202,7 @@ const routes = [
       if (isAuthenticatedAdmin()) {
         next();
       } else {
-        next('/adminLogin');  
+        next('/adminLogin');
       }
     },
     children: [
@@ -254,6 +255,11 @@ const routes = [
         path: 'analiseFinanceira',
         name: 'AnaliseFinanceira',
         component: AnaliseFinanceira
+      }, 
+      {
+        path: 'landingPageBeta',
+        name: 'LandingPageBeta',
+        component: LandingPageBeta
       }
     ]
   },
