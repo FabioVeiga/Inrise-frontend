@@ -28,7 +28,7 @@
         </div>
         <!-- Máximo de Ventoinhas -->
         <div class="form-group">
-          <label for="maxFans" class="block mb-1 font-semibold">Máximo de Ventoinhas</label>
+          <label for="maxFans" class="block mb-1 font-semibold">Dimensão de GPU</label>
           <input type="number" v-model="formData.gpuDimesion" id="gpuDimesion" required class="w-full border p-2" />
         </div>
       </div>
