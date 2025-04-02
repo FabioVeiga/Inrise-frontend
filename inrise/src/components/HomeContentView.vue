@@ -1,11 +1,5 @@
 <template>
-  <div class="flex min-h-screen flex-col flex-1 pl-[176px] pb-[87px] items-center box-border">
+  <div class="flex min-h-screen flex-col flex-1 pb-[87px] items-center box-border pl-[50px] lg:pl-[200px]">
     <slot></slot>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'HomeContentView'
-}
-</script>
