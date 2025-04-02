@@ -4,6 +4,17 @@
         Adminrise
       </div>
       <div class="categories">
+        <!-- Pedidos Category -->
+        <div class="category">
+          <div class="category-title">Gerenciamento</div>
+          <ul>
+            <li><router-link to="/admin/usuarios" class="nav-button">Usuários</router-link></li>
+            <li><router-link to="/admin/admins" class="nav-button">Administradores</router-link></li>
+            <li><router-link to="/admin/pedidos" class="nav-button">Pedidos</router-link></li>
+            <!-- <li><router-link to="/admin/analiseFinanceira" class="nav-button">Análise financeira</router-link></li>-->
+          </ul>
+        </div>
+
         <!-- Produtos Category -->
         <div class="category">
           <div class="category-title">Produtos</div>
@@ -12,7 +23,7 @@
             <li><router-link to="/admin/cadastrarProdutos" class="nav-button">Cadastrar produtos</router-link></li>
             <!--<li><router-link to="/admin/computadoresProntos" class="nav-button">Computadores prontos</router-link></li>-->
           </ul>
-        </div> 
+        </div>
         <!-- Softwares Category -->
         <div class="category">
           <div class="category-title">Softwares</div>
@@ -22,15 +33,7 @@
             <li><router-link to="/admin/cadastroDeCategorias" class="nav-button">Cadastro de grupos</router-link></li>
           </ul>
         </div>
-        <!-- Pedidos Category
-        <div class="category">
-          <div class="category-title">Pedidos</div>
-          <ul>
-            <li><router-link to="/admin/usuarios" class="nav-button">Usuários</router-link></li>
-            <li><router-link to="/admin/todosOsPedidos" class="nav-button">Todos os pedidos</router-link></li>
-            <li><router-link to="/admin/analiseFinanceira" class="nav-button">Análise financeira</router-link></li>
-          </ul>
-        </div> -->
+        
         <!-- Beta Category -->
         <div class="category">
           <div class="category-title">Beta InRise</div>
@@ -38,83 +41,83 @@
             <li><router-link to="/admin/landingPageBeta" class="nav-button">Inscrições do Beta</router-link></li>
             <!--<li><router-link to="/admin/computadoresProntos" class="nav-button">Computadores prontos</router-link></li>-->
           </ul>
-        </div> 
-      </div> 
+        </div>
+      </div>
       <LogoutButton />
     </div>
-    
+
   </template>
 
-  <script>
-  import LogoutButton from './LogoutButton.vue';
-  export default {
-    name: 'AdminSidebar',
-    components: {
-      LogoutButton
-    }
+<script>
+import LogoutButton from './LogoutButton.vue';
+export default {
+  name: 'AdminSidebar',
+  components: {
+    LogoutButton
   }
-  </script>
+}
+</script>
 
-  <style scoped>
-  .sidebar {
-    width: 200px;
-    height: 100vh;
-    background-color: #f4f4f4;
-    padding-top: 20px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
+<style scoped>
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding-top: 20px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-  .header {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+.header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-  .categories {
-    flex: 1;
-  }
+.categories {
+  flex: 1;
+}
 
-  .category {
-    margin-bottom: 20px;
-  }
+.category {
+  margin-bottom: 20px;
+}
 
-  .category-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+.category-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-  li {
-    margin-bottom: 0;
-  }
+li {
+  margin-bottom: 0;
+}
 
-  .nav-button {
-    background: none;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    color: #333;
-    text-align: left;
-    width: 100%;
-    padding: 10px;
-    display: block; 
-    text-decoration: none; 
-    box-sizing: border-box;
-  }
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  display: block;
+  text-decoration: none;
+  box-sizing: border-box;
+}
 
-  .nav-button:hover {
-    background-color: #ddd;
-  }
-  </style>
+.nav-button:hover {
+  background-color: #ddd;
+}
+</style>

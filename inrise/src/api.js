@@ -28,6 +28,26 @@ export function registerUser(data) {
   return apiClient.post('/User', data);
 }
 
+export async function fetchAllUsers(pageIndex , pageSize, profile) {
+  const token = getToken();
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+  try {
+    const response = await apiClient.get('/User', {
+      headers,
+      params: {
+        "Profile": profile,
+        "Pagination.PageIndex": pageIndex,
+        "Pagination.PageSize": pageSize,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter usuários:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || 'Erro ao obter usuários');
+  }
+}
 
 
 export async function stripePayment(data) {

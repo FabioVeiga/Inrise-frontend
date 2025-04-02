@@ -23,6 +23,7 @@ import ClientPcPrebuilt from '@/screens/ClientPcPrebuilt.vue';
 import ClientPcPrebuiltPicker from '@/screens/ClientPcPrebuiltPicker.vue';
 import ClientPeripherals from '@/screens/ClientPeripherals.vue';
 import LandingPageBeta from '@/screens/LandingPageBeta.vue';
+import AdminsList from '@/screens/AdminsList.vue';
 
 const routes = [
   /*{
@@ -247,9 +248,14 @@ const routes = [
         component: UsuariosLista
       },
       {
-        path: 'todosOsPedidos',
-        name: 'TodosOsPedidos',
+        path: 'pedidos',
+        name: 'Pedidos',
         component: TodosOsPedidos
+      },
+      {
+        path: 'admins',
+        name: 'Admins',
+        component: AdminsList
       },
       {
         path: 'analiseFinanceira',
@@ -264,8 +270,8 @@ const routes = [
     ]
   },
   {
-    path: '/:catchAll(.*)', // This catches any unrecognized URL
-    redirect: '/client'  // Redirect to login
+    path: '/:catchAll(.*)',
+    redirect: '/client' 
   }
 ];
 
