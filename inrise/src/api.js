@@ -876,7 +876,7 @@ export function fetchOrderById(id) {
 
 
 export function fetchOrdersByUserId(userId) {
-  const token = getUserToken();
+  const token = getToken();
   const headers = token ? {
     'Authorization': `Bearer ${token}`
   } : {};

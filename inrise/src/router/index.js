@@ -24,7 +24,7 @@ import ClientPcPrebuiltPicker from '@/screens/ClientPcPrebuiltPicker.vue';
 import ClientPeripherals from '@/screens/ClientPeripherals.vue';
 import LandingPageBeta from '@/screens/LandingPageBeta.vue';
 import AdminsList from '@/screens/AdminsList.vue';
-
+import UserOrders from '@/screens/UserOrders.vue';
 const routes = [
   /*{
     path: '/:catchAll(.*)',
@@ -245,7 +245,13 @@ const routes = [
       {
         path: 'usuarios',
         name: 'UsuariosLista',
-        component: UsuariosLista
+        component: UsuariosLista,
+      },
+      {
+        path: ':userId/pedidos', 
+        name: 'UserOrders',
+        component: UserOrders,
+        props: true,
       },
       {
         path: 'pedidos',
@@ -261,7 +267,7 @@ const routes = [
         path: 'analiseFinanceira',
         name: 'AnaliseFinanceira',
         component: AnaliseFinanceira
-      }, 
+      },
       {
         path: 'landingPageBeta',
         name: 'LandingPageBeta',
@@ -271,7 +277,7 @@ const routes = [
   },
   {
     path: '/:catchAll(.*)',
-    redirect: '/client' 
+    redirect: '/client'
   }
 ];
 
