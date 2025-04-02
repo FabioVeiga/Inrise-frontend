@@ -34,6 +34,11 @@
             <label for="maxFans" class="block mb-1 font-semibold">Máximo de Ventoinhas</label>
             <input type="number" v-model="editedProduct.maxFans" id="maxFans" required class="w-full border p-2" />
           </div>
+          <!-- Dimensão da GPU -->
+          <div class="form-group">
+            <label for="maxFans" class="block mb-1 font-semibold">Dimensão de GPU</label>
+            <input type="text" v-model="editedProduct.gpuDimesion" id="gpuDimesion" required class="w-full border p-2" />
+          </div>
         </div>
 
         <!-- Componente InfoPreco -->
@@ -76,6 +81,7 @@ export default {
         maxFans: 0,
         description: '',
         valueClassification: 0,
+        gpuDimesion: '',
         price: {
           costPrice: 0,
           porcentageProfit: 0,

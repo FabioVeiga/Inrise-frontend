@@ -65,7 +65,7 @@ export default {
         maxFans: 0,
         description: '',
         valueClassification: 0,
-        gpuDimesion: '10x10x10',
+        gpuDimesion: '',
         price: {
           costPrice: 0,
           porcentageProfit: 0,
